@@ -1,0 +1,21 @@
+{
+  "benchmark_samples": 100,
+  "device": "cpu",
+  "baseline": {
+    "model_id": "firesphere-perception-baseline-v0.8.0",
+    "load_time_ms": 39.65,
+    "avg_latency_ms": 24.34,
+    "median_latency_ms": 23.34,
+    "p95_latency_ms": 32.51,
+    "fps": 41.08
+  },
+  "improved": {
+    "model_id": "firesphere-perception-improved-v0.8.5",
+    "load_time_ms": 37.41,
+    "avg_latency_ms": 83.41,
+    "median_latency_ms": 81.78,
+    "p95_latency_ms": 91.25,
+    "fps": 11.99
+  },
+  "delta_latency_ms": 59.07
+}

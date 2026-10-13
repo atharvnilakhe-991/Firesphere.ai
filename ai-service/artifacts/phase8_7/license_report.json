@@ -1,0 +1,96 @@
+[
+  {
+    "dataset_id": "roboflow-blocked-emergency-exit-v1",
+    "dataset_name": "Blocked Emergency Exit Benchmark",
+    "provider": "Roboflow Universe (sakthi-ypq7a)",
+    "official_url": "https://universe.roboflow.com/sakthi-ypq7a/blocked-emergency-exit-f6a2h/dataset/1",
+    "license": "CC BY 4.0",
+    "license_status": "VERIFIED",
+    "commercial_use_allowed": true,
+    "attribution_required": true,
+    "contributed_classes": [
+      "EXIT_DOOR",
+      "OBSTACLE"
+    ],
+    "archive_filename": "blocked emergency exit.v1i.yolov8.zip",
+    "archive_sha256": "242e5ce5afff09cbf05831ec085ab9e46f09bce8170e7e9b40a7e6d509e76edb"
+  },
+  {
+    "dataset_id": "patyas-workspace-my-first-project-v6i",
+    "dataset_name": "My First Project (Safety Elements)",
+    "provider": "Roboflow Universe (patyas-workspace)",
+    "official_url": "https://universe.roboflow.com/patyas-workspace/my-first-project-nqfzv/dataset/6",
+    "license": "CC BY 4.0",
+    "license_status": "VERIFIED",
+    "commercial_use_allowed": true,
+    "attribution_required": true,
+    "contributed_classes": [
+      "EXIT_DOOR"
+    ],
+    "archive_filename": "My First Project.v6i.yolov8.zip",
+    "archive_sha256": "4bea67d2855849eecc984eb0f7b1f7af781b0f949d7004e099fa1e4374195928"
+  },
+  {
+    "dataset_id": "fire_safety_multi",
+    "dataset_name": "Fire Safety (Multi-Class)",
+    "provider": "Roboflow Universe (jakub-konopa)",
+    "official_url": "https://universe.roboflow.com/jakub-konopa/fire-safety-cstwg/dataset/1",
+    "license": "CC BY 4.0",
+    "license_status": "VERIFIED",
+    "commercial_use_allowed": true,
+    "attribution_required": true,
+    "contributed_classes": [
+      "FIRE_EXTINGUISHER",
+      "EXIT_SIGN",
+      "EXIT_DOOR"
+    ],
+    "archive_filename": "Fire Safety.v1i.yolov8.zip",
+    "archive_sha256": "b63425022abc55f31ae13926d9857868f15ee977aa18f592944ff357a44920ae"
+  },
+  {
+    "dataset_id": "emergency_exit_signs",
+    "dataset_name": "Emergency Exit Signs.v2i.yolov8",
+    "provider": "Roboflow Universe (emergency-exit-signs)",
+    "official_url": "https://universe.roboflow.com/emergency-exit-signs/emergency-exit-signs/dataset/2",
+    "license": "Public Domain (CC0)",
+    "license_status": "VERIFIED",
+    "commercial_use_allowed": true,
+    "attribution_required": false,
+    "contributed_classes": [
+      "EXIT_SIGN"
+    ],
+    "archive_filename": "Emergency Exit Signs.v2i.yolov8.zip",
+    "archive_sha256": "3001b2d93a04e5e9464e6f93a7914aa8901b8398861fafb56aee0be3f9a44ac5"
+  },
+  {
+    "dataset_id": "fire_extinguisher_components",
+    "dataset_name": "Fire Extinguisher.v1-roboflow-instant-1--eval-.yolov8",
+    "provider": "Roboflow Universe (fire-extinguisher-detection)",
+    "official_url": "https://universe.roboflow.com/fire-extinguisher-detection/fire-extinguisher-sz0p7/dataset/1",
+    "license": "CC BY 4.0",
+    "license_status": "VERIFIED",
+    "commercial_use_allowed": true,
+    "attribution_required": true,
+    "contributed_classes": [
+      "FIRE_EXTINGUISHER"
+    ],
+    "archive_filename": "Fire Extinguisher.v1-roboflow-instant-1--eval-.yolov8.zip",
+    "archive_sha256": "6e056e5ca1a5a7f3d0e88dbcbb45e4ce293d411fc60c62059eba83812c80e9c9"
+  },
+  {
+    "dataset_id": "fire_safety_equipment",
+    "dataset_name": "Fire Safety Equipment.v1i.yolov8",
+    "provider": "Roboflow Universe (anass-workspace-f1hzt)",
+    "official_url": "https://universe.roboflow.com/anass-workspace-f1hzt/fire-safety-equipment-cq8jl/dataset/1",
+    "license": "CC BY 4.0",
+    "license_status": "VERIFIED",
+    "commercial_use_allowed": true,
+    "attribution_required": true,
+    "contributed_classes": [
+      "FIRE_EXTINGUISHER",
+      "EXIT_SIGN"
+    ],
+    "archive_filename": "Fire Safety Equipment.v1i.yolov8.zip",
+    "archive_sha256": "fa47355a09c62f47dc43e366b8d8dfb3306ecef1881270969871d9901dc0e0d6"
+  }
+]

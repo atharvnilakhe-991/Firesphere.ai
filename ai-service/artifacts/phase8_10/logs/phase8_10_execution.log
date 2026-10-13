@@ -1,0 +1,21 @@
+[2026-10-09T00:25:00+05:30] [INFO] Phase 8.10 Pretrained Weight Provisioning initiated.
+[2026-10-09T00:25:05+05:30] [INFO] Scanning workspace, user caches, virtual environment, and download directories for pretrained checkpoints.
+[2026-10-09T00:27:00+05:30] [INFO] Scan complete. Found 0 local ImageNet pretrained vision backbones.
+[2026-10-09T00:27:30+05:30] [INFO] Audited environment: Windows 11 AMD64, Python 3.13.7, PyTorch 2.14.1+cpu.
+[2026-10-09T00:28:00+05:30] [INFO] Verified historical checkpoint immutability:
+  - Phase 8.4: 5f166c4703e090eb51a9171c38ff1c3dd93d7d0c99d06ec8e44562217753c666 (OK)
+  - Phase 8.5: 54ea8d2a2a124e38a5354913e0818514ea534d0d56ddb087c1e96cb03c20e89a (OK)
+  - Phase 8.8: b12ffccf532d819a1cbdd058bb4673f7270ff71533d9862003249fc5360df7b1 (OK)
+[2026-10-09T00:28:30+05:30] [INFO] Verified dataset counts:
+  - Phase 8.3: 4,887 images (3,377 train, 988 val, 522 test untouched) (OK)
+  - Phase 8.8: 4,841 images (3,427 train, 928 val, 486 candidate test) (OK)
+[2026-10-09T00:30:00+05:30] [INFO] Verified PretrainedInspectionDetector architecture compatibility:
+  - 4 Perception classes: FIRE_EXTINGUISHER, EXIT_DOOR, EXIT_SIGN, OBSTACLE
+  - MobileNetV2 backbone (2,223,872 params, 312 tensors)
+  - Decoupled Bi-Scale Neck (82,432 params)
+  - Bi-Scale heads: P3 (stride 8, 2,048 anchors), P4 (stride 16, 512 anchors), Total 2,560 anchors.
+  - Forward pass tensor shapes verified.
+[2026-10-09T00:31:00+05:30] [INFO] Freeze plan mathematically verified: Stage A (84,772 trainable), Stage B (2,253,156 trainable).
+[2026-10-09T00:32:00+05:30] [INFO] No training loop executed. Production status remains NOT_APPROVED.
+[2026-10-09T00:33:00+05:30] [INFO] Gate decision determined: EXTERNAL_WEIGHT_DOWNLOAD_REQUIRED.
+[2026-10-09T00:33:30+05:30] [INFO] Phase 8.10 execution paused awaiting user authorization for downloading mobilenet_v2-b0353104.pth.

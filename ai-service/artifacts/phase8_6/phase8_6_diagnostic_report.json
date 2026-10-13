@@ -1,0 +1,1158 @@
+{
+  "phase": "Phase 8.6",
+  "objective": "Detection Pipeline Validation & Training Objective Diagnosis",
+  "decision": "PIPELINE_HEALTHY_DATA_EXPANSION_REQUIRED",
+  "timestamp": "2026-10-08T17:09:48Z",
+  "diagnostics": {
+    "dataset_integrity": {
+      "timestamp": "2026-10-08T17:04:16Z",
+      "canonical_dataset": {
+        "image_count": 6471,
+        "label_count": 6471,
+        "expected": 6471,
+        "status": "IMMUTABLE_AND_INTACT"
+      },
+      "phase8_3_prepared_dataset": {
+        "splits": {
+          "train": {
+            "image_count": 3377,
+            "label_count": 3377,
+            "paired_count": 3377,
+            "expected_count": 3377,
+            "box_count": 5007,
+            "class_distribution": {
+              "FIRE_EXTINGUISHER": 3164,
+              "EXIT_DOOR": 33,
+              "EXIT_SIGN": 1741,
+              "OBSTACLE": 69
+            }
+          },
+          "val": {
+            "image_count": 988,
+            "label_count": 988,
+            "paired_count": 988,
+            "expected_count": 988,
+            "box_count": 1455,
+            "class_distribution": {
+              "FIRE_EXTINGUISHER": 948,
+              "EXIT_DOOR": 3,
+              "EXIT_SIGN": 498,
+              "OBSTACLE": 6
+            }
+          },
+          "test": {
+            "image_count": 522,
+            "label_count": 522,
+            "paired_count": 522,
+            "expected_count": 522,
+            "box_count": 796,
+            "class_distribution": {
+              "FIRE_EXTINGUISHER": 452,
+              "EXIT_DOOR": 6,
+              "EXIT_SIGN": 320,
+              "OBSTACLE": 18
+            }
+          }
+        },
+        "total_images": 4887,
+        "total_labels": 4887,
+        "total_boxes": 7258,
+        "missing_labels": 0,
+        "orphan_labels": 0,
+        "empty_label_files": 27,
+        "malformed_boxes": 0,
+        "nan_inf_boxes": 0,
+        "class_distribution_overall": {
+          "FIRE_EXTINGUISHER": 4564,
+          "EXIT_DOOR": 42,
+          "EXIT_SIGN": 2559,
+          "OBSTACLE": 93
+        },
+        "status": "PASS"
+      }
+    },
+    "encode_decode_roundtrip": {
+      "status": "PASS",
+      "tolerance": 0.0001,
+      "max_coordinate_error": {
+        "max_xc_err": 6e-06,
+        "max_yc_err": 6e-06,
+        "max_w_err": 0.0,
+        "max_h_err": 0.0
+      },
+      "tested_samples": 7,
+      "details": [
+        {
+          "description": "Small exit sign (Anchor 0)",
+          "original_box": [
+            0.25,
+            0.25,
+            0.08,
+            0.08
+          ],
+          "assigned_grid": {
+            "row": 4,
+            "col": 4,
+            "anchor_idx": 0
+          },
+          "encoded_targets": {
+            "logit_tx": -9.2102,
+            "logit_ty": -9.2102,
+            "tw": 0.0,
+            "th": 0.0
+          },
+          "decoded_box": [
+            0.25001,
+            0.25001,
+            0.08,
+            0.08
+          ],
+          "errors": {
+            "xc_err": 6e-06,
+            "yc_err": 6e-06,
+            "w_err": 0.0,
+            "h_err": 0.0
+          }
+        },
+        {
+          "description": "Tiny exit sign (sub-anchor)",
+          "original_box": [
+            0.15,
+            0.4,
+            0.03,
+            0.03
+          ],
+          "assigned_grid": {
+            "row": 6,
+            "col": 2,
+            "anchor_idx": 0
+          },
+          "encoded_targets": {
+            "logit_tx": -0.4055,
+            "logit_ty": -0.4055,
+            "tw": -0.9808,
+            "th": -0.9808
+          },
+          "decoded_box": [
+            0.15,
+            0.4,
+            0.03,
+            0.03
+          ],
+          "errors": {
+            "xc_err": 0.0,
+            "yc_err": 0.0,
+            "w_err": 0.0,
+            "h_err": 0.0
+          }
+        },
+        {
+          "description": "Medium extinguisher (Anchor 1)",
+          "original_box": [
+            0.5,
+            0.5,
+            0.22,
+            0.35
+          ],
+          "assigned_grid": {
+            "row": 8,
+            "col": 8,
+            "anchor_idx": 1
+          },
+          "encoded_targets": {
+            "logit_tx": -9.2102,
+            "logit_ty": -9.2102,
+            "tw": 0.0,
+            "th": 0.0
+          },
+          "decoded_box": [
+            0.50001,
+            0.50001,
+            0.22,
+            0.35
+          ],
+          "errors": {
+            "xc_err": 6e-06,
+            "yc_err": 6e-06,
+            "w_err": 0.0,
+            "h_err": 0.0
+          }
+        },
+        {
+          "description": "Large door (Anchor 2)",
+          "original_box": [
+            0.55,
+            0.6,
+            0.55,
+            0.65
+          ],
+          "assigned_grid": {
+            "row": 9,
+            "col": 8,
+            "anchor_idx": 2
+          },
+          "encoded_targets": {
+            "logit_tx": 1.3863,
+            "logit_ty": 0.4055,
+            "tw": 0.0,
+            "th": 0.0
+          },
+          "decoded_box": [
+            0.55,
+            0.6,
+            0.55,
+            0.65
+          ],
+          "errors": {
+            "xc_err": 0.0,
+            "yc_err": 0.0,
+            "w_err": 0.0,
+            "h_err": 0.0
+          }
+        },
+        {
+          "description": "Wide obstacle",
+          "original_box": [
+            0.35,
+            0.75,
+            0.45,
+            0.25
+          ],
+          "assigned_grid": {
+            "row": 12,
+            "col": 5,
+            "anchor_idx": 1
+          },
+          "encoded_targets": {
+            "logit_tx": 0.4055,
+            "logit_ty": -9.2102,
+            "tw": 0.7156,
+            "th": -0.3365
+          },
+          "decoded_box": [
+            0.35,
+            0.75001,
+            0.45,
+            0.25
+          ],
+          "errors": {
+            "xc_err": 0.0,
+            "yc_err": 6e-06,
+            "w_err": 0.0,
+            "h_err": 0.0
+          }
+        },
+        {
+          "description": "Near grid boundary",
+          "original_box": [
+            0.0624,
+            0.0624,
+            0.08,
+            0.08
+          ],
+          "assigned_grid": {
+            "row": 0,
+            "col": 0,
+            "anchor_idx": 0
+          },
+          "encoded_targets": {
+            "logit_tx": 6.4362,
+            "logit_ty": 6.4362,
+            "tw": 0.0,
+            "th": 0.0
+          },
+          "decoded_box": [
+            0.0624,
+            0.0624,
+            0.08,
+            0.08
+          ],
+          "errors": {
+            "xc_err": 0.0,
+            "yc_err": 0.0,
+            "w_err": 0.0,
+            "h_err": 0.0
+          }
+        },
+        {
+          "description": "Near right-bottom boundary",
+          "original_box": [
+            0.937,
+            0.937,
+            0.08,
+            0.08
+          ],
+          "assigned_grid": {
+            "row": 14,
+            "col": 14,
+            "anchor_idx": 0
+          },
+          "encoded_targets": {
+            "logit_tx": 4.8203,
+            "logit_ty": 4.8203,
+            "tw": 0.0,
+            "th": 0.0
+          },
+          "decoded_box": [
+            0.937,
+            0.937,
+            0.08,
+            0.08
+          ],
+          "errors": {
+            "xc_err": 0.0,
+            "yc_err": 0.0,
+            "w_err": 0.0,
+            "h_err": 0.0
+          }
+        }
+      ]
+    },
+    "gradient_sanity": {
+      "status": "PASS",
+      "parameter_count": 2237627,
+      "trainable_parameter_count": 2237627,
+      "initial_loss": 7.95414,
+      "post_step_loss": 6.87864,
+      "loss_delta": -1.0755,
+      "total_gradient_norm": 97.58431,
+      "total_parameter_update_magnitude": 1.4953,
+      "nan_gradient_count": 0,
+      "inf_gradient_count": 0,
+      "zero_gradient_count": 0,
+      "sample_layer_gradient_norms": {
+        "stem.0.weight": 8.36243,
+        "stem.1.weight": 1.33508,
+        "stem.1.bias": 0.6816,
+        "stage1.0.weight": 26.22701,
+        "stage1.1.weight": 0.96754,
+        "stage1.1.bias": 0.52206,
+        "stage1.3.conv1.weight": 29.33836,
+        "stage1.3.bn1.weight": 0.63994,
+        "stage1.3.bn1.bias": 0.39856,
+        "stage1.3.conv2.weight": 26.18712
+      }
+    },
+    "loss_sanity": {
+      "status": "PASS",
+      "normal_prediction_loss": {
+        "total_loss": 11.57542,
+        "box_loss": 4.27399,
+        "obj_loss": 0.69789,
+        "cls_loss": 1.55303,
+        "pos_targets": 1
+      },
+      "perfect_prediction_loss": {
+        "total_loss": 9.40659,
+        "box_loss": 4.35512,
+        "obj_loss": 0.69635,
+        "cls_loss": 0.0,
+        "pos_targets": 1
+      },
+      "wrong_prediction_loss": {
+        "total_loss": 31.94789,
+        "box_loss": 4.36275,
+        "obj_loss": 0.72239,
+        "cls_loss": 15.0,
+        "pos_targets": 1
+      },
+      "empty_target_loss": {
+        "total_loss": 0.6974,
+        "box_loss": 0.0,
+        "obj_loss": 0.6974,
+        "cls_loss": 0.0,
+        "pos_targets": 0
+      },
+      "loss_monotonicity_verified": true,
+      "empty_background_safe": true
+    },
+    "target_assignment": {
+      "grid_resolution": "16x16",
+      "anchors": [
+        [
+          0.08,
+          0.08
+        ],
+        [
+          0.22,
+          0.35
+        ],
+        [
+          0.55,
+          0.65
+        ]
+      ],
+      "total_images_analyzed": 3377,
+      "images_with_collision": 248,
+      "total_collisions": 251,
+      "class_assignment_summary": {
+        "FIRE_EXTINGUISHER": {
+          "total_boxes": 3164,
+          "anchor_0_small_matches": 1290,
+          "anchor_1_medium_matches": 1653,
+          "anchor_2_large_matches": 221,
+          "spatial_collisions": 251,
+          "collision_rate_percent": 7.93,
+          "median_width": 0.0734,
+          "median_height": 0.3082,
+          "median_area": 0.023376,
+          "pct_area_under_0_01": 29.96,
+          "pct_area_over_0_15": 9.1
+        },
+        "EXIT_DOOR": {
+          "total_boxes": 33,
+          "anchor_0_small_matches": 0,
+          "anchor_1_medium_matches": 3,
+          "anchor_2_large_matches": 30,
+          "spatial_collisions": 0,
+          "collision_rate_percent": 0.0,
+          "median_width": 0.5359,
+          "median_height": 0.8016,
+          "median_area": 0.450522,
+          "pct_area_under_0_01": 0.0,
+          "pct_area_over_0_15": 90.91
+        },
+        "EXIT_SIGN": {
+          "total_boxes": 1741,
+          "anchor_0_small_matches": 755,
+          "anchor_1_medium_matches": 628,
+          "anchor_2_large_matches": 358,
+          "spatial_collisions": 0,
+          "collision_rate_percent": 0.0,
+          "median_width": 0.168,
+          "median_height": 0.2039,
+          "median_area": 0.036468,
+          "pct_area_under_0_01": 33.43,
+          "pct_area_over_0_15": 21.65
+        },
+        "OBSTACLE": {
+          "total_boxes": 69,
+          "anchor_0_small_matches": 0,
+          "anchor_1_medium_matches": 13,
+          "anchor_2_large_matches": 56,
+          "spatial_collisions": 0,
+          "collision_rate_percent": 0.0,
+          "median_width": 0.4523,
+          "median_height": 0.7937,
+          "median_area": 0.256961,
+          "pct_area_under_0_01": 0.0,
+          "pct_area_over_0_15": 92.75
+        }
+      },
+      "key_findings": {
+        "exit_sign_small_percentage": 33.43,
+        "exit_door_large_percentage": 90.91,
+        "obstacle_large_percentage": 92.75
+      }
+    },
+    "tiny_set_overfit": {
+      "status": "PASS",
+      "memorization_success": true,
+      "sample_count": 16,
+      "steps_trained": 300,
+      "learning_rate": 0.002,
+      "duration_seconds": 197.86,
+      "initial_loss": 4.3488,
+      "final_loss": 0.00633,
+      "loss_reduction_ratio": 0.0015,
+      "initial_recall": 0.4211,
+      "final_recall": 0.8947,
+      "final_precision": 0.9444,
+      "final_f1": 0.9189,
+      "final_mean_iou": 0.9584,
+      "history": [
+        {
+          "step": 1,
+          "total_loss": 4.3488,
+          "box_loss": 0.82234,
+          "obj_loss": 0.70817,
+          "cls_loss": 1.33063,
+          "grad_norm": 57.6518,
+          "true_positives": 8,
+          "false_positives": 5497,
+          "false_negatives": 11,
+          "precision": 0.0015,
+          "recall": 0.4211,
+          "f1_score": 0.003,
+          "mean_iou": 0.4023
+        },
+        {
+          "step": 25,
+          "total_loss": 0.41088,
+          "box_loss": 0.04389,
+          "obj_loss": 0.31536,
+          "cls_loss": 0.00516,
+          "grad_norm": 4.5906,
+          "true_positives": 4,
+          "false_positives": 2815,
+          "false_negatives": 15,
+          "precision": 0.0014,
+          "recall": 0.2105,
+          "f1_score": 0.0028,
+          "mean_iou": 0.4168
+        },
+        {
+          "step": 50,
+          "total_loss": 0.10234,
+          "box_loss": 0.00169,
+          "obj_loss": 0.09497,
+          "cls_loss": 0.00266,
+          "grad_norm": 0.3068,
+          "true_positives": 6,
+          "false_positives": 317,
+          "false_negatives": 13,
+          "precision": 0.0186,
+          "recall": 0.3158,
+          "f1_score": 0.0351,
+          "mean_iou": 0.4205
+        },
+        {
+          "step": 75,
+          "total_loss": 0.0487,
+          "box_loss": 0.00012,
+          "obj_loss": 0.04626,
+          "cls_loss": 0.00147,
+          "grad_norm": 0.1116,
+          "true_positives": 3,
+          "false_positives": 1,
+          "false_negatives": 16,
+          "precision": 0.75,
+          "recall": 0.1579,
+          "f1_score": 0.2609,
+          "mean_iou": 0.3848
+        },
+        {
+          "step": 100,
+          "total_loss": 0.03355,
+          "box_loss": 2e-05,
+          "obj_loss": 0.03178,
+          "cls_loss": 0.00115,
+          "grad_norm": 0.0449,
+          "true_positives": 0,
+          "false_positives": 0,
+          "false_negatives": 19,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1_score": 0.0,
+          "mean_iou": 0.0
+        },
+        {
+          "step": 125,
+          "total_loss": 0.02558,
+          "box_loss": 1e-05,
+          "obj_loss": 0.02416,
+          "cls_loss": 0.00094,
+          "grad_norm": 0.028,
+          "true_positives": 2,
+          "false_positives": 0,
+          "false_negatives": 17,
+          "precision": 1.0,
+          "recall": 0.1053,
+          "f1_score": 0.1905,
+          "mean_iou": 0.7364
+        },
+        {
+          "step": 150,
+          "total_loss": 0.01978,
+          "box_loss": 0.0,
+          "obj_loss": 0.01868,
+          "cls_loss": 0.00072,
+          "grad_norm": 0.0225,
+          "true_positives": 9,
+          "false_positives": 3,
+          "false_negatives": 10,
+          "precision": 0.75,
+          "recall": 0.4737,
+          "f1_score": 0.5807,
+          "mean_iou": 0.7226
+        },
+        {
+          "step": 175,
+          "total_loss": 0.01534,
+          "box_loss": 0.0,
+          "obj_loss": 0.01455,
+          "cls_loss": 0.00052,
+          "grad_norm": 0.0182,
+          "true_positives": 14,
+          "false_positives": 9,
+          "false_negatives": 5,
+          "precision": 0.6087,
+          "recall": 0.7368,
+          "f1_score": 0.6667,
+          "mean_iou": 0.8145
+        },
+        {
+          "step": 200,
+          "total_loss": 0.02409,
+          "box_loss": 0.00408,
+          "obj_loss": 0.01495,
+          "cls_loss": 0.00065,
+          "grad_norm": 0.5741,
+          "true_positives": 9,
+          "false_positives": 9,
+          "false_negatives": 10,
+          "precision": 0.5,
+          "recall": 0.4737,
+          "f1_score": 0.4865,
+          "mean_iou": 0.8251
+        },
+        {
+          "step": 225,
+          "total_loss": 0.0122,
+          "box_loss": 0.00022,
+          "obj_loss": 0.01121,
+          "cls_loss": 0.00036,
+          "grad_norm": 0.1354,
+          "true_positives": 15,
+          "false_positives": 8,
+          "false_negatives": 4,
+          "precision": 0.6522,
+          "recall": 0.7895,
+          "f1_score": 0.7143,
+          "mean_iou": 0.9063
+        },
+        {
+          "step": 250,
+          "total_loss": 0.00938,
+          "box_loss": 2e-05,
+          "obj_loss": 0.00896,
+          "cls_loss": 0.00026,
+          "grad_norm": 0.0384,
+          "true_positives": 16,
+          "false_positives": 4,
+          "false_negatives": 3,
+          "precision": 0.8,
+          "recall": 0.8421,
+          "f1_score": 0.8205,
+          "mean_iou": 0.9419
+        },
+        {
+          "step": 275,
+          "total_loss": 0.00763,
+          "box_loss": 0.0,
+          "obj_loss": 0.00736,
+          "cls_loss": 0.00018,
+          "grad_norm": 0.016,
+          "true_positives": 16,
+          "false_positives": 3,
+          "false_negatives": 3,
+          "precision": 0.8421,
+          "recall": 0.8421,
+          "f1_score": 0.8421,
+          "mean_iou": 0.9472
+        },
+        {
+          "step": 300,
+          "total_loss": 0.00633,
+          "box_loss": 0.0,
+          "obj_loss": 0.00612,
+          "cls_loss": 0.00014,
+          "grad_norm": 0.0089,
+          "true_positives": 17,
+          "false_positives": 1,
+          "false_negatives": 2,
+          "precision": 0.9444,
+          "recall": 0.8947,
+          "f1_score": 0.9189,
+          "mean_iou": 0.9584
+        }
+      ],
+      "visualizations": [
+        {
+          "sample_index": 0,
+          "stem": "roboflow-blocked-emergency-exit-v1_Blocked_Emergency_Exit-13-_jpg.rf.2d7bdb14822f7c585870c2caeaba5094",
+          "gt_count": 1,
+          "pred_count": 1,
+          "vis_file": "tiny_overfit_00_roboflow-blocked-emergency-exit-v1_Blocked_Emergency_Exit-13-_jpg.rf.2d7bdb14822f7c585870c2caeaba5094.jpg"
+        },
+        {
+          "sample_index": 1,
+          "stem": "roboflow-blocked-emergency-exit-v1_Blocked_Emergency_Exit-13-_jpg.rf.456514a8086a6a6609e15d6ae497b2cb",
+          "gt_count": 1,
+          "pred_count": 0,
+          "vis_file": "tiny_overfit_01_roboflow-blocked-emergency-exit-v1_Blocked_Emergency_Exit-13-_jpg.rf.456514a8086a6a6609e15d6ae497b2cb.jpg"
+        },
+        {
+          "sample_index": 2,
+          "stem": "roboflow-blocked-emergency-exit-v1_Blocked_Emergency_Exit-13-_jpg.rf.fcba27c3f0aac2592336ab22441938ab",
+          "gt_count": 1,
+          "pred_count": 0,
+          "vis_file": "tiny_overfit_02_roboflow-blocked-emergency-exit-v1_Blocked_Emergency_Exit-13-_jpg.rf.fcba27c3f0aac2592336ab22441938ab.jpg"
+        },
+        {
+          "sample_index": 3,
+          "stem": "roboflow-blocked-emergency-exit-v1_Blocked_Emergency_Exit-19-_jpg.rf.88fc981e14f63dc410b058e715616dc2",
+          "gt_count": 1,
+          "pred_count": 1,
+          "vis_file": "tiny_overfit_03_roboflow-blocked-emergency-exit-v1_Blocked_Emergency_Exit-19-_jpg.rf.88fc981e14f63dc410b058e715616dc2.jpg"
+        },
+        {
+          "sample_index": 4,
+          "stem": "roboflow-blocked-emergency-exit-v1_Blocked_Emergency_Exit-1-_jpg.rf.0b54999ff46f6232534395f1cfbc01bc",
+          "gt_count": 2,
+          "pred_count": 2,
+          "vis_file": "tiny_overfit_04_roboflow-blocked-emergency-exit-v1_Blocked_Emergency_Exit-1-_jpg.rf.0b54999ff46f6232534395f1cfbc01bc.jpg"
+        },
+        {
+          "sample_index": 5,
+          "stem": "roboflow-blocked-emergency-exit-v1_Blocked_Emergency_Exit-1-_jpg.rf.68814c35736c1ad03ef785b4762135cd",
+          "gt_count": 2,
+          "pred_count": 3,
+          "vis_file": "tiny_overfit_05_roboflow-blocked-emergency-exit-v1_Blocked_Emergency_Exit-1-_jpg.rf.68814c35736c1ad03ef785b4762135cd.jpg"
+        },
+        {
+          "sample_index": 6,
+          "stem": "roboflow-blocked-emergency-exit-v1_Blocked_Emergency_Exit-1-_jpg.rf.c6ff38cf05a1037f970a9dc7a75937c0",
+          "gt_count": 2,
+          "pred_count": 2,
+          "vis_file": "tiny_overfit_06_roboflow-blocked-emergency-exit-v1_Blocked_Emergency_Exit-1-_jpg.rf.c6ff38cf05a1037f970a9dc7a75937c0.jpg"
+        },
+        {
+          "sample_index": 7,
+          "stem": "roboflow-blocked-emergency-exit-v1_Blocked_Emergency_Exit-11-_jpg.rf.2dd30a8ed2a63f249ef267c2a5a15f87",
+          "gt_count": 1,
+          "pred_count": 1,
+          "vis_file": "tiny_overfit_07_roboflow-blocked-emergency-exit-v1_Blocked_Emergency_Exit-11-_jpg.rf.2dd30a8ed2a63f249ef267c2a5a15f87.jpg"
+        },
+        {
+          "sample_index": 8,
+          "stem": "emergency_exit_signs_emergency_exit_signs_ML_20240205_10-16-59_jpg.rf.29f0ff4b79374ff187b4593ee227d272",
+          "gt_count": 1,
+          "pred_count": 1,
+          "vis_file": "tiny_overfit_08_emergency_exit_signs_emergency_exit_signs_ML_20240205_10-16-59_jpg.rf.29f0ff4b79374ff187b4593ee227d272.jpg"
+        },
+        {
+          "sample_index": 9,
+          "stem": "emergency_exit_signs_emergency_exit_signs_ML_20240205_10-16-59_jpg.rf.63b4fcf5a537c3c59e6e95d700e45c4b",
+          "gt_count": 1,
+          "pred_count": 1,
+          "vis_file": "tiny_overfit_09_emergency_exit_signs_emergency_exit_signs_ML_20240205_10-16-59_jpg.rf.63b4fcf5a537c3c59e6e95d700e45c4b.jpg"
+        },
+        {
+          "sample_index": 10,
+          "stem": "emergency_exit_signs_emergency_exit_signs_ML_20240205_10-16-59_jpg.rf.7eb5da52ce419f7977779a2401895e13",
+          "gt_count": 1,
+          "pred_count": 1,
+          "vis_file": "tiny_overfit_10_emergency_exit_signs_emergency_exit_signs_ML_20240205_10-16-59_jpg.rf.7eb5da52ce419f7977779a2401895e13.jpg"
+        },
+        {
+          "sample_index": 11,
+          "stem": "emergency_exit_signs_emergency_exit_signs_ML_20240205_10-16-59_jpg.rf.b5c8e88e15f3718bf09a7d98c34f1114",
+          "gt_count": 1,
+          "pred_count": 1,
+          "vis_file": "tiny_overfit_11_emergency_exit_signs_emergency_exit_signs_ML_20240205_10-16-59_jpg.rf.b5c8e88e15f3718bf09a7d98c34f1114.jpg"
+        },
+        {
+          "sample_index": 12,
+          "stem": "fire_extinguisher_components_fire_extinguisher_components_IMG_4954_jpg.rf.799015d8589f70b2f11a0efb811b18f7",
+          "gt_count": 1,
+          "pred_count": 1,
+          "vis_file": "tiny_overfit_12_fire_extinguisher_components_fire_extinguisher_components_IMG_4954_jpg.rf.799015d8589f70b2f11a0efb811b18f7.jpg"
+        },
+        {
+          "sample_index": 13,
+          "stem": "fire_extinguisher_components_fire_extinguisher_components_IMG_4955_jpg.rf.ee0891a863abeddaf22121d22593ca75",
+          "gt_count": 1,
+          "pred_count": 1,
+          "vis_file": "tiny_overfit_13_fire_extinguisher_components_fire_extinguisher_components_IMG_4955_jpg.rf.ee0891a863abeddaf22121d22593ca75.jpg"
+        },
+        {
+          "sample_index": 14,
+          "stem": "fire_extinguisher_components_fire_extinguisher_components_IMG_4957_jpg.rf.2a6a077318d68e45d9f995d936000ee9",
+          "gt_count": 1,
+          "pred_count": 1,
+          "vis_file": "tiny_overfit_14_fire_extinguisher_components_fire_extinguisher_components_IMG_4957_jpg.rf.2a6a077318d68e45d9f995d936000ee9.jpg"
+        },
+        {
+          "sample_index": 15,
+          "stem": "fire_extinguisher_components_fire_extinguisher_components_IMG_4958_jpg.rf.2e45c910bb7490f0587fc1330f0bc924",
+          "gt_count": 1,
+          "pred_count": 1,
+          "vis_file": "tiny_overfit_15_fire_extinguisher_components_fire_extinguisher_components_IMG_4958_jpg.rf.2e45c910bb7490f0587fc1330f0bc924.jpg"
+        }
+      ]
+    },
+    "validation_threshold_sweep": {
+      "dataset_split": "val",
+      "validation_images_evaluated": 988,
+      "model_id": "firesphere-perception-baseline-v0.8.0",
+      "thresholds_tested": [
+        0.05,
+        0.1,
+        0.15,
+        0.2,
+        0.25,
+        0.3,
+        0.4,
+        0.5
+      ],
+      "sweep_results": [
+        {
+          "conf_threshold": 0.05,
+          "total_detections": 5293,
+          "overall_precision": 0.1457,
+          "overall_recall": 0.5299,
+          "overall_f1": 0.2286,
+          "per_class": {
+            "FIRE_EXTINGUISHER": {
+              "support": 948,
+              "tp": 658,
+              "fp": 3864,
+              "fn": 290,
+              "precision": 0.1455,
+              "recall": 0.6941,
+              "f1": 0.2406
+            },
+            "EXIT_DOOR": {
+              "support": 3,
+              "tp": 0,
+              "fp": 0,
+              "fn": 3,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "EXIT_SIGN": {
+              "support": 498,
+              "tp": 113,
+              "fp": 658,
+              "fn": 385,
+              "precision": 0.1466,
+              "recall": 0.2269,
+              "f1": 0.1781
+            },
+            "OBSTACLE": {
+              "support": 6,
+              "tp": 0,
+              "fp": 0,
+              "fn": 6,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        },
+        {
+          "conf_threshold": 0.1,
+          "total_detections": 2153,
+          "overall_precision": 0.2926,
+          "overall_recall": 0.433,
+          "overall_f1": 0.3492,
+          "per_class": {
+            "FIRE_EXTINGUISHER": {
+              "support": 948,
+              "tp": 588,
+              "fp": 1400,
+              "fn": 360,
+              "precision": 0.2958,
+              "recall": 0.6203,
+              "f1": 0.4006
+            },
+            "EXIT_DOOR": {
+              "support": 3,
+              "tp": 0,
+              "fp": 0,
+              "fn": 3,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "EXIT_SIGN": {
+              "support": 498,
+              "tp": 42,
+              "fp": 123,
+              "fn": 456,
+              "precision": 0.2545,
+              "recall": 0.0843,
+              "f1": 0.1266
+            },
+            "OBSTACLE": {
+              "support": 6,
+              "tp": 0,
+              "fp": 0,
+              "fn": 6,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        },
+        {
+          "conf_threshold": 0.15,
+          "total_detections": 1192,
+          "overall_precision": 0.4153,
+          "overall_recall": 0.3402,
+          "overall_f1": 0.374,
+          "per_class": {
+            "FIRE_EXTINGUISHER": {
+              "support": 948,
+              "tp": 490,
+              "fp": 679,
+              "fn": 458,
+              "precision": 0.4192,
+              "recall": 0.5169,
+              "f1": 0.463
+            },
+            "EXIT_DOOR": {
+              "support": 3,
+              "tp": 0,
+              "fp": 0,
+              "fn": 3,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "EXIT_SIGN": {
+              "support": 498,
+              "tp": 5,
+              "fp": 18,
+              "fn": 493,
+              "precision": 0.2174,
+              "recall": 0.01,
+              "f1": 0.0191
+            },
+            "OBSTACLE": {
+              "support": 6,
+              "tp": 0,
+              "fp": 0,
+              "fn": 6,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        },
+        {
+          "conf_threshold": 0.2,
+          "total_detections": 808,
+          "overall_precision": 0.521,
+          "overall_recall": 0.2893,
+          "overall_f1": 0.372,
+          "per_class": {
+            "FIRE_EXTINGUISHER": {
+              "support": 948,
+              "tp": 420,
+              "fp": 381,
+              "fn": 528,
+              "precision": 0.5243,
+              "recall": 0.443,
+              "f1": 0.4802
+            },
+            "EXIT_DOOR": {
+              "support": 3,
+              "tp": 0,
+              "fp": 0,
+              "fn": 3,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "EXIT_SIGN": {
+              "support": 498,
+              "tp": 1,
+              "fp": 6,
+              "fn": 497,
+              "precision": 0.1429,
+              "recall": 0.002,
+              "f1": 0.0039
+            },
+            "OBSTACLE": {
+              "support": 6,
+              "tp": 0,
+              "fp": 0,
+              "fn": 6,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        },
+        {
+          "conf_threshold": 0.25,
+          "total_detections": 605,
+          "overall_precision": 0.5851,
+          "overall_recall": 0.2433,
+          "overall_f1": 0.3437,
+          "per_class": {
+            "FIRE_EXTINGUISHER": {
+              "support": 948,
+              "tp": 353,
+              "fp": 250,
+              "fn": 595,
+              "precision": 0.5854,
+              "recall": 0.3724,
+              "f1": 0.4552
+            },
+            "EXIT_DOOR": {
+              "support": 3,
+              "tp": 0,
+              "fp": 0,
+              "fn": 3,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "EXIT_SIGN": {
+              "support": 498,
+              "tp": 1,
+              "fp": 1,
+              "fn": 497,
+              "precision": 0.5,
+              "recall": 0.002,
+              "f1": 0.004
+            },
+            "OBSTACLE": {
+              "support": 6,
+              "tp": 0,
+              "fp": 0,
+              "fn": 6,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        },
+        {
+          "conf_threshold": 0.3,
+          "total_detections": 429,
+          "overall_precision": 0.634,
+          "overall_recall": 0.1869,
+          "overall_f1": 0.2887,
+          "per_class": {
+            "FIRE_EXTINGUISHER": {
+              "support": 948,
+              "tp": 271,
+              "fp": 157,
+              "fn": 677,
+              "precision": 0.6332,
+              "recall": 0.2859,
+              "f1": 0.3939
+            },
+            "EXIT_DOOR": {
+              "support": 3,
+              "tp": 0,
+              "fp": 0,
+              "fn": 3,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "EXIT_SIGN": {
+              "support": 498,
+              "tp": 1,
+              "fp": 0,
+              "fn": 497,
+              "precision": 1.0,
+              "recall": 0.002,
+              "f1": 0.004
+            },
+            "OBSTACLE": {
+              "support": 6,
+              "tp": 0,
+              "fp": 0,
+              "fn": 6,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        },
+        {
+          "conf_threshold": 0.4,
+          "total_detections": 229,
+          "overall_precision": 0.7555,
+          "overall_recall": 0.1189,
+          "overall_f1": 0.2055,
+          "per_class": {
+            "FIRE_EXTINGUISHER": {
+              "support": 948,
+              "tp": 173,
+              "fp": 56,
+              "fn": 775,
+              "precision": 0.7555,
+              "recall": 0.1825,
+              "f1": 0.294
+            },
+            "EXIT_DOOR": {
+              "support": 3,
+              "tp": 0,
+              "fp": 0,
+              "fn": 3,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "EXIT_SIGN": {
+              "support": 498,
+              "tp": 0,
+              "fp": 0,
+              "fn": 498,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "OBSTACLE": {
+              "support": 6,
+              "tp": 0,
+              "fp": 0,
+              "fn": 6,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        },
+        {
+          "conf_threshold": 0.5,
+          "total_detections": 123,
+          "overall_precision": 0.8537,
+          "overall_recall": 0.0722,
+          "overall_f1": 0.1331,
+          "per_class": {
+            "FIRE_EXTINGUISHER": {
+              "support": 948,
+              "tp": 105,
+              "fp": 18,
+              "fn": 843,
+              "precision": 0.8537,
+              "recall": 0.1108,
+              "f1": 0.1961
+            },
+            "EXIT_DOOR": {
+              "support": 3,
+              "tp": 0,
+              "fp": 0,
+              "fn": 3,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "EXIT_SIGN": {
+              "support": 498,
+              "tp": 0,
+              "fp": 0,
+              "fn": 498,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "OBSTACLE": {
+              "support": 6,
+              "tp": 0,
+              "fp": 0,
+              "fn": 6,
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0
+            }
+          }
+        }
+      ],
+      "analysis": {
+        "best_f1_threshold": 0.15,
+        "max_recall_threshold": 0.05,
+        "threshold_impact_finding": "Lowering threshold to 0.05 boosts extinguisher recall but triggers heavy background false positives without unlocking exit doors or obstacles, proving that confidence thresholding is not the primary root cause."
+      }
+    }
+  }
+}

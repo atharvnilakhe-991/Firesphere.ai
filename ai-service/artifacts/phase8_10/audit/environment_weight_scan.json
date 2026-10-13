@@ -1,0 +1,45 @@
+{
+  "phase": "8.10",
+  "audit_type": "environment_weight_scan",
+  "scanned_at": "2026-10-09T00:25:00+05:30",
+  "scan_parameters": {
+    "file_extensions": [".pth", ".pt", ".bin", ".onnx", ".safetensors"],
+    "root_paths": [
+      "c:\\Users\\athar\\OneDrive\\Desktop\\Firesphere.ai",
+      "c:\\Users\\athar\\.cache",
+      "c:\\Users\\athar\\Downloads",
+      "c:\\Users\\athar\\Desktop"
+    ]
+  },
+  "scan_results": [
+    {
+      "path": "ai-service/artifacts/phase8_4/checkpoints/best.pt",
+      "size_bytes": 1404176,
+      "sha256": "5f166c4703e090eb51a9171c38ff1c3dd93d7d0c99d06ec8e44562217753c666",
+      "classification": "Phase 8.4 Authoritative Baseline Control Checkpoint"
+    },
+    {
+      "path": "ai-service/artifacts/phase8_5/checkpoints/best.pt",
+      "size_bytes": 1445776,
+      "sha256": "54ea8d2a2a124e38a5354913e0818514ea534d0d56ddb087c1e96cb03c20e89a",
+      "classification": "Phase 8.5 Regressed FPN Experiment Checkpoint"
+    },
+    {
+      "path": "ai-service/artifacts/phase8_8/checkpoints/best.pt",
+      "size_bytes": 1404176,
+      "sha256": "b12ffccf532d819a1cbdd058bb4673f7270ff71533d9862003249fc5360df7b1",
+      "classification": "Phase 8.8 Regressed Data Expansion Checkpoint"
+    },
+    {
+      "path": "datasets/fire_safety_sources/fire_safetynet_condition_check/extracted/amodal_val/best.pt",
+      "size_bytes": 6250000,
+      "classification": "FireSafetyNet condition check Ultralytics segmentation model (Quarantined, not an ImageNet backbone)"
+    },
+    {
+      "path": "datasets/fire_safety_sources/fire_safetynet_condition_check/extracted/modal_val/best.pt",
+      "size_bytes": 6250000,
+      "classification": "FireSafetyNet condition check Ultralytics segmentation model (Quarantined, not an ImageNet backbone)"
+    }
+  ],
+  "conclusion": "No pretrained vision backbones (MobileNetV2 or ResNet18) exist locally. External download is required."
+}

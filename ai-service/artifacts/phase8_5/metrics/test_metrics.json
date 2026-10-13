@@ -1,0 +1,109 @@
+{
+  "split": "test",
+  "evaluationStatus": "COMPLETED",
+  "totalImages": 522,
+  "totalGroundTruthObjects": 796,
+  "totalPredictedObjects": 362,
+  "meanPrecision": 0.0748,
+  "meanRecall": 0.0597,
+  "meanF1": 0.0664,
+  "mAP50": 0.0178,
+  "mAP50_95": 0.0076,
+  "perClassMetrics": {
+    "FIRE_EXTINGUISHER": {
+      "support": 452,
+      "truePositives": 108,
+      "falsePositives": 253,
+      "falseNegatives": 344,
+      "precision": 0.2992,
+      "recall": 0.2389,
+      "f1Score": 0.2657,
+      "ap50": 0.0711,
+      "ap50_95": 0.0304,
+      "data_limitation": "NONE"
+    },
+    "EXIT_DOOR": {
+      "support": 6,
+      "truePositives": 0,
+      "falsePositives": 0,
+      "falseNegatives": 6,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1Score": 0.0,
+      "ap50": 0.0,
+      "ap50_95": 0.0,
+      "data_limitation": "DATA_LIMITED"
+    },
+    "EXIT_SIGN": {
+      "support": 320,
+      "truePositives": 0,
+      "falsePositives": 1,
+      "falseNegatives": 320,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1Score": 0.0,
+      "ap50": 0.0,
+      "ap50_95": 0.0,
+      "data_limitation": "NONE"
+    },
+    "OBSTACLE": {
+      "support": 18,
+      "truePositives": 0,
+      "falsePositives": 0,
+      "falseNegatives": 18,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1Score": 0.0,
+      "ap50": 0.0,
+      "ap50_95": 0.0,
+      "data_limitation": "DATA_LIMITED"
+    }
+  },
+  "confusionMatrix": {
+    "classNames": [
+      "FIRE_EXTINGUISHER",
+      "EXIT_DOOR",
+      "EXIT_SIGN",
+      "OBSTACLE",
+      "BACKGROUND"
+    ],
+    "matrix": [
+      [
+        108,
+        0,
+        0,
+        0,
+        253
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        344,
+        6,
+        320,
+        18,
+        0
+      ]
+    ]
+  },
+  "test_set_used_for_final_evaluation": true
+}

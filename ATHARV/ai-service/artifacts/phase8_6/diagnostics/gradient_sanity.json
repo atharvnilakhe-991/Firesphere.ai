@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "parameter_count": 2237627,
+  "trainable_parameter_count": 2237627,
+  "initial_loss": 7.95414,
+  "post_step_loss": 6.87864,
+  "loss_delta": -1.0755,
+  "total_gradient_norm": 97.58431,
+  "total_parameter_update_magnitude": 1.4953,
+  "nan_gradient_count": 0,
+  "inf_gradient_count": 0,
+  "zero_gradient_count": 0,
+  "sample_layer_gradient_norms": {
+    "stem.0.weight": 8.36243,
+    "stem.1.weight": 1.33508,
+    "stem.1.bias": 0.6816,
+    "stage1.0.weight": 26.22701,
+    "stage1.1.weight": 0.96754,
+    "stage1.1.bias": 0.52206,
+    "stage1.3.conv1.weight": 29.33836,
+    "stage1.3.bn1.weight": 0.63994,
+    "stage1.3.bn1.bias": 0.39856,
+    "stage1.3.conv2.weight": 26.18712
+  }
+}

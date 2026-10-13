@@ -1,0 +1,113 @@
+spring:
+  application:
+    name: firesphere-operations
+  profiles:
+    active: dev
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          batch_size: 50
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/firesphere}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      connection-timeout: 30000
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+
+server:
+  port: ${PORT:8080}
+  servlet:
+    context-path: /
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: when_authorized
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} [tenant=%X{tenantId:-none}] - %msg%n"
+  level:
+    root: INFO
+    ai.firesphere: DEBUG
+    org.springframework.web: INFO
+    org.hibernate.SQL: INFO
+
+firesphere:
+  integration:
+    enabled: true
+    default-timeout-ms: 5000
+    default-max-retries: 3
+    payment:
+      name: mock-payment-gateway
+      enabled: true
+      timeout-ms: 3000
+      max-retries: 3
+      endpoint-url: mock://payment.firesphere.local
+      api-key: ${PAYMENT_API_KEY:mock-payment-key}
+    sms:
+      name: mock-sms-gateway
+      enabled: true
+      timeout-ms: 2000
+      max-retries: 3
+      endpoint-url: mock://sms.firesphere.local
+      api-key: ${SMS_API_KEY:mock-sms-key}
+    email:
+      name: mock-email-service
+      enabled: true
+      timeout-ms: 4000
+      max-retries: 3
+      endpoint-url: mock://email.firesphere.local
+      api-key: ${EMAIL_API_KEY:mock-email-key}
+    whatsapp:
+      name: mock-whatsapp-service
+      enabled: true
+      timeout-ms: 3000
+      max-retries: 3
+      endpoint-url: mock://whatsapp.firesphere.local
+      api-key: ${WHATSAPP_API_KEY:mock-whatsapp-key}
+    maps:
+      name: mock-maps-engine
+      enabled: true
+      timeout-ms: 5000
+      max-retries: 3
+      endpoint-url: mock://maps.firesphere.local
+      api-key: ${MAPS_API_KEY:mock-maps-key}
+    digital-signature:
+      name: mock-pki-service
+      enabled: true
+      timeout-ms: 5000
+      max-retries: 3
+      endpoint-url: mock://pki.firesphere.local
+      api-key: ${SIGNATURE_API_KEY:mock-sig-key}
+    cad:
+      name: mock-municipal-112-cad
+      enabled: true
+      timeout-ms: 6000
+      max-retries: 3
+      endpoint-url: mock://cad.emergency112.gov.local
+      api-key: ${CAD_API_KEY:mock-cad-key}
+

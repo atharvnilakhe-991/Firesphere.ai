@@ -1,0 +1,55 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:firesphere_test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+  flyway:
+    enabled: false
+
+firesphere:
+  integration:
+    enabled: true
+    default-timeout-ms: 2000
+    default-max-retries: 3
+    payment:
+      name: mock-payment-gateway
+      enabled: true
+      timeout-ms: 1000
+      max-retries: 3
+    sms:
+      name: mock-sms-gateway
+      enabled: true
+      timeout-ms: 1000
+      max-retries: 3
+    email:
+      name: mock-email-service
+      enabled: true
+      timeout-ms: 1000
+      max-retries: 3
+    whatsapp:
+      name: mock-whatsapp-service
+      enabled: true
+      timeout-ms: 1000
+      max-retries: 3
+    maps:
+      name: mock-maps-engine
+      enabled: true
+      timeout-ms: 1000
+      max-retries: 3
+    digital-signature:
+      name: mock-pki-service
+      enabled: true
+      timeout-ms: 1000
+      max-retries: 3
+    cad:
+      name: mock-municipal-112-cad
+      enabled: true
+      timeout-ms: 1000
+      max-retries: 3
+

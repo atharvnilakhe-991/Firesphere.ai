@@ -1,0 +1,46 @@
+# ==============================================================================
+# FireSphere.ai — Local Development Docker Compose Environment
+# Provides local Redis and MinIO infrastructure for testing and offline development.
+# WARNING: Uses local development credentials. DO NOT deploy to production.
+# ==============================================================================
+
+version: '3.8'
+
+services:
+  # Local Redis for async AI job queue and caching
+  redis:
+    image: redis:7-alpine
+    container_name: firesphere-dev-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_dev_data:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  # Local MinIO S3-compatible object storage for inspection evidence
+  minio:
+    image: minio/minio:latest
+    container_name: firesphere-dev-minio
+    ports:
+      - "9000:9000"   # S3 API endpoint
+      - "9001:9001"   # Web Console UI
+    environment:
+      MINIO_ROOT_USER: dev_admin_access
+      MINIO_ROOT_PASSWORD: dev_admin_secret_key_change_in_prod
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio_dev_data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  redis_dev_data:
+  minio_dev_data:

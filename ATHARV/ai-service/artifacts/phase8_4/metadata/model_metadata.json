@@ -1,0 +1,326 @@
+{
+  "model_id": "firesphere-perception-baseline-v0.8.0",
+  "model_version": "0.8.0-baseline",
+  "model_type": "PYTORCH_BASELINE_DETECTOR",
+  "architecture": "BaselineInspectionDetector",
+  "class_mapping": {
+    "0": "FIRE_EXTINGUISHER",
+    "1": "EXIT_DOOR",
+    "2": "EXIT_SIGN",
+    "3": "OBSTACLE"
+  },
+  "dataset_version": "1.0.0-phase8.3",
+  "dataset_location": "C:\\Users\\athar\\OneDrive\\Desktop\\Firesphere.ai\\datasets\\fire_safety\\prepared\\phase8_3\\yolo",
+  "training_seed": 42,
+  "training_configuration": {
+    "model_id": "firesphere-perception-baseline-v0.8.0",
+    "architecture": "BaselineInspectionDetector",
+    "seed": 42,
+    "epochs": 5,
+    "best_epoch": 4,
+    "best_val_loss": 0.85151,
+    "total_time_seconds": 1073.31,
+    "device": "cpu",
+    "history": [
+      {
+        "epoch": 1,
+        "train_loss": 1.59915,
+        "train_box_loss": 0.51112,
+        "train_obj_loss": 0.2899,
+        "train_cls_loss": 0.19134,
+        "val_loss": 1.18541,
+        "duration_seconds": 298.31
+      },
+      {
+        "epoch": 2,
+        "train_loss": 0.94955,
+        "train_box_loss": 0.39225,
+        "train_obj_loss": 0.0582,
+        "train_cls_loss": 0.07123,
+        "val_loss": 0.97686,
+        "duration_seconds": 170.62
+      },
+      {
+        "epoch": 3,
+        "train_loss": 0.75979,
+        "train_box_loss": 0.33608,
+        "train_obj_loss": 0.03228,
+        "train_cls_loss": 0.0369,
+        "val_loss": 0.89284,
+        "duration_seconds": 168.09
+      },
+      {
+        "epoch": 4,
+        "train_loss": 0.6505,
+        "train_box_loss": 0.29513,
+        "train_obj_loss": 0.02457,
+        "train_cls_loss": 0.02378,
+        "val_loss": 0.85151,
+        "duration_seconds": 261.03
+      },
+      {
+        "epoch": 5,
+        "train_loss": 0.57783,
+        "train_box_loss": 0.26245,
+        "train_obj_loss": 0.02094,
+        "train_cls_loss": 0.02132,
+        "val_loss": 0.96252,
+        "duration_seconds": 170.12
+      }
+    ]
+  },
+  "environment": {
+    "python_version": "3.13.7",
+    "os": "Windows-11-10.0.26300-SP0",
+    "cpu": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+    "pytorch_version": "2.14.1+cpu",
+    "torchvision_version": "NOT_INSTALLED",
+    "opencv_version": "5.0.0",
+    "cuda_available": false,
+    "cuda_version": null,
+    "gpu_count": 0,
+    "gpu_name": "None",
+    "training_device": "cpu"
+  },
+  "checkpoint_path": "C:\\Users\\athar\\OneDrive\\Desktop\\Firesphere.ai\\ai-service\\artifacts\\phase8_4\\checkpoints\\best.pt",
+  "checkpoint_sha256": "5f166c4703e090eb51a9171c38ff1c3dd93d7d0c99d06ec8e44562217753c666",
+  "validation_metrics": {
+    "split": "val",
+    "evaluationStatus": "COMPLETED",
+    "totalImages": 988,
+    "totalGroundTruthObjects": 1455,
+    "totalPredictedObjects": 808,
+    "meanPrecision": 0.1668,
+    "meanRecall": 0.1113,
+    "meanF1": 0.121,
+    "mAP50": 0.0588,
+    "mAP50_95": 0.0227,
+    "perClassMetrics": {
+      "FIRE_EXTINGUISHER": {
+        "support": 948,
+        "truePositives": 420,
+        "falsePositives": 381,
+        "falseNegatives": 528,
+        "precision": 0.5243,
+        "recall": 0.443,
+        "f1Score": 0.4802,
+        "ap50": 0.2336,
+        "ap50_95": 0.0909,
+        "data_limitation": "NONE"
+      },
+      "EXIT_DOOR": {
+        "support": 3,
+        "truePositives": 0,
+        "falsePositives": 0,
+        "falseNegatives": 3,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1Score": 0.0,
+        "ap50": 0.0,
+        "ap50_95": 0.0,
+        "data_limitation": "DATA_LIMITED"
+      },
+      "EXIT_SIGN": {
+        "support": 498,
+        "truePositives": 1,
+        "falsePositives": 6,
+        "falseNegatives": 497,
+        "precision": 0.1429,
+        "recall": 0.002,
+        "f1Score": 0.0039,
+        "ap50": 0.0014,
+        "ap50_95": 0.0001,
+        "data_limitation": "NONE"
+      },
+      "OBSTACLE": {
+        "support": 6,
+        "truePositives": 0,
+        "falsePositives": 0,
+        "falseNegatives": 6,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1Score": 0.0,
+        "ap50": 0.0,
+        "ap50_95": 0.0,
+        "data_limitation": "DATA_LIMITED"
+      }
+    },
+    "confusionMatrix": {
+      "classNames": [
+        "FIRE_EXTINGUISHER",
+        "EXIT_DOOR",
+        "EXIT_SIGN",
+        "OBSTACLE",
+        "BACKGROUND"
+      ],
+      "matrix": [
+        [
+          420,
+          0,
+          0,
+          0,
+          381
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          6
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          528,
+          3,
+          497,
+          6,
+          0
+        ]
+      ]
+    }
+  },
+  "test_metrics": {
+    "split": "test",
+    "evaluationStatus": "COMPLETED",
+    "totalImages": 522,
+    "totalGroundTruthObjects": 796,
+    "totalPredictedObjects": 395,
+    "meanPrecision": 0.2283,
+    "meanRecall": 0.1125,
+    "meanF1": 0.1261,
+    "mAP50": 0.0579,
+    "mAP50_95": 0.0194,
+    "perClassMetrics": {
+      "FIRE_EXTINGUISHER": {
+        "support": 452,
+        "truePositives": 195,
+        "falsePositives": 185,
+        "falseNegatives": 257,
+        "precision": 0.5132,
+        "recall": 0.4314,
+        "f1Score": 0.4688,
+        "ap50": 0.2236,
+        "ap50_95": 0.0764,
+        "data_limitation": "NONE"
+      },
+      "EXIT_DOOR": {
+        "support": 6,
+        "truePositives": 0,
+        "falsePositives": 0,
+        "falseNegatives": 6,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1Score": 0.0,
+        "ap50": 0.0,
+        "ap50_95": 0.0,
+        "data_limitation": "DATA_LIMITED"
+      },
+      "EXIT_SIGN": {
+        "support": 320,
+        "truePositives": 6,
+        "falsePositives": 9,
+        "falseNegatives": 314,
+        "precision": 0.4,
+        "recall": 0.0187,
+        "f1Score": 0.0357,
+        "ap50": 0.0079,
+        "ap50_95": 0.0014,
+        "data_limitation": "NONE"
+      },
+      "OBSTACLE": {
+        "support": 18,
+        "truePositives": 0,
+        "falsePositives": 0,
+        "falseNegatives": 18,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1Score": 0.0,
+        "ap50": 0.0,
+        "ap50_95": 0.0,
+        "data_limitation": "DATA_LIMITED"
+      }
+    },
+    "confusionMatrix": {
+      "classNames": [
+        "FIRE_EXTINGUISHER",
+        "EXIT_DOOR",
+        "EXIT_SIGN",
+        "OBSTACLE",
+        "BACKGROUND"
+      ],
+      "matrix": [
+        [
+          195,
+          0,
+          0,
+          0,
+          185
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          6,
+          0,
+          9
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          257,
+          6,
+          314,
+          18,
+          0
+        ]
+      ]
+    },
+    "test_set_used_for_final_evaluation": true
+  },
+  "inference_benchmark": {
+    "device": "cpu",
+    "model_load_time_ms": 50.42,
+    "image_size": [
+      256,
+      256
+    ],
+    "batch_size": 1,
+    "benchmark_samples": 100,
+    "avg_preprocess_ms": 17.86,
+    "avg_inference_ms": 12.64,
+    "avg_postprocess_ms": 22.49,
+    "average_latency_ms": 53.0,
+    "median_latency_ms": 39.03,
+    "p95_latency_ms": 113.5,
+    "throughput_fps": 18.87
+  },
+  "calibration_status": "NOT_CALIBRATED",
+  "training_status": "TRAINED_BASELINE",
+  "production_status": "NOT_APPROVED",
+  "governance_decision": "BASELINE_TRAINED_DATA_EXPANSION_REQUIRED",
+  "timestamp": "2026-10-08T13:05:11Z"
+}

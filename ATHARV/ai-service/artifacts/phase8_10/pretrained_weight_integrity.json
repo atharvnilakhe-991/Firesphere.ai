@@ -1,0 +1,66 @@
+{
+  "phase": "8.10",
+  "artifact_type": "pretrained_weight_integrity",
+  "evaluated_at": "2026-10-09T00:41:00+05:30",
+  "checkpoint_file": "artifacts/phase8_10/pretrained/mobilenet_v2-b0353104.pth",
+  "integrity_checks": {
+    "step_1_file_existence": {
+      "status": "PASSED",
+      "path": "artifacts/phase8_10/pretrained/mobilenet_v2-b0353104.pth",
+      "exists": true
+    },
+    "step_2_file_size": {
+      "status": "PASSED",
+      "actual_bytes": 14212972,
+      "expected_bytes_approx": 14212272,
+      "delta_bytes": 700
+    },
+    "step_3_sha256": {
+      "status": "FAILED_FULL_MATCH_PASSED_PREFIX_MATCH",
+      "actual_sha256": "b03531047ffacf1e2488318dcd2aba1126cde36e3bfe1aa5cb07700aeeee9889",
+      "authorized_expected_sha256": "b0353104d49a37c02b37ba4ef5dd3f3d1b827756f7b9492e73703eb402773cbb",
+      "official_prefix": "b0353104",
+      "prefix_match": true,
+      "full_match": false
+    },
+    "step_4_safe_load": {
+      "status": "PASSED",
+      "method": "torch.load(weights_only=True, map_location='cpu')",
+      "container_type": "collections.OrderedDict"
+    },
+    "step_5_state_dict_structure": {
+      "status": "PASSED",
+      "total_keys": 314,
+      "backbone_feature_keys": 312,
+      "classifier_keys": 2
+    },
+    "step_6_parameter_count": {
+      "status": "PASSED",
+      "backbone_feature_params": 2223872,
+      "total_params": 3539036
+    },
+    "step_7_nan_inf_scan": {
+      "status": "PASSED",
+      "nan_count": 0,
+      "inf_count": 0
+    },
+    "step_8_tensor_shapes": {
+      "status": "PASSED",
+      "loaded_into_detector_tensors": 312,
+      "missing_keys": 0,
+      "unexpected_keys": 0
+    },
+    "step_9_deterministic_reload": {
+      "status": "PASSED",
+      "bitwise_identical": true
+    },
+    "step_10_statistical_verification": {
+      "status": "PASSED",
+      "l2_distance_from_random_init": 7.6195,
+      "threshold": 0.5,
+      "is_genuinely_pretrained": true
+    }
+  },
+  "overall_integrity_status": "FUNCTIONALLY_VALID_FULL_SHA_MISMATCH",
+  "gate_decision": "CHECKPOINT_INTEGRITY_FAILED"
+}

@@ -1,0 +1,9 @@
+{
+  "operationalThreshold": 0.15,
+  "thresholdSelectionSplit": "phase8_8_validation_split",
+  "thresholdSelectionMethod": "Validation F1-score (0.1495) and mAP50 (0.0506) peak on 928 validation images",
+  "externalTestTuningPerformed": false,
+  "probabilityCalibrationMethod": null,
+  "calibrationStatus": "NOT_CALIBRATED",
+  "disclaimer": "Model confidence represents raw feature activation strength, NOT calibrated true posterior class probability. Operational thresholding selects a decision boundary on the precision-recall curve, and does not constitute statistical probability calibration."
+}

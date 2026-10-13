@@ -1,0 +1,237 @@
+{
+  "status": "PASS",
+  "tolerance": 0.0001,
+  "max_coordinate_error": {
+    "max_xc_err": 6e-06,
+    "max_yc_err": 6e-06,
+    "max_w_err": 0.0,
+    "max_h_err": 0.0
+  },
+  "tested_samples": 7,
+  "details": [
+    {
+      "description": "Small exit sign (Anchor 0)",
+      "original_box": [
+        0.25,
+        0.25,
+        0.08,
+        0.08
+      ],
+      "assigned_grid": {
+        "row": 4,
+        "col": 4,
+        "anchor_idx": 0
+      },
+      "encoded_targets": {
+        "logit_tx": -9.2102,
+        "logit_ty": -9.2102,
+        "tw": 0.0,
+        "th": 0.0
+      },
+      "decoded_box": [
+        0.25001,
+        0.25001,
+        0.08,
+        0.08
+      ],
+      "errors": {
+        "xc_err": 6e-06,
+        "yc_err": 6e-06,
+        "w_err": 0.0,
+        "h_err": 0.0
+      }
+    },
+    {
+      "description": "Tiny exit sign (sub-anchor)",
+      "original_box": [
+        0.15,
+        0.4,
+        0.03,
+        0.03
+      ],
+      "assigned_grid": {
+        "row": 6,
+        "col": 2,
+        "anchor_idx": 0
+      },
+      "encoded_targets": {
+        "logit_tx": -0.4055,
+        "logit_ty": -0.4055,
+        "tw": -0.9808,
+        "th": -0.9808
+      },
+      "decoded_box": [
+        0.15,
+        0.4,
+        0.03,
+        0.03
+      ],
+      "errors": {
+        "xc_err": 0.0,
+        "yc_err": 0.0,
+        "w_err": 0.0,
+        "h_err": 0.0
+      }
+    },
+    {
+      "description": "Medium extinguisher (Anchor 1)",
+      "original_box": [
+        0.5,
+        0.5,
+        0.22,
+        0.35
+      ],
+      "assigned_grid": {
+        "row": 8,
+        "col": 8,
+        "anchor_idx": 1
+      },
+      "encoded_targets": {
+        "logit_tx": -9.2102,
+        "logit_ty": -9.2102,
+        "tw": 0.0,
+        "th": 0.0
+      },
+      "decoded_box": [
+        0.50001,
+        0.50001,
+        0.22,
+        0.35
+      ],
+      "errors": {
+        "xc_err": 6e-06,
+        "yc_err": 6e-06,
+        "w_err": 0.0,
+        "h_err": 0.0
+      }
+    },
+    {
+      "description": "Large door (Anchor 2)",
+      "original_box": [
+        0.55,
+        0.6,
+        0.55,
+        0.65
+      ],
+      "assigned_grid": {
+        "row": 9,
+        "col": 8,
+        "anchor_idx": 2
+      },
+      "encoded_targets": {
+        "logit_tx": 1.3863,
+        "logit_ty": 0.4055,
+        "tw": 0.0,
+        "th": 0.0
+      },
+      "decoded_box": [
+        0.55,
+        0.6,
+        0.55,
+        0.65
+      ],
+      "errors": {
+        "xc_err": 0.0,
+        "yc_err": 0.0,
+        "w_err": 0.0,
+        "h_err": 0.0
+      }
+    },
+    {
+      "description": "Wide obstacle",
+      "original_box": [
+        0.35,
+        0.75,
+        0.45,
+        0.25
+      ],
+      "assigned_grid": {
+        "row": 12,
+        "col": 5,
+        "anchor_idx": 1
+      },
+      "encoded_targets": {
+        "logit_tx": 0.4055,
+        "logit_ty": -9.2102,
+        "tw": 0.7156,
+        "th": -0.3365
+      },
+      "decoded_box": [
+        0.35,
+        0.75001,
+        0.45,
+        0.25
+      ],
+      "errors": {
+        "xc_err": 0.0,
+        "yc_err": 6e-06,
+        "w_err": 0.0,
+        "h_err": 0.0
+      }
+    },
+    {
+      "description": "Near grid boundary",
+      "original_box": [
+        0.0624,
+        0.0624,
+        0.08,
+        0.08
+      ],
+      "assigned_grid": {
+        "row": 0,
+        "col": 0,
+        "anchor_idx": 0
+      },
+      "encoded_targets": {
+        "logit_tx": 6.4362,
+        "logit_ty": 6.4362,
+        "tw": 0.0,
+        "th": 0.0
+      },
+      "decoded_box": [
+        0.0624,
+        0.0624,
+        0.08,
+        0.08
+      ],
+      "errors": {
+        "xc_err": 0.0,
+        "yc_err": 0.0,
+        "w_err": 0.0,
+        "h_err": 0.0
+      }
+    },
+    {
+      "description": "Near right-bottom boundary",
+      "original_box": [
+        0.937,
+        0.937,
+        0.08,
+        0.08
+      ],
+      "assigned_grid": {
+        "row": 14,
+        "col": 14,
+        "anchor_idx": 0
+      },
+      "encoded_targets": {
+        "logit_tx": 4.8203,
+        "logit_ty": 4.8203,
+        "tw": 0.0,
+        "th": 0.0
+      },
+      "decoded_box": [
+        0.937,
+        0.937,
+        0.08,
+        0.08
+      ],
+      "errors": {
+        "xc_err": 0.0,
+        "yc_err": 0.0,
+        "w_err": 0.0,
+        "h_err": 0.0
+      }
+    }
+  ]
+}

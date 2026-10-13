@@ -1,0 +1,28 @@
+{
+  "phase": "9",
+  "gateVerdict": "PHASE_9_COMPLETED_BASELINE_RETAINED_PRODUCTION_NOT_APPROVED",
+  "referenceBaselineModel": "firesphere-perception-baseline-v0.8.0",
+  "referenceBaselineSha256": "5f166c4703e090eb51a9171c38ff1c3dd93d7d0c99d06ec8e44562217753c666",
+  "productionStatus": "NOT_APPROVED",
+  "calibrationStatus": "NOT_CALIBRATED",
+  "nextRoadmapMilestone": "Phase 10: Production AI Integration",
+  "decisions": {
+    "referenceModelSelected": "firesphere-perception-baseline-v0.8.0 (Phase 8.4)",
+    "candidateModelStatus": "CANDIDATE_REGRESSED (Phase 8.9 preserved unchanged)",
+    "liveInferenceModelLoading": "BLOCKED (Production gate closed)",
+    "calibrationGate": "NOT_CALIBRATED (Threshold 0.15 is operational, not probabilistic)",
+    "operationalCapabilities": {
+      "FIRE_EXTINGUISHER": "ADVISORY_ONLY (requires officer verification)",
+      "EXIT_DOOR": "UNSUPPORTED (zero test true positives)",
+      "EXIT_SIGN": "ADVISORY_ONLY (requires officer verification)",
+      "OBSTACLE": "UNSUPPORTED (zero test true positives)"
+    },
+    "humanInTheLoopInvariants": {
+      "advisoryOnly": true,
+      "autonomousNocApprovalForbidden": true,
+      "zeroDetectionsMeansCompliant": false
+    },
+    "integrationReadiness": "CONFIRMED for Phase 10 integration"
+  },
+  "timestamp": "2026-10-09T16:53:35.526897+00:00"
+}

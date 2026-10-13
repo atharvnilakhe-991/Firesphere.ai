@@ -1,0 +1,25 @@
+{
+  "phase": "8.9",
+  "gate_decision": "CANDIDATE_REGRESSED",
+  "production_status": "NOT_APPROVED",
+  "provenance_limitation": "Full SHA-256 not officially published by PyTorch; research authorization granted by user.",
+  "authoritative_baseline": "firesphere-perception-baseline-v0.8.0 (Phase 8.4)",
+  "candidate_model": "firesphere-perception-pretrained-v0.8.9",
+  "candidate_checkpoint": "artifacts\\phase8_9\\checkpoints\\best.pt",
+  "candidate_sha256": "abb5bab4a4eb3de7d2275c5a946238804f3f453cc1419a3906b888fe52d88d36",
+  "external_test_522_results": {
+    "baseline_map50": 0.0514,
+    "candidate_map50": 0.0503,
+    "delta_map50": -0.0011,
+    "baseline_extinguisher_ap50": 0.1973,
+    "candidate_extinguisher_ap50": 0.1329,
+    "delta_extinguisher_ap50": -0.0644,
+    "baseline_door_ap50": 0.0,
+    "candidate_door_ap50": 0.0,
+    "baseline_sign_ap50": 0.0084,
+    "candidate_sign_ap50": 0.0684,
+    "baseline_obstacle_ap50": 0.0,
+    "candidate_obstacle_ap50": 0.0
+  },
+  "evaluation_timestamp": "2026-10-09T16:33:58.061933+00:00"
+}

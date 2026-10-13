@@ -1,0 +1,968 @@
+{
+  "timestamp": "2026-10-10T11:29:00Z",
+  "experiment_title": "Validation-Set Confidence & NMS Sensitivity Analysis",
+  "checkpoint_evaluated": "C:\\Users\\athar\\OneDrive\\Desktop\\Firesphere.ai\\ai-service\\artifacts\\phase8_4\\checkpoints\\best.pt",
+  "validation_dataset": "C:\\Users\\athar\\OneDrive\\Desktop\\Firesphere.ai\\datasets\\fire_safety\\prepared\\phase8_3\\yolo\\images\\val",
+  "validation_samples": 988,
+  "sweep_a_uniform_thresholds": [
+    {
+      "threshold_policy": {
+        "FIRE_EXTINGUISHER": 0.05,
+        "EXIT_DOOR": 0.05,
+        "EXIT_SIGN": 0.05,
+        "OBSTACLE": 0.05
+      },
+      "iou_nms": 0.45,
+      "macro_precision": 0.073,
+      "macro_recall": 0.2303,
+      "macro_f1": 0.1046,
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 658,
+          "fp": 3867,
+          "fn": 290,
+          "precision": 0.1454,
+          "recall": 0.6941,
+          "f1": 0.2404
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 113,
+          "fp": 658,
+          "fn": 385,
+          "precision": 0.1466,
+          "recall": 0.2269,
+          "f1": 0.1781
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    {
+      "threshold_policy": {
+        "FIRE_EXTINGUISHER": 0.08,
+        "EXIT_DOOR": 0.08,
+        "EXIT_SIGN": 0.08,
+        "OBSTACLE": 0.08
+      },
+      "iou_nms": 0.45,
+      "macro_precision": 0.1181,
+      "macro_recall": 0.1986,
+      "macro_f1": 0.1307,
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 618,
+          "fp": 2022,
+          "fn": 330,
+          "precision": 0.2341,
+          "recall": 0.6519,
+          "f1": 0.3445
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 71,
+          "fp": 227,
+          "fn": 427,
+          "precision": 0.2383,
+          "recall": 0.1426,
+          "f1": 0.1784
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    {
+      "threshold_policy": {
+        "FIRE_EXTINGUISHER": 0.1,
+        "EXIT_DOOR": 0.1,
+        "EXIT_SIGN": 0.1,
+        "OBSTACLE": 0.1
+      },
+      "iou_nms": 0.45,
+      "macro_precision": 0.1375,
+      "macro_recall": 0.1764,
+      "macro_f1": 0.1318,
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 589,
+          "fp": 1404,
+          "fn": 359,
+          "precision": 0.2955,
+          "recall": 0.6213,
+          "f1": 0.4005
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 42,
+          "fp": 123,
+          "fn": 456,
+          "precision": 0.2545,
+          "recall": 0.0843,
+          "f1": 0.1266
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    {
+      "threshold_policy": {
+        "FIRE_EXTINGUISHER": 0.12,
+        "EXIT_DOOR": 0.12,
+        "EXIT_SIGN": 0.12,
+        "OBSTACLE": 0.12
+      },
+      "iou_nms": 0.45,
+      "macro_precision": 0.1595,
+      "macro_recall": 0.1556,
+      "macro_f1": 0.1268,
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 550,
+          "fp": 1038,
+          "fn": 398,
+          "precision": 0.3463,
+          "recall": 0.5802,
+          "f1": 0.4337
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 21,
+          "fp": 51,
+          "fn": 477,
+          "precision": 0.2917,
+          "recall": 0.0422,
+          "f1": 0.0737
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    {
+      "threshold_policy": {
+        "FIRE_EXTINGUISHER": 0.15,
+        "EXIT_DOOR": 0.15,
+        "EXIT_SIGN": 0.15,
+        "OBSTACLE": 0.15
+      },
+      "iou_nms": 0.45,
+      "macro_precision": 0.1592,
+      "macro_recall": 0.1317,
+      "macro_f1": 0.1205,
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 490,
+          "fp": 679,
+          "fn": 458,
+          "precision": 0.4192,
+          "recall": 0.5169,
+          "f1": 0.463
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 5,
+          "fp": 18,
+          "fn": 493,
+          "precision": 0.2174,
+          "recall": 0.01,
+          "f1": 0.0191
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    {
+      "threshold_policy": {
+        "FIRE_EXTINGUISHER": 0.18,
+        "EXIT_DOOR": 0.18,
+        "EXIT_SIGN": 0.18,
+        "OBSTACLE": 0.18
+      },
+      "iou_nms": 0.45,
+      "macro_precision": 0.1953,
+      "macro_recall": 0.1178,
+      "macro_f1": 0.1212,
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 441,
+          "fp": 475,
+          "fn": 507,
+          "precision": 0.4814,
+          "recall": 0.4652,
+          "f1": 0.4732
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 3,
+          "fp": 7,
+          "fn": 495,
+          "precision": 0.3,
+          "recall": 0.006,
+          "f1": 0.0118
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    {
+      "threshold_policy": {
+        "FIRE_EXTINGUISHER": 0.2,
+        "EXIT_DOOR": 0.2,
+        "EXIT_SIGN": 0.2,
+        "OBSTACLE": 0.2
+      },
+      "iou_nms": 0.45,
+      "macro_precision": 0.1668,
+      "macro_recall": 0.1113,
+      "macro_f1": 0.121,
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 420,
+          "fp": 381,
+          "fn": 528,
+          "precision": 0.5243,
+          "recall": 0.443,
+          "f1": 0.4802
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 1,
+          "fp": 6,
+          "fn": 497,
+          "precision": 0.1429,
+          "recall": 0.002,
+          "f1": 0.0039
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    {
+      "threshold_policy": {
+        "FIRE_EXTINGUISHER": 0.25,
+        "EXIT_DOOR": 0.25,
+        "EXIT_SIGN": 0.25,
+        "OBSTACLE": 0.25
+      },
+      "iou_nms": 0.45,
+      "macro_precision": 0.2713,
+      "macro_recall": 0.0936,
+      "macro_f1": 0.1148,
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 353,
+          "fp": 250,
+          "fn": 595,
+          "precision": 0.5854,
+          "recall": 0.3724,
+          "f1": 0.4552
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 1,
+          "fp": 1,
+          "fn": 497,
+          "precision": 0.5,
+          "recall": 0.002,
+          "f1": 0.004
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    {
+      "threshold_policy": {
+        "FIRE_EXTINGUISHER": 0.3,
+        "EXIT_DOOR": 0.3,
+        "EXIT_SIGN": 0.3,
+        "OBSTACLE": 0.3
+      },
+      "iou_nms": 0.45,
+      "macro_precision": 0.4083,
+      "macro_recall": 0.072,
+      "macro_f1": 0.0995,
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 271,
+          "fp": 157,
+          "fn": 677,
+          "precision": 0.6332,
+          "recall": 0.2859,
+          "f1": 0.3939
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 1,
+          "fp": 0,
+          "fn": 497,
+          "precision": 1.0,
+          "recall": 0.002,
+          "f1": 0.004
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    }
+  ],
+  "sweep_b_nms_iou_thresholds": [
+    {
+      "threshold_policy": {
+        "FIRE_EXTINGUISHER": 0.2,
+        "EXIT_DOOR": 0.2,
+        "EXIT_SIGN": 0.2,
+        "OBSTACLE": 0.2
+      },
+      "iou_nms": 0.35,
+      "macro_precision": 0.1766,
+      "macro_recall": 0.1107,
+      "macro_f1": 0.1246,
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 418,
+          "fp": 324,
+          "fn": 530,
+          "precision": 0.5633,
+          "recall": 0.4409,
+          "f1": 0.4946
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 1,
+          "fp": 6,
+          "fn": 497,
+          "precision": 0.1429,
+          "recall": 0.002,
+          "f1": 0.0039
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    {
+      "threshold_policy": {
+        "FIRE_EXTINGUISHER": 0.2,
+        "EXIT_DOOR": 0.2,
+        "EXIT_SIGN": 0.2,
+        "OBSTACLE": 0.2
+      },
+      "iou_nms": 0.4,
+      "macro_precision": 0.1718,
+      "macro_recall": 0.111,
+      "macro_f1": 0.1229,
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 419,
+          "fp": 351,
+          "fn": 529,
+          "precision": 0.5442,
+          "recall": 0.442,
+          "f1": 0.4878
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 1,
+          "fp": 6,
+          "fn": 497,
+          "precision": 0.1429,
+          "recall": 0.002,
+          "f1": 0.0039
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    {
+      "threshold_policy": {
+        "FIRE_EXTINGUISHER": 0.2,
+        "EXIT_DOOR": 0.2,
+        "EXIT_SIGN": 0.2,
+        "OBSTACLE": 0.2
+      },
+      "iou_nms": 0.45,
+      "macro_precision": 0.1668,
+      "macro_recall": 0.1113,
+      "macro_f1": 0.121,
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 420,
+          "fp": 381,
+          "fn": 528,
+          "precision": 0.5243,
+          "recall": 0.443,
+          "f1": 0.4802
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 1,
+          "fp": 6,
+          "fn": 497,
+          "precision": 0.1429,
+          "recall": 0.002,
+          "f1": 0.0039
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    {
+      "threshold_policy": {
+        "FIRE_EXTINGUISHER": 0.2,
+        "EXIT_DOOR": 0.2,
+        "EXIT_SIGN": 0.2,
+        "OBSTACLE": 0.2
+      },
+      "iou_nms": 0.5,
+      "macro_precision": 0.1597,
+      "macro_recall": 0.112,
+      "macro_f1": 0.1184,
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 423,
+          "fp": 430,
+          "fn": 525,
+          "precision": 0.4959,
+          "recall": 0.4462,
+          "f1": 0.4697
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 1,
+          "fp": 6,
+          "fn": 497,
+          "precision": 0.1429,
+          "recall": 0.002,
+          "f1": 0.0039
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    {
+      "threshold_policy": {
+        "FIRE_EXTINGUISHER": 0.2,
+        "EXIT_DOOR": 0.2,
+        "EXIT_SIGN": 0.2,
+        "OBSTACLE": 0.2
+      },
+      "iou_nms": 0.55,
+      "macro_precision": 0.154,
+      "macro_recall": 0.1123,
+      "macro_f1": 0.1159,
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 424,
+          "fp": 472,
+          "fn": 524,
+          "precision": 0.4732,
+          "recall": 0.4473,
+          "f1": 0.4599
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 1,
+          "fp": 6,
+          "fn": 497,
+          "precision": 0.1429,
+          "recall": 0.002,
+          "f1": 0.0039
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    }
+  ],
+  "sweep_c_decoupled_policies": [
+    {
+      "threshold_policy": {
+        "FIRE_EXTINGUISHER": 0.2,
+        "EXIT_SIGN": 0.2,
+        "EXIT_DOOR": 0.2,
+        "OBSTACLE": 0.2
+      },
+      "iou_nms": 0.45,
+      "macro_precision": 0.1668,
+      "macro_recall": 0.1113,
+      "macro_f1": 0.121,
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 420,
+          "fp": 381,
+          "fn": 528,
+          "precision": 0.5243,
+          "recall": 0.443,
+          "f1": 0.4802
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 1,
+          "fp": 6,
+          "fn": 497,
+          "precision": 0.1429,
+          "recall": 0.002,
+          "f1": 0.0039
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      },
+      "policy_name": "Baseline Uniform"
+    },
+    {
+      "threshold_policy": {
+        "FIRE_EXTINGUISHER": 0.15,
+        "EXIT_SIGN": 0.15,
+        "EXIT_DOOR": 0.15,
+        "OBSTACLE": 0.15
+      },
+      "iou_nms": 0.45,
+      "macro_precision": 0.1592,
+      "macro_recall": 0.1317,
+      "macro_f1": 0.1205,
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 490,
+          "fp": 679,
+          "fn": 458,
+          "precision": 0.4192,
+          "recall": 0.5169,
+          "f1": 0.463
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 5,
+          "fp": 18,
+          "fn": 493,
+          "precision": 0.2174,
+          "recall": 0.01,
+          "f1": 0.0191
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      },
+      "policy_name": "Operational Uniform tau=0.15"
+    },
+    {
+      "threshold_policy": {
+        "FIRE_EXTINGUISHER": 0.2,
+        "EXIT_SIGN": 0.1,
+        "EXIT_DOOR": 0.05,
+        "OBSTACLE": 0.05
+      },
+      "iou_nms": 0.45,
+      "macro_precision": 0.1947,
+      "macro_recall": 0.1318,
+      "macro_f1": 0.1517,
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 420,
+          "fp": 381,
+          "fn": 528,
+          "precision": 0.5243,
+          "recall": 0.443,
+          "f1": 0.4802
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 42,
+          "fp": 123,
+          "fn": 456,
+          "precision": 0.2545,
+          "recall": 0.0843,
+          "f1": 0.1266
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      },
+      "policy_name": "Decoupled Opt-1 (FE=0.20, ES=0.10)"
+    },
+    {
+      "threshold_policy": {
+        "FIRE_EXTINGUISHER": 0.22,
+        "EXIT_SIGN": 0.08,
+        "EXIT_DOOR": 0.05,
+        "OBSTACLE": 0.05
+      },
+      "iou_nms": 0.45,
+      "macro_precision": 0.1947,
+      "macro_recall": 0.1377,
+      "macro_f1": 0.1609,
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 387,
+          "fp": 329,
+          "fn": 561,
+          "precision": 0.5405,
+          "recall": 0.4082,
+          "f1": 0.4651
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 71,
+          "fp": 227,
+          "fn": 427,
+          "precision": 0.2383,
+          "recall": 0.1426,
+          "f1": 0.1784
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      },
+      "policy_name": "Decoupled Opt-2 (FE=0.22, ES=0.08)"
+    },
+    {
+      "threshold_policy": {
+        "FIRE_EXTINGUISHER": 0.18,
+        "EXIT_SIGN": 0.1,
+        "EXIT_DOOR": 0.05,
+        "OBSTACLE": 0.05
+      },
+      "iou_nms": 0.45,
+      "macro_precision": 0.184,
+      "macro_recall": 0.1374,
+      "macro_f1": 0.1499,
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 441,
+          "fp": 475,
+          "fn": 507,
+          "precision": 0.4814,
+          "recall": 0.4652,
+          "f1": 0.4732
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 42,
+          "fp": 123,
+          "fn": 456,
+          "precision": 0.2545,
+          "recall": 0.0843,
+          "f1": 0.1266
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      },
+      "policy_name": "Decoupled Opt-3 (FE=0.18, ES=0.10)"
+    }
+  ]
+}

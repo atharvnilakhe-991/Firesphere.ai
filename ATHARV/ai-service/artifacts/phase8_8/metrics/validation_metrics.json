@@ -1,0 +1,115 @@
+{
+  "modelId": "firesphere-perception-candidate-v0.8.8",
+  "modelVersion": "0.8.8-candidate",
+  "datasetName": "phase8_8_validation_split",
+  "evaluationStatus": "COMPLETED",
+  "totalTestImages": 928,
+  "totalGroundTruthObjects": 1443,
+  "totalPredictedObjects": 869,
+  "mAP50": 0.036,
+  "mAP50_95": 0.0121,
+  "meanPrecision": 0.125,
+  "meanRecall": 0.0947,
+  "meanF1": 0.1009,
+  "perClassMetrics": {
+    "FIRE_EXTINGUISHER": {
+      "classId": 0,
+      "className": "FIRE_EXTINGUISHER",
+      "support": 854,
+      "truePositives": 309,
+      "falsePositives": 489,
+      "falseNegatives": 545,
+      "precision": 0.3872,
+      "recall": 0.3618,
+      "f1Score": 0.3741,
+      "ap50": 0.1419,
+      "ap50_95": 0.0482
+    },
+    "EXIT_DOOR": {
+      "classId": 1,
+      "className": "EXIT_DOOR",
+      "support": 117,
+      "truePositives": 0,
+      "falsePositives": 0,
+      "falseNegatives": 117,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1Score": 0.0,
+      "ap50": 0.0,
+      "ap50_95": 0.0
+    },
+    "EXIT_SIGN": {
+      "classId": 2,
+      "className": "EXIT_SIGN",
+      "support": 469,
+      "truePositives": 8,
+      "falsePositives": 63,
+      "falseNegatives": 461,
+      "precision": 0.1127,
+      "recall": 0.0171,
+      "f1Score": 0.0297,
+      "ap50": 0.0022,
+      "ap50_95": 0.0003
+    },
+    "OBSTACLE": {
+      "classId": 3,
+      "className": "OBSTACLE",
+      "support": 3,
+      "truePositives": 0,
+      "falsePositives": 0,
+      "falseNegatives": 3,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1Score": 0.0,
+      "ap50": 0.0,
+      "ap50_95": 0.0
+    }
+  },
+  "confusionMatrix": {
+    "classNames": [
+      "FIRE_EXTINGUISHER",
+      "EXIT_DOOR",
+      "EXIT_SIGN",
+      "OBSTACLE",
+      "BACKGROUND"
+    ],
+    "matrix": [
+      [
+        309,
+        0,
+        0,
+        0,
+        489
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        8,
+        0,
+        63
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        545,
+        117,
+        461,
+        3,
+        0
+      ]
+    ]
+  },
+  "warnings": []
+}

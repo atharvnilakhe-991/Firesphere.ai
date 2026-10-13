@@ -1,0 +1,904 @@
+{
+  "evaluation_name": "Phase 14 CV + Qwen2.5-VL Joint Evaluation",
+  "timestamp": "2026-10-13T00:03:32Z",
+  "cv_results": [
+    {
+      "sample_id": "sample_01",
+      "filename": "sample_01_extinguisher.png",
+      "expected_categories": [
+        "FIRE_EXTINGUISHER"
+      ],
+      "prod_mode_detection_count": 0,
+      "eval_mode_detection_count": 0,
+      "eval_detections": []
+    },
+    {
+      "sample_id": "sample_02",
+      "filename": "sample_02_exit_sign.png",
+      "expected_categories": [
+        "EXIT_SIGN"
+      ],
+      "prod_mode_detection_count": 0,
+      "eval_mode_detection_count": 0,
+      "eval_detections": []
+    },
+    {
+      "sample_id": "sample_03",
+      "filename": "sample_03_doorway.png",
+      "expected_categories": [
+        "EXIT_DOOR"
+      ],
+      "prod_mode_detection_count": 0,
+      "eval_mode_detection_count": 0,
+      "eval_detections": []
+    },
+    {
+      "sample_id": "sample_04",
+      "filename": "sample_04_obstacle_doorway.png",
+      "expected_categories": [
+        "EXIT_DOOR",
+        "OBSTACLE"
+      ],
+      "prod_mode_detection_count": 0,
+      "eval_mode_detection_count": 0,
+      "eval_detections": []
+    },
+    {
+      "sample_id": "sample_05",
+      "filename": "sample_05_empty_wall.png",
+      "expected_categories": [],
+      "prod_mode_detection_count": 0,
+      "eval_mode_detection_count": 0,
+      "eval_detections": []
+    },
+    {
+      "sample_id": "sample_06",
+      "filename": "sample_06_partially_obscured_extinguisher.png",
+      "expected_categories": [
+        "FIRE_EXTINGUISHER",
+        "OBSTACLE"
+      ],
+      "prod_mode_detection_count": 0,
+      "eval_mode_detection_count": 0,
+      "eval_detections": []
+    },
+    {
+      "sample_id": "sample_07",
+      "filename": "sample_07_blurred_scene.png",
+      "expected_categories": [
+        "FIRE_EXTINGUISHER",
+        "EXIT_SIGN"
+      ],
+      "prod_mode_detection_count": 0,
+      "eval_mode_detection_count": 0,
+      "eval_detections": []
+    },
+    {
+      "sample_id": "sample_08",
+      "filename": "sample_08_multi_object.png",
+      "expected_categories": [
+        "EXIT_SIGN",
+        "EXIT_DOOR",
+        "FIRE_EXTINGUISHER"
+      ],
+      "prod_mode_detection_count": 0,
+      "eval_mode_detection_count": 0,
+      "eval_detections": []
+    },
+    {
+      "sample_id": "sample_09",
+      "filename": "sample_09_no_fire_safety.png",
+      "expected_categories": [],
+      "prod_mode_detection_count": 0,
+      "eval_mode_detection_count": 0,
+      "eval_detections": []
+    },
+    {
+      "sample_id": "sample_10",
+      "filename": "sample_10_ambiguous.png",
+      "expected_categories": [
+        "ELECTRICAL_PANEL"
+      ],
+      "prod_mode_detection_count": 0,
+      "eval_mode_detection_count": 0,
+      "eval_detections": []
+    }
+  ],
+  "vlm_results": [
+    {
+      "sample_id": "sample_01",
+      "filename": "sample_01_extinguisher.png",
+      "expected_categories": [
+        "FIRE_EXTINGUISHER"
+      ],
+      "status": "ANALYSIS_COMPLETED_WITH_OBSERVATIONS",
+      "duration_ms": 2583.45,
+      "observation_count": 1,
+      "observations": [
+        {
+          "observationId": "2258093d-3ec6-43e5-ab2a-8401a8d9c1ac",
+          "objectCategory": "FIRE_EXTINGUISHER",
+          "potentialHazardCategory": "NONE",
+          "confidence": 0.9,
+          "box_ymin_xmin_ymax_xmax": [
+            0.36,
+            0.27,
+            0.56,
+            0.705
+          ],
+          "description": "Red fire extinguisher with a yellow label and a black hose attached.",
+          "officerReviewRequirement": "MANDATORY_OFFICER_REVIEW"
+        }
+      ],
+      "raw_response": {
+        "isInconclusive": false,
+        "inconclusiveReason": null,
+        "observations": [
+          {
+            "objectCategory": "FIRE_EXTINGUISHER",
+            "potentialHazardCategory": "NONE",
+            "observationDescription": "Red fire extinguisher with a yellow label and a black hose attached.",
+            "evidenceStatus": "DETECTED",
+            "box_2d": [
+              360.0,
+              270.0,
+              560.0,
+              705.0
+            ],
+            "confidence": 0.9,
+            "uncertaintyOrLimitations": [],
+            "severityProposal": "INFORMATIONAL"
+          }
+        ]
+      },
+      "inconclusive_reason": null,
+      "error": null,
+      "matched_ious": [
+        {
+          "ground_truth_category": "FIRE_EXTINGUISHER",
+          "best_iou": 0.2619
+        }
+      ],
+      "requires_officer_verification": true
+    },
+    {
+      "sample_id": "sample_02",
+      "filename": "sample_02_exit_sign.png",
+      "expected_categories": [
+        "EXIT_SIGN"
+      ],
+      "status": "ANALYSIS_COMPLETED_WITH_OBSERVATIONS",
+      "duration_ms": 2350.41,
+      "observation_count": 1,
+      "observations": [
+        {
+          "observationId": "eb3306a7-bcdb-4306-8fde-d30529654097",
+          "objectCategory": "EXIT_SIGN",
+          "potentialHazardCategory": "NONE",
+          "confidence": null,
+          "box_ymin_xmin_ymax_xmax": [
+            0.312,
+            0.226,
+            0.586,
+            0.39
+          ],
+          "description": "Green exit sign on a white background",
+          "officerReviewRequirement": "MANDATORY_OFFICER_REVIEW"
+        }
+      ],
+      "raw_response": {
+        "isInconclusive": false,
+        "inconclusiveReason": null,
+        "observations": [
+          {
+            "objectCategory": "EXIT_SIGN",
+            "potentialHazardCategory": "NONE",
+            "observationDescription": "Green exit sign on a white background",
+            "evidenceStatus": "DETECTED",
+            "box_2d": [
+              312.0,
+              226.0,
+              586.0,
+              390.0
+            ],
+            "confidence": null,
+            "uncertaintyOrLimitations": [],
+            "severityProposal": "INFORMATIONAL"
+          }
+        ]
+      },
+      "inconclusive_reason": null,
+      "error": null,
+      "matched_ious": [
+        {
+          "ground_truth_category": "EXIT_SIGN",
+          "best_iou": 0.0593
+        }
+      ],
+      "requires_officer_verification": true
+    },
+    {
+      "sample_id": "sample_03",
+      "filename": "sample_03_doorway.png",
+      "expected_categories": [
+        "EXIT_DOOR"
+      ],
+      "status": "ANALYSIS_COMPLETED_WITH_OBSERVATIONS",
+      "duration_ms": 2483.45,
+      "observation_count": 1,
+      "observations": [
+        {
+          "observationId": "0d37925f-c530-495e-b79b-472a24b26ed2",
+          "objectCategory": "EXIT_DOOR",
+          "potentialHazardCategory": "NONE",
+          "confidence": 0.9,
+          "box_ymin_xmin_ymax_xmax": [
+            0.273,
+            0.191,
+            0.624,
+            0.818
+          ],
+          "description": "A closed door with a black handle and a black lock.",
+          "officerReviewRequirement": "MANDATORY_OFFICER_REVIEW"
+        }
+      ],
+      "raw_response": {
+        "isInconclusive": false,
+        "inconclusiveReason": null,
+        "observations": [
+          {
+            "objectCategory": "EXIT_DOOR",
+            "potentialHazardCategory": "NONE",
+            "observationDescription": "A closed door with a black handle and a black lock.",
+            "evidenceStatus": "DETECTED",
+            "box_2d": [
+              273.0,
+              191.0,
+              624.0,
+              818.0
+            ],
+            "confidence": 0.9,
+            "uncertaintyOrLimitations": [],
+            "severityProposal": "INFORMATIONAL"
+          }
+        ]
+      },
+      "inconclusive_reason": null,
+      "error": null,
+      "matched_ious": [
+        {
+          "ground_truth_category": "EXIT_DOOR",
+          "best_iou": 0.3802
+        }
+      ],
+      "requires_officer_verification": true
+    },
+    {
+      "sample_id": "sample_04",
+      "filename": "sample_04_obstacle_doorway.png",
+      "expected_categories": [
+        "EXIT_DOOR",
+        "OBSTACLE"
+      ],
+      "status": "ANALYSIS_COMPLETED_WITH_OBSERVATIONS",
+      "duration_ms": 2494.96,
+      "observation_count": 1,
+      "observations": [
+        {
+          "observationId": "398590d2-af40-4dc4-a345-1b9a4074938a",
+          "objectCategory": "EXIT_DOOR",
+          "potentialHazardCategory": "NONE",
+          "confidence": null,
+          "box_ymin_xmin_ymax_xmax": [
+            0.274,
+            0.192,
+            0.622,
+            0.792
+          ],
+          "description": "A closed door with a brown cross pattern on the bottom half.",
+          "officerReviewRequirement": "MANDATORY_OFFICER_REVIEW"
+        }
+      ],
+      "raw_response": {
+        "isInconclusive": false,
+        "inconclusiveReason": null,
+        "observations": [
+          {
+            "objectCategory": "EXIT_DOOR",
+            "potentialHazardCategory": "NONE",
+            "observationDescription": "A closed door with a brown cross pattern on the bottom half.",
+            "evidenceStatus": "DETECTED",
+            "box_2d": [
+              274.0,
+              192.0,
+              622.0,
+              792.0
+            ],
+            "confidence": null,
+            "uncertaintyOrLimitations": [],
+            "severityProposal": "INFORMATIONAL"
+          }
+        ]
+      },
+      "inconclusive_reason": null,
+      "error": null,
+      "matched_ious": [
+        {
+          "ground_truth_category": "EXIT_DOOR",
+          "best_iou": 0.3883
+        },
+        {
+          "ground_truth_category": "OBSTACLE",
+          "best_iou": 0.0
+        }
+      ],
+      "requires_officer_verification": true
+    },
+    {
+      "sample_id": "sample_05",
+      "filename": "sample_05_empty_wall.png",
+      "expected_categories": [],
+      "status": "ANALYSIS_COMPLETED_WITH_OBSERVATIONS",
+      "duration_ms": 2459.02,
+      "observation_count": 1,
+      "observations": [
+        {
+          "observationId": "0f6e19fc-e194-48b4-8d1f-8f1c55e45482",
+          "objectCategory": "EXIT_SIGN",
+          "potentialHazardCategory": "NONE",
+          "confidence": 0.9,
+          "box_ymin_xmin_ymax_xmax": [
+            0.2,
+            0.2,
+            0.4,
+            0.4
+          ],
+          "description": "Emergency exit sign visible on the wall.",
+          "officerReviewRequirement": "MANDATORY_OFFICER_REVIEW"
+        }
+      ],
+      "raw_response": {
+        "isInconclusive": false,
+        "inconclusiveReason": null,
+        "observations": [
+          {
+            "objectCategory": "EXIT_SIGN",
+            "potentialHazardCategory": "NONE",
+            "observationDescription": "Emergency exit sign visible on the wall.",
+            "evidenceStatus": "DETECTED",
+            "box_2d": [
+              200.0,
+              200.0,
+              400.0,
+              400.0
+            ],
+            "confidence": 0.9,
+            "uncertaintyOrLimitations": [],
+            "severityProposal": "INFORMATIONAL"
+          }
+        ]
+      },
+      "inconclusive_reason": null,
+      "error": null,
+      "matched_ious": [],
+      "requires_officer_verification": true
+    },
+    {
+      "sample_id": "sample_06",
+      "filename": "sample_06_partially_obscured_extinguisher.png",
+      "expected_categories": [
+        "FIRE_EXTINGUISHER",
+        "OBSTACLE"
+      ],
+      "status": "ANALYSIS_COMPLETED_WITH_OBSERVATIONS",
+      "duration_ms": 2561.56,
+      "observation_count": 1,
+      "observations": [
+        {
+          "observationId": "0374131b-1d13-4cd8-88bd-026acade754f",
+          "objectCategory": "FIRE_EXTINGUISHER",
+          "potentialHazardCategory": "NONE",
+          "confidence": 0.9,
+          "box_ymin_xmin_ymax_xmax": [
+            0.362,
+            0.289,
+            0.562,
+            0.702
+          ],
+          "description": "Red fire extinguisher with yellow label and black nozzle.",
+          "officerReviewRequirement": "MANDATORY_OFFICER_REVIEW"
+        }
+      ],
+      "raw_response": {
+        "isInconclusive": false,
+        "inconclusiveReason": null,
+        "observations": [
+          {
+            "objectCategory": "FIRE_EXTINGUISHER",
+            "potentialHazardCategory": "NONE",
+            "observationDescription": "Red fire extinguisher with yellow label and black nozzle.",
+            "evidenceStatus": "DETECTED",
+            "box_2d": [
+              362.0,
+              289.0,
+              562.0,
+              702.0
+            ],
+            "confidence": 0.9,
+            "uncertaintyOrLimitations": [],
+            "severityProposal": "INFORMATIONAL"
+          }
+        ]
+      },
+      "inconclusive_reason": null,
+      "error": null,
+      "matched_ious": [
+        {
+          "ground_truth_category": "FIRE_EXTINGUISHER",
+          "best_iou": 0.2702
+        },
+        {
+          "ground_truth_category": "OBSTACLE",
+          "best_iou": 0.0
+        }
+      ],
+      "requires_officer_verification": true
+    },
+    {
+      "sample_id": "sample_07",
+      "filename": "sample_07_blurred_scene.png",
+      "expected_categories": [
+        "FIRE_EXTINGUISHER",
+        "EXIT_SIGN"
+      ],
+      "status": "ANALYSIS_COMPLETED_WITH_OBSERVATIONS",
+      "duration_ms": 2427.72,
+      "observation_count": 1,
+      "observations": [
+        {
+          "observationId": "95c4541f-ead4-4afd-a457-7b61caddea2e",
+          "objectCategory": "EXIT_SIGN",
+          "potentialHazardCategory": "NONE",
+          "confidence": null,
+          "box_ymin_xmin_ymax_xmax": [
+            0.52,
+            0.19,
+            0.78,
+            0.37
+          ],
+          "description": "A green exit sign is visible on the right side of the image.",
+          "officerReviewRequirement": "MANDATORY_OFFICER_REVIEW"
+        }
+      ],
+      "raw_response": {
+        "isInconclusive": false,
+        "inconclusiveReason": null,
+        "observations": [
+          {
+            "objectCategory": "EXIT_SIGN",
+            "potentialHazardCategory": "NONE",
+            "observationDescription": "A green exit sign is visible on the right side of the image.",
+            "evidenceStatus": "DETECTED",
+            "box_2d": [
+              520.0,
+              190.0,
+              780.0,
+              370.0
+            ],
+            "confidence": null,
+            "uncertaintyOrLimitations": [],
+            "severityProposal": "INFORMATIONAL"
+          }
+        ]
+      },
+      "inconclusive_reason": null,
+      "error": null,
+      "matched_ious": [
+        {
+          "ground_truth_category": "FIRE_EXTINGUISHER",
+          "best_iou": 0.0
+        },
+        {
+          "ground_truth_category": "EXIT_SIGN",
+          "best_iou": 0.0
+        }
+      ],
+      "requires_officer_verification": true
+    },
+    {
+      "sample_id": "sample_08",
+      "filename": "sample_08_multi_object.png",
+      "expected_categories": [
+        "EXIT_SIGN",
+        "EXIT_DOOR",
+        "FIRE_EXTINGUISHER"
+      ],
+      "status": "ANALYSIS_COMPLETED_WITH_OBSERVATIONS",
+      "duration_ms": 5853.09,
+      "observation_count": 3,
+      "observations": [
+        {
+          "observationId": "d1522eb1-875c-419b-9f1e-c23c4979856c",
+          "objectCategory": "EXIT_SIGN",
+          "potentialHazardCategory": "NONE",
+          "confidence": null,
+          "box_ymin_xmin_ymax_xmax": [
+            0.2,
+            0.11,
+            0.45,
+            0.22
+          ],
+          "description": "Green exit sign above the door",
+          "officerReviewRequirement": "MANDATORY_OFFICER_REVIEW"
+        },
+        {
+          "observationId": "61ff444f-bc67-43ad-98cf-aeb71c7d0720",
+          "objectCategory": "EXIT_DOOR",
+          "potentialHazardCategory": "NONE",
+          "confidence": null,
+          "box_ymin_xmin_ymax_xmax": [
+            0.19,
+            0.23,
+            0.45,
+            0.79
+          ],
+          "description": "Closed door with a black handle",
+          "officerReviewRequirement": "MANDATORY_OFFICER_REVIEW"
+        },
+        {
+          "observationId": "191daa40-68e6-49db-a2e6-9061670ac9b5",
+          "objectCategory": "FIRE_EXTINGUISHER",
+          "potentialHazardCategory": "NONE",
+          "confidence": null,
+          "box_ymin_xmin_ymax_xmax": [
+            0.61,
+            0.38,
+            0.78,
+            0.73
+          ],
+          "description": "Red fire extinguisher with a yellow label",
+          "officerReviewRequirement": "MANDATORY_OFFICER_REVIEW"
+        }
+      ],
+      "raw_response": {
+        "isInconclusive": false,
+        "inconclusiveReason": null,
+        "observations": [
+          {
+            "objectCategory": "EXIT_SIGN",
+            "potentialHazardCategory": "NONE",
+            "observationDescription": "Green exit sign above the door",
+            "evidenceStatus": "DETECTED",
+            "box_2d": [
+              200.0,
+              110.0,
+              450.0,
+              220.0
+            ],
+            "confidence": null,
+            "uncertaintyOrLimitations": [],
+            "severityProposal": "INFORMATIONAL"
+          },
+          {
+            "objectCategory": "EXIT_DOOR",
+            "potentialHazardCategory": "NONE",
+            "observationDescription": "Closed door with a black handle",
+            "evidenceStatus": "DETECTED",
+            "box_2d": [
+              190.0,
+              230.0,
+              450.0,
+              790.0
+            ],
+            "confidence": null,
+            "uncertaintyOrLimitations": [],
+            "severityProposal": "INFORMATIONAL"
+          },
+          {
+            "objectCategory": "FIRE_EXTINGUISHER",
+            "potentialHazardCategory": "NONE",
+            "observationDescription": "Red fire extinguisher with a yellow label",
+            "evidenceStatus": "DETECTED",
+            "box_2d": [
+              610.0,
+              380.0,
+              780.0,
+              730.0
+            ],
+            "confidence": null,
+            "uncertaintyOrLimitations": [],
+            "severityProposal": "INFORMATIONAL"
+          }
+        ]
+      },
+      "inconclusive_reason": null,
+      "error": null,
+      "matched_ious": [
+        {
+          "ground_truth_category": "EXIT_SIGN",
+          "best_iou": 0.001
+        },
+        {
+          "ground_truth_category": "EXIT_DOOR",
+          "best_iou": 0.1863
+        },
+        {
+          "ground_truth_category": "FIRE_EXTINGUISHER",
+          "best_iou": 0.0624
+        }
+      ],
+      "requires_officer_verification": true
+    },
+    {
+      "sample_id": "sample_09",
+      "filename": "sample_09_no_fire_safety.png",
+      "expected_categories": [],
+      "status": "ANALYSIS_COMPLETED_WITH_OBSERVATIONS",
+      "duration_ms": 4176.71,
+      "observation_count": 2,
+      "observations": [
+        {
+          "observationId": "710a1900-eeea-4a34-9c3c-d3e5736244e0",
+          "objectCategory": "EXIT_SIGN",
+          "potentialHazardCategory": "NONE",
+          "confidence": null,
+          "box_ymin_xmin_ymax_xmax": [
+            0.13,
+            0.16,
+            0.48,
+            0.42
+          ],
+          "description": "A blue exit sign is present on the wall.",
+          "officerReviewRequirement": "MANDATORY_OFFICER_REVIEW"
+        },
+        {
+          "observationId": "a129b8f2-3f0b-4a97-b636-89f15a447170",
+          "objectCategory": "EXIT_DOOR",
+          "potentialHazardCategory": "NONE",
+          "confidence": null,
+          "box_ymin_xmin_ymax_xmax": [
+            0.47,
+            0.5,
+            0.81,
+            0.76
+          ],
+          "description": "A brown door is present on the floor.",
+          "officerReviewRequirement": "MANDATORY_OFFICER_REVIEW"
+        }
+      ],
+      "raw_response": {
+        "isInconclusive": false,
+        "inconclusiveReason": null,
+        "observations": [
+          {
+            "objectCategory": "EXIT_SIGN",
+            "potentialHazardCategory": "NONE",
+            "observationDescription": "A blue exit sign is present on the wall.",
+            "evidenceStatus": "DETECTED",
+            "box_2d": [
+              130.0,
+              160.0,
+              480.0,
+              420.0
+            ],
+            "confidence": null,
+            "uncertaintyOrLimitations": [],
+            "severityProposal": "INFORMATIONAL"
+          },
+          {
+            "objectCategory": "EXIT_DOOR",
+            "potentialHazardCategory": "NONE",
+            "observationDescription": "A brown door is present on the floor.",
+            "evidenceStatus": "DETECTED",
+            "box_2d": [
+              470.0,
+              500.0,
+              810.0,
+              760.0
+            ],
+            "confidence": null,
+            "uncertaintyOrLimitations": [],
+            "severityProposal": "INFORMATIONAL"
+          }
+        ]
+      },
+      "inconclusive_reason": null,
+      "error": null,
+      "matched_ious": [],
+      "requires_officer_verification": true
+    },
+    {
+      "sample_id": "sample_10",
+      "filename": "sample_10_ambiguous.png",
+      "expected_categories": [
+        "ELECTRICAL_PANEL"
+      ],
+      "status": "ANALYSIS_COMPLETED_WITH_OBSERVATIONS",
+      "duration_ms": 2563.48,
+      "observation_count": 1,
+      "observations": [
+        {
+          "observationId": "e6d7a0f9-7449-4800-b89e-4e8d73a7b806",
+          "objectCategory": "EXIT_DOOR",
+          "potentialHazardCategory": "NONE",
+          "confidence": null,
+          "box_ymin_xmin_ymax_xmax": [
+            0.525,
+            0.249,
+            0.733,
+            0.538
+          ],
+          "description": "A gray door with a black dot, likely a doorknob or lock, is visible.",
+          "officerReviewRequirement": "MANDATORY_OFFICER_REVIEW"
+        }
+      ],
+      "raw_response": {
+        "isInconclusive": false,
+        "inconclusiveReason": null,
+        "observations": [
+          {
+            "objectCategory": "EXIT_DOOR",
+            "potentialHazardCategory": "NONE",
+            "observationDescription": "A gray door with a black dot, likely a doorknob or lock, is visible.",
+            "evidenceStatus": "DETECTED",
+            "box_2d": [
+              525.0,
+              249.0,
+              733.0,
+              538.0
+            ],
+            "confidence": null,
+            "uncertaintyOrLimitations": [],
+            "severityProposal": "INFORMATIONAL"
+          }
+        ]
+      },
+      "inconclusive_reason": null,
+      "error": null,
+      "matched_ious": [
+        {
+          "ground_truth_category": "ELECTRICAL_PANEL",
+          "best_iou": 0.0
+        }
+      ],
+      "requires_officer_verification": true
+    }
+  ],
+  "reconciliation_scenarios": [
+    {
+      "scenario": "1. CV and VLM Agreement",
+      "reconciliation_status": "DISCREPANCY",
+      "findings_count": 2,
+      "conflict": null
+    },
+    {
+      "scenario": "2. CV-Only Findings",
+      "reconciliation_status": "SINGLE_PROVIDER",
+      "findings_count": 1,
+      "conflict": null
+    },
+    {
+      "scenario": "3. VLM-Only Findings",
+      "reconciliation_status": "SINGLE_PROVIDER",
+      "findings_count": 1,
+      "conflict": null
+    },
+    {
+      "scenario": "4. Discrepancy / Non-overlapping Categories",
+      "reconciliation_status": "DISCREPANCY",
+      "findings_count": 2,
+      "conflict": null
+    },
+    {
+      "scenario": "5. Both Models Empty",
+      "reconciliation_status": "NO_OBSERVATIONS",
+      "findings_count": 0,
+      "conflict": null
+    },
+    {
+      "scenario": "6. CV Unavailable / Failed",
+      "reconciliation_status": "DISCREPANCY",
+      "findings_count": 1,
+      "conflict": {
+        "conflictType": "UNRESOLVED_DISAGREEMENT",
+        "description": "CV baseline provider failed during analysis; Gemini VLM preserved.",
+        "geminiObservation": {
+          "providerName": "ollama",
+          "modelId": "qwen2.5vl:3b",
+          "executionStatus": "ANALYSIS_COMPLETED_WITH_OBSERVATIONS",
+          "componentStatus": "SUCCESS_WITH_OBSERVATIONS",
+          "timestamp": "2026-10-12T18:33:32.264565+00:00"
+        },
+        "cvObservation": {
+          "providerName": "firesphere-cv-baseline",
+          "modelId": "firesphere-cv-baseline",
+          "modelVersion": "0.8.0",
+          "executionStatus": "FAILED",
+          "componentStatus": "FAILED",
+          "timestamp": "2026-10-12T18:33:32.264574+00:00"
+        },
+        "requiresOfficerAttention": true
+      }
+    },
+    {
+      "scenario": "7. VLM Unavailable / Failed",
+      "reconciliation_status": "DISCREPANCY",
+      "findings_count": 1,
+      "conflict": {
+        "conflictType": "UNRESOLVED_DISAGREEMENT",
+        "description": "Gemini provider failed during analysis; CV baseline preserved.",
+        "geminiObservation": {
+          "providerName": "ollama",
+          "modelId": "qwen2.5vl:3b",
+          "executionStatus": "ANALYSIS_FAILED",
+          "componentStatus": "FAILED",
+          "timestamp": "2026-10-12T18:33:32.264783+00:00",
+          "error": "Ollama connection timeout"
+        },
+        "cvObservation": {
+          "providerName": "firesphere-cv-baseline",
+          "modelId": "firesphere-cv-baseline",
+          "modelVersion": "0.8.0",
+          "executionStatus": "SUCCESS",
+          "componentStatus": "SUCCESS_WITH_OBSERVATIONS",
+          "timestamp": "2026-10-12T18:33:32.264789+00:00"
+        },
+        "requiresOfficerAttention": true
+      }
+    },
+    {
+      "scenario": "8. Invalid Evidence / UUID Mismatch",
+      "reconciliation_status": "REJECTED_SAFELY: InvalidEvidenceException",
+      "findings_count": 0,
+      "conflict": null
+    },
+    {
+      "scenario": "9. Ambiguous / Partial Inconclusive",
+      "reconciliation_status": "PARTIAL_INCONCLUSIVE",
+      "findings_count": 1,
+      "conflict": {
+        "conflictType": "UNRESOLVED_DISAGREEMENT",
+        "description": "Visual evidence marked inconclusive by Gemini: Severe blur preventing optical recognition",
+        "geminiObservation": {
+          "status": "INCONCLUSIVE",
+          "reason": "Severe blur preventing optical recognition"
+        },
+        "cvObservation": {
+          "providerName": "firesphere-cv-baseline",
+          "modelId": "firesphere-cv-baseline",
+          "modelVersion": "0.8.0",
+          "executionStatus": "SUCCESS",
+          "componentStatus": "SUCCESS_WITH_OBSERVATIONS",
+          "timestamp": "2026-10-12T18:33:32.265100+00:00"
+        },
+        "requiresOfficerAttention": true
+      }
+    },
+    {
+      "scenario": "10. Malformed VLM Output",
+      "reconciliation_status": "DISCREPANCY",
+      "findings_count": 0,
+      "conflict": {
+        "conflictType": "UNRESOLVED_DISAGREEMENT",
+        "description": "Gemini provider failed during analysis; CV baseline preserved.",
+        "geminiObservation": {
+          "providerName": "ollama",
+          "modelId": "qwen2.5vl:3b",
+          "executionStatus": "ANALYSIS_INVALID_RESPONSE",
+          "componentStatus": "FAILED",
+          "timestamp": "2026-10-12T18:33:32.265331+00:00",
+          "error": "Malformed JSON syntax"
+        },
+        "cvObservation": {
+          "providerName": "firesphere-cv-baseline",
+          "modelId": "firesphere-cv-baseline",
+          "modelVersion": "0.8.0",
+          "executionStatus": "NO_DETECTIONS",
+          "componentStatus": "SUCCESS_WITH_NO_OBSERVATIONS",
+          "timestamp": "2026-10-12T18:33:32.265339+00:00"
+        },
+        "requiresOfficerAttention": true
+      }
+    }
+  ]
+}

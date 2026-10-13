@@ -1,0 +1,19 @@
+{
+  "name": "firesphere-ai",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "install:backend": "npm install --prefix backend",
+    "install:frontend": "npm install --prefix frontend",
+    "install:mobile": "npm install --prefix mobile",
+    "dev": "concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\"",
+    "dev:mobile": "npm run start --prefix mobile",
+    "build": "npm run build --prefix frontend",
+    "start": "npm run start --prefix backend",
+    "start:azure": "npm run build --prefix frontend && npm run start --prefix backend",
+    "deploy:azure": "npm run build --prefix frontend"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1"
+  }
+}

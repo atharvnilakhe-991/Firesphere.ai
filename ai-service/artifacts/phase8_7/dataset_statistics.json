@@ -1,0 +1,55 @@
+{
+  "dataset_name": "firesphere-perception-dataset-phase8.7-candidate",
+  "total_images": 4858,
+  "splits": {
+    "train": 3440,
+    "test": 488,
+    "val": 930
+  },
+  "class_boxes": {
+    "FIRE_EXTINGUISHER": {
+      "train": 2813,
+      "val": 854,
+      "test": 445,
+      "total": 4112
+    },
+    "EXIT_DOOR": {
+      "train": 544,
+      "val": 120,
+      "test": 75,
+      "total": 739
+    },
+    "EXIT_SIGN": {
+      "train": 1566,
+      "val": 469,
+      "test": 204,
+      "total": 2239
+    },
+    "OBSTACLE": {
+      "train": 57,
+      "val": 3,
+      "test": 15,
+      "total": 75
+    }
+  },
+  "physical_scenes_by_class": {
+    "EXIT_DOOR": {
+      "phase8_3_baseline_scenes": 14,
+      "phase8_7_expanded_scenes": 531,
+      "expansion_ratio": 37.93
+    },
+    "OBSTACLE": {
+      "phase8_3_baseline_scenes": 30,
+      "phase8_7_scenes": 30,
+      "limitation_note": "Candidate sources (trash_can, sand_bucket) rejected due to catalog backgrounds and safety semantics."
+    },
+    "FIRE_EXTINGUISHER": {
+      "phase8_3_baseline_scenes": ">2000",
+      "phase8_7_scenes": ">2000"
+    },
+    "EXIT_SIGN": {
+      "phase8_3_baseline_scenes": ">1500",
+      "phase8_7_scenes": ">1500"
+    }
+  }
+}

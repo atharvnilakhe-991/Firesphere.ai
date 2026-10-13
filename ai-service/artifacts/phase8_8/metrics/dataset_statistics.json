@@ -1,0 +1,36 @@
+{
+  "dataset_id": "phase8_8_audited",
+  "total_images": 4841,
+  "split_breakdown": {
+    "train": 3427,
+    "val": 928,
+    "test": 486
+  },
+  "total_boxes": 7140,
+  "boxes_by_class": {
+    "FIRE_EXTINGUISHER": 4112,
+    "EXIT_DOOR": 714,
+    "EXIT_SIGN": 2239,
+    "OBSTACLE": 75
+  },
+  "split_boxes": {
+    "train": {
+      "FIRE_EXTINGUISHER": 2813,
+      "EXIT_DOOR": 524,
+      "EXIT_SIGN": 1566,
+      "OBSTACLE": 57
+    },
+    "val": {
+      "FIRE_EXTINGUISHER": 854,
+      "EXIT_DOOR": 117,
+      "EXIT_SIGN": 469,
+      "OBSTACLE": 3
+    },
+    "test": {
+      "FIRE_EXTINGUISHER": 445,
+      "EXIT_DOOR": 73,
+      "EXIT_SIGN": 204,
+      "OBSTACLE": 15
+    }
+  }
+}

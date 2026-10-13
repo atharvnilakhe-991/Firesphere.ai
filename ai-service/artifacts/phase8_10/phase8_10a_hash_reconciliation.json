@@ -1,0 +1,111 @@
+{
+  "phase": "8.10A",
+  "task": "Official MobileNetV2 Checkpoint Hash Reconciliation",
+  "reconciliation_timestamp": "2026-10-09T17:35:00+05:30",
+  "checkpoint_evidence": {
+    "local_path": "artifacts/phase8_10/pretrained/mobilenet_v2-b0353104.pth",
+    "file_exists": true,
+    "local_size_bytes": 14212972,
+    "previously_reported_local_size_bytes": 14212972,
+    "size_delta_bytes": 0,
+    "current_local_sha256": "b03531047ffacf1e2488318dcd2aba1126cde36e3bfe1aa5cb07700aeeee9889",
+    "previously_reported_local_sha256": "b03531047ffacf1e2488318dcd2aba1126cde36e3bfe1aa5cb07700aeeee9889",
+    "previously_recorded_expected_sha256": "b0353104d49a37c02b37ba4ef5dd3f3d1b827756f7b9492e73703eb402773cbb",
+    "official_url": "https://download.pytorch.org/models/mobilenet_v2-b0353104.pth"
+  },
+  "official_metadata_audit": {
+    "official_checkpoint_filename": "mobilenet_v2-b0353104.pth",
+    "official_source_repository": "pytorch/vision (torchvision/models/mobilenetv2.py)",
+    "official_entrypoint": "MobileNet_V2_Weights.IMAGENET1K_V1",
+    "official_published_hash_format": "8-character hash prefix in filename",
+    "official_published_hash_prefix": "b0353104",
+    "official_full_sha256_published_by_pytorch": null,
+    "official_full_sha256_availability": "NOT_OFFICIALLY_PUBLISHED_BY_PYTORCH",
+    "third_party_manifest_references": {
+      "imageai_and_sourceforge_manifests": "b03531047ffacf1e2488318dcd2aba1126cde36e3bfe1aa5cb07700aeeee9889",
+      "authoritative_status": "Non-authoritative third-party mirrors; cannot be treated as official PyTorch release metadata"
+    },
+    "verification_method": "Direct inspection of PyTorch/Torchvision source code and PyTorch Hub regex verification implementation"
+  },
+  "hash_reconciliation_table": {
+    "A_current_local_sha256": {
+      "value": "b03531047ffacf1e2488318dcd2aba1126cde36e3bfe1aa5cb07700aeeee9889",
+      "source": "Local file: artifacts/phase8_10/pretrained/mobilenet_v2-b0353104.pth",
+      "verification_method": "hashlib.sha256 computation over local file bytes",
+      "matches_current_local": true,
+      "is_authoritative": false,
+      "conclusion": "Verified bitwise integrity of the locally stored file; unchanged since download"
+    },
+    "B_previously_reported_local_sha256": {
+      "value": "b03531047ffacf1e2488318dcd2aba1126cde36e3bfe1aa5cb07700aeeee9889",
+      "source": "Phase 8.10 execution output and manifest records",
+      "verification_method": "Direct comparison with current local calculation",
+      "matches_current_local": true,
+      "is_authoritative": false,
+      "conclusion": "File has not experienced bit-rot, tampering, or modification since initial download"
+    },
+    "C_previously_recorded_expected_sha256": {
+      "value": "b0353104d49a37c02b37ba4ef5dd3f3d1b827756f7b9492e73703eb402773cbb",
+      "source": "Phase 8.10 initial manifest template",
+      "verification_method": "String comparison against official PyTorch downloads and local file",
+      "matches_current_local": false,
+      "is_authoritative": false,
+      "conclusion": "Unverified template placeholder string generated prior to download authorization; incorrect and superseded"
+    },
+    "D_officially_published_sha256": {
+      "value": "Prefix 'b0353104' published; full 64-char SHA-256 NOT published",
+      "source": "Official PyTorch / Torchvision repository (vision/torchvision/models/mobilenetv2.py)",
+      "verification_method": "Source code inspection of PyTorch Hub and Torchvision models API",
+      "matches_current_local": "PREFIX_MATCH_ONLY",
+      "is_authoritative": true,
+      "conclusion": "PyTorch standard design uses 8-char prefixes; full 64-character SHA-256 is not published by PyTorch"
+    }
+  },
+  "checkpoint_structural_compatibility": {
+    "status": "PASSED",
+    "deserialization_mode": "torch.load(map_location='cpu', weights_only=True)",
+    "container_type": "collections.OrderedDict",
+    "total_keys": 314,
+    "backbone_feature_keys": 312,
+    "classifier_keys": 2,
+    "nan_count": 0,
+    "inf_count": 0,
+    "detector_load_result": {
+      "loaded_tensors": 312,
+      "missing_keys": 0,
+      "unexpected_keys": 0
+    }
+  },
+  "historical_integrity": {
+    "phase8_4_baseline": {
+      "path": "artifacts/phase8_4/checkpoints/best.pt",
+      "expected_sha256": "5f166c4703e090eb51a9171c38ff1c3dd93d7d0c99d06ec8e44562217753c666",
+      "status": "PASSED"
+    },
+    "phase8_5_regressed": {
+      "path": "artifacts/phase8_5/checkpoints/best.pt",
+      "expected_sha256": "54ea8d2a2a124e38a5354913e0818514ea534d0d56ddb087c1e96cb03c20e89a",
+      "status": "PASSED"
+    },
+    "phase8_8_regressed": {
+      "path": "artifacts/phase8_8/checkpoints/best.pt",
+      "expected_sha256": "b12ffccf532d819a1cbdd058bb4673f7270ff71533d9862003249fc5360df7b1",
+      "status": "PASSED"
+    },
+    "dataset_phase8_3_images": 4887,
+    "dataset_phase8_3_test_images": 522,
+    "dataset_phase8_8_images": 4841,
+    "dataset_phase8_8_test_images": 486,
+    "datasets_status": "PASSED"
+  },
+  "governance_and_controls": {
+    "training_performed": false,
+    "phase8_9_started": false,
+    "phase9_started": false,
+    "checkpoint_modified": false,
+    "datasets_modified": false,
+    "historical_phase8_10_gate_preserved": "CHECKPOINT_INTEGRITY_FAILED",
+    "production_status": "NOT_APPROVED",
+    "final_gate": "CHECKPOINT_HASH_REQUIRES_MANUAL_VERIFICATION"
+  }
+}

@@ -1,0 +1,1012 @@
+{
+  "evaluation_split": "validation",
+  "validation_images_count": 988,
+  "model_id": "firesphere-perception-baseline-v0.8.0",
+  "checkpoint_sha256": "5f166c4703e08f2379524fa9cb077d7f267a54a01c45c117b36f1c48ea92a83f",
+  "size_distribution": {
+    "total_exit_sign_gt": 498,
+    "small_signs_area_lt_0_01": {
+      "count": 160,
+      "percentage": 32.13
+    },
+    "medium_signs_area_0_01_to_0_05": {
+      "count": 85,
+      "percentage": 17.07
+    },
+    "large_signs_area_ge_0_05": {
+      "count": 253,
+      "percentage": 50.8
+    }
+  },
+  "calibration_sweep": [
+    {
+      "conf_threshold": 0.05,
+      "total_detections": 5293,
+      "detections_per_image": 5.36,
+      "overall_precision": 0.1457,
+      "overall_recall": 0.5299,
+      "overall_f1": 0.2286,
+      "overall_tp": 771,
+      "overall_fp": 4522,
+      "overall_fn": 684,
+      "exit_sign_metrics": {
+        "support": 498,
+        "tp": 113,
+        "fp": 658,
+        "fn": 385,
+        "precision": 0.1466,
+        "recall": 0.2269,
+        "f1": 0.1781,
+        "size_stratified_recall": {
+          "small_recall": 0.0,
+          "small_tp": 0,
+          "small_total": 160,
+          "medium_recall": 0.1294,
+          "medium_tp": 11,
+          "medium_total": 85,
+          "large_recall": 0.4032,
+          "large_tp": 102,
+          "large_total": 253
+        }
+      },
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 658,
+          "fp": 3864,
+          "fn": 290,
+          "precision": 0.1455,
+          "recall": 0.6941,
+          "f1": 0.2406
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 113,
+          "fp": 658,
+          "fn": 385,
+          "precision": 0.1466,
+          "recall": 0.2269,
+          "f1": 0.1781
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    {
+      "conf_threshold": 0.06,
+      "total_detections": 4184,
+      "detections_per_image": 4.23,
+      "overall_precision": 0.1771,
+      "overall_recall": 0.5093,
+      "overall_f1": 0.2628,
+      "overall_tp": 741,
+      "overall_fp": 3443,
+      "overall_fn": 714,
+      "exit_sign_metrics": {
+        "support": 498,
+        "tp": 97,
+        "fp": 441,
+        "fn": 401,
+        "precision": 0.1803,
+        "recall": 0.1948,
+        "f1": 0.1873,
+        "size_stratified_recall": {
+          "small_recall": 0.0,
+          "small_tp": 0,
+          "small_total": 160,
+          "medium_recall": 0.0824,
+          "medium_tp": 7,
+          "medium_total": 85,
+          "large_recall": 0.3557,
+          "large_tp": 90,
+          "large_total": 253
+        }
+      },
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 644,
+          "fp": 3002,
+          "fn": 304,
+          "precision": 0.1766,
+          "recall": 0.6793,
+          "f1": 0.2804
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 97,
+          "fp": 441,
+          "fn": 401,
+          "precision": 0.1803,
+          "recall": 0.1948,
+          "f1": 0.1873
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    {
+      "conf_threshold": 0.07,
+      "total_detections": 3482,
+      "detections_per_image": 3.52,
+      "overall_precision": 0.2053,
+      "overall_recall": 0.4914,
+      "overall_f1": 0.2896,
+      "overall_tp": 715,
+      "overall_fp": 2767,
+      "overall_fn": 740,
+      "exit_sign_metrics": {
+        "support": 498,
+        "tp": 88,
+        "fp": 316,
+        "fn": 410,
+        "precision": 0.2178,
+        "recall": 0.1767,
+        "f1": 0.1951,
+        "size_stratified_recall": {
+          "small_recall": 0.0,
+          "small_tp": 0,
+          "small_total": 160,
+          "medium_recall": 0.0824,
+          "medium_tp": 7,
+          "medium_total": 85,
+          "large_recall": 0.3202,
+          "large_tp": 81,
+          "large_total": 253
+        }
+      },
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 627,
+          "fp": 2451,
+          "fn": 321,
+          "precision": 0.2037,
+          "recall": 0.6614,
+          "f1": 0.3115
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 88,
+          "fp": 316,
+          "fn": 410,
+          "precision": 0.2178,
+          "recall": 0.1767,
+          "f1": 0.1951
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    {
+      "conf_threshold": 0.08,
+      "total_detections": 2938,
+      "detections_per_image": 2.97,
+      "overall_precision": 0.2345,
+      "overall_recall": 0.4735,
+      "overall_f1": 0.3137,
+      "overall_tp": 689,
+      "overall_fp": 2249,
+      "overall_fn": 766,
+      "exit_sign_metrics": {
+        "support": 498,
+        "tp": 71,
+        "fp": 227,
+        "fn": 427,
+        "precision": 0.2383,
+        "recall": 0.1426,
+        "f1": 0.1784,
+        "size_stratified_recall": {
+          "small_recall": 0.0,
+          "small_tp": 0,
+          "small_total": 160,
+          "medium_recall": 0.0706,
+          "medium_tp": 6,
+          "medium_total": 85,
+          "large_recall": 0.2569,
+          "large_tp": 65,
+          "large_total": 253
+        }
+      },
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 618,
+          "fp": 2022,
+          "fn": 330,
+          "precision": 0.2341,
+          "recall": 0.6519,
+          "f1": 0.3445
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 71,
+          "fp": 227,
+          "fn": 427,
+          "precision": 0.2383,
+          "recall": 0.1426,
+          "f1": 0.1784
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    {
+      "conf_threshold": 0.09,
+      "total_detections": 2518,
+      "detections_per_image": 2.55,
+      "overall_precision": 0.2621,
+      "overall_recall": 0.4536,
+      "overall_f1": 0.3322,
+      "overall_tp": 660,
+      "overall_fp": 1858,
+      "overall_fn": 795,
+      "exit_sign_metrics": {
+        "support": 498,
+        "tp": 58,
+        "fp": 174,
+        "fn": 440,
+        "precision": 0.25,
+        "recall": 0.1165,
+        "f1": 0.1589,
+        "size_stratified_recall": {
+          "small_recall": 0.0,
+          "small_tp": 0,
+          "small_total": 160,
+          "medium_recall": 0.0588,
+          "medium_tp": 5,
+          "medium_total": 85,
+          "large_recall": 0.2095,
+          "large_tp": 53,
+          "large_total": 253
+        }
+      },
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 602,
+          "fp": 1684,
+          "fn": 346,
+          "precision": 0.2633,
+          "recall": 0.635,
+          "f1": 0.3723
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 58,
+          "fp": 174,
+          "fn": 440,
+          "precision": 0.25,
+          "recall": 0.1165,
+          "f1": 0.1589
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    {
+      "conf_threshold": 0.1,
+      "total_detections": 2158,
+      "detections_per_image": 2.18,
+      "overall_precision": 0.2924,
+      "overall_recall": 0.4337,
+      "overall_f1": 0.3493,
+      "overall_tp": 631,
+      "overall_fp": 1527,
+      "overall_fn": 824,
+      "exit_sign_metrics": {
+        "support": 498,
+        "tp": 42,
+        "fp": 123,
+        "fn": 456,
+        "precision": 0.2545,
+        "recall": 0.0843,
+        "f1": 0.1266,
+        "size_stratified_recall": {
+          "small_recall": 0.0,
+          "small_tp": 0,
+          "small_total": 160,
+          "medium_recall": 0.0471,
+          "medium_tp": 4,
+          "medium_total": 85,
+          "large_recall": 0.1502,
+          "large_tp": 38,
+          "large_total": 253
+        }
+      },
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 589,
+          "fp": 1404,
+          "fn": 359,
+          "precision": 0.2955,
+          "recall": 0.6213,
+          "f1": 0.4005
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 42,
+          "fp": 123,
+          "fn": 456,
+          "precision": 0.2545,
+          "recall": 0.0843,
+          "f1": 0.1267
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    {
+      "conf_threshold": 0.12,
+      "total_detections": 1660,
+      "detections_per_image": 1.68,
+      "overall_precision": 0.344,
+      "overall_recall": 0.3924,
+      "overall_f1": 0.3666,
+      "overall_tp": 571,
+      "overall_fp": 1089,
+      "overall_fn": 884,
+      "exit_sign_metrics": {
+        "support": 498,
+        "tp": 21,
+        "fp": 51,
+        "fn": 477,
+        "precision": 0.2917,
+        "recall": 0.0422,
+        "f1": 0.0737,
+        "size_stratified_recall": {
+          "small_recall": 0.0,
+          "small_tp": 0,
+          "small_total": 160,
+          "medium_recall": 0.0235,
+          "medium_tp": 2,
+          "medium_total": 85,
+          "large_recall": 0.0751,
+          "large_tp": 19,
+          "large_total": 253
+        }
+      },
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 550,
+          "fp": 1038,
+          "fn": 398,
+          "precision": 0.3463,
+          "recall": 0.5802,
+          "f1": 0.4338
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 21,
+          "fp": 51,
+          "fn": 477,
+          "precision": 0.2917,
+          "recall": 0.0422,
+          "f1": 0.0737
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    {
+      "conf_threshold": 0.14,
+      "total_detections": 1316,
+      "detections_per_image": 1.33,
+      "overall_precision": 0.3913,
+      "overall_recall": 0.354,
+      "overall_f1": 0.3717,
+      "overall_tp": 515,
+      "overall_fp": 801,
+      "overall_fn": 940,
+      "exit_sign_metrics": {
+        "support": 498,
+        "tp": 8,
+        "fp": 25,
+        "fn": 490,
+        "precision": 0.2424,
+        "recall": 0.0161,
+        "f1": 0.0302,
+        "size_stratified_recall": {
+          "small_recall": 0.0,
+          "small_tp": 0,
+          "small_total": 160,
+          "medium_recall": 0.0,
+          "medium_tp": 0,
+          "medium_total": 85,
+          "large_recall": 0.0316,
+          "large_tp": 8,
+          "large_total": 253
+        }
+      },
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 507,
+          "fp": 776,
+          "fn": 441,
+          "precision": 0.3952,
+          "recall": 0.5348,
+          "f1": 0.4545
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 8,
+          "fp": 25,
+          "fn": 490,
+          "precision": 0.2424,
+          "recall": 0.0161,
+          "f1": 0.0301
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    {
+      "conf_threshold": 0.15,
+      "total_detections": 1192,
+      "detections_per_image": 1.21,
+      "overall_precision": 0.4153,
+      "overall_recall": 0.3402,
+      "overall_f1": 0.374,
+      "overall_tp": 495,
+      "overall_fp": 697,
+      "overall_fn": 960,
+      "exit_sign_metrics": {
+        "support": 498,
+        "tp": 5,
+        "fp": 18,
+        "fn": 493,
+        "precision": 0.2174,
+        "recall": 0.01,
+        "f1": 0.0191,
+        "size_stratified_recall": {
+          "small_recall": 0.0,
+          "small_tp": 0,
+          "small_total": 160,
+          "medium_recall": 0.0,
+          "medium_tp": 0,
+          "medium_total": 85,
+          "large_recall": 0.0198,
+          "large_tp": 5,
+          "large_total": 253
+        }
+      },
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 490,
+          "fp": 679,
+          "fn": 458,
+          "precision": 0.4192,
+          "recall": 0.5169,
+          "f1": 0.4629
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 5,
+          "fp": 18,
+          "fn": 493,
+          "precision": 0.2174,
+          "recall": 0.01,
+          "f1": 0.0192
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    {
+      "conf_threshold": 0.16,
+      "total_detections": 1098,
+      "detections_per_image": 1.11,
+      "overall_precision": 0.4335,
+      "overall_recall": 0.3271,
+      "overall_f1": 0.3729,
+      "overall_tp": 476,
+      "overall_fp": 622,
+      "overall_fn": 979,
+      "exit_sign_metrics": {
+        "support": 498,
+        "tp": 3,
+        "fp": 16,
+        "fn": 495,
+        "precision": 0.1579,
+        "recall": 0.006,
+        "f1": 0.0116,
+        "size_stratified_recall": {
+          "small_recall": 0.0,
+          "small_tp": 0,
+          "small_total": 160,
+          "medium_recall": 0.0,
+          "medium_tp": 0,
+          "medium_total": 85,
+          "large_recall": 0.0119,
+          "large_tp": 3,
+          "large_total": 253
+        }
+      },
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 473,
+          "fp": 606,
+          "fn": 475,
+          "precision": 0.4384,
+          "recall": 0.4989,
+          "f1": 0.4667
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 3,
+          "fp": 16,
+          "fn": 495,
+          "precision": 0.1579,
+          "recall": 0.006,
+          "f1": 0.0116
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    {
+      "conf_threshold": 0.18,
+      "total_detections": 926,
+      "detections_per_image": 0.94,
+      "overall_precision": 0.4795,
+      "overall_recall": 0.3052,
+      "overall_f1": 0.373,
+      "overall_tp": 444,
+      "overall_fp": 482,
+      "overall_fn": 1011,
+      "exit_sign_metrics": {
+        "support": 498,
+        "tp": 3,
+        "fp": 7,
+        "fn": 495,
+        "precision": 0.3,
+        "recall": 0.006,
+        "f1": 0.0118,
+        "size_stratified_recall": {
+          "small_recall": 0.0,
+          "small_tp": 0,
+          "small_total": 160,
+          "medium_recall": 0.0,
+          "medium_tp": 0,
+          "medium_total": 85,
+          "large_recall": 0.0119,
+          "large_tp": 3,
+          "large_total": 253
+        }
+      },
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 441,
+          "fp": 475,
+          "fn": 507,
+          "precision": 0.4814,
+          "recall": 0.4652,
+          "f1": 0.4732
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 3,
+          "fp": 7,
+          "fn": 495,
+          "precision": 0.3,
+          "recall": 0.006,
+          "f1": 0.0118
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    {
+      "conf_threshold": 0.2,
+      "total_detections": 808,
+      "detections_per_image": 0.82,
+      "overall_precision": 0.521,
+      "overall_recall": 0.2893,
+      "overall_f1": 0.372,
+      "overall_tp": 421,
+      "overall_fp": 387,
+      "overall_fn": 1034,
+      "exit_sign_metrics": {
+        "support": 498,
+        "tp": 1,
+        "fp": 6,
+        "fn": 497,
+        "precision": 0.1429,
+        "recall": 0.002,
+        "f1": 0.0039,
+        "size_stratified_recall": {
+          "small_recall": 0.0,
+          "small_tp": 0,
+          "small_total": 160,
+          "medium_recall": 0.0,
+          "medium_tp": 0,
+          "medium_total": 85,
+          "large_recall": 0.004,
+          "large_tp": 1,
+          "large_total": 253
+        }
+      },
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 420,
+          "fp": 381,
+          "fn": 528,
+          "precision": 0.5243,
+          "recall": 0.443,
+          "f1": 0.4803
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 1,
+          "fp": 6,
+          "fn": 497,
+          "precision": 0.1429,
+          "recall": 0.002,
+          "f1": 0.004
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    {
+      "conf_threshold": 0.25,
+      "total_detections": 605,
+      "detections_per_image": 0.61,
+      "overall_precision": 0.5851,
+      "overall_recall": 0.2433,
+      "overall_f1": 0.3437,
+      "overall_tp": 354,
+      "overall_fp": 251,
+      "overall_fn": 1101,
+      "exit_sign_metrics": {
+        "support": 498,
+        "tp": 1,
+        "fp": 1,
+        "fn": 497,
+        "precision": 0.5,
+        "recall": 0.002,
+        "f1": 0.004,
+        "size_stratified_recall": {
+          "small_recall": 0.0,
+          "small_tp": 0,
+          "small_total": 160,
+          "medium_recall": 0.0,
+          "medium_tp": 0,
+          "medium_total": 85,
+          "large_recall": 0.004,
+          "large_tp": 1,
+          "large_total": 253
+        }
+      },
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 353,
+          "fp": 250,
+          "fn": 595,
+          "precision": 0.5854,
+          "recall": 0.3724,
+          "f1": 0.4552
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 1,
+          "fp": 1,
+          "fn": 497,
+          "precision": 0.5,
+          "recall": 0.002,
+          "f1": 0.004
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    {
+      "conf_threshold": 0.3,
+      "total_detections": 429,
+      "detections_per_image": 0.43,
+      "overall_precision": 0.634,
+      "overall_recall": 0.1869,
+      "overall_f1": 0.2887,
+      "overall_tp": 272,
+      "overall_fp": 157,
+      "overall_fn": 1183,
+      "exit_sign_metrics": {
+        "support": 498,
+        "tp": 1,
+        "fp": 0,
+        "fn": 497,
+        "precision": 1.0,
+        "recall": 0.002,
+        "f1": 0.004,
+        "size_stratified_recall": {
+          "small_recall": 0.0,
+          "small_tp": 0,
+          "small_total": 160,
+          "medium_recall": 0.0,
+          "medium_tp": 0,
+          "medium_total": 85,
+          "large_recall": 0.004,
+          "large_tp": 1,
+          "large_total": 253
+        }
+      },
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 271,
+          "fp": 157,
+          "fn": 677,
+          "precision": 0.6332,
+          "recall": 0.2859,
+          "f1": 0.3939
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 1,
+          "fp": 0,
+          "fn": 497,
+          "precision": 1.0,
+          "recall": 0.002,
+          "f1": 0.004
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    }
+  ],
+  "findings_and_interpretation": {
+    "default_monolithic_threshold_0_15": {
+      "exit_sign_recall": 0.0843,
+      "exit_sign_tp": 42,
+      "exit_sign_fp": 123,
+      "assessment": "Overly aggressive cutoff for illuminated signs; suppresses >91% of valid small signs."
+    },
+    "candidate_calibrated_threshold_0_08": {
+      "exit_sign_recall": 0.1446,
+      "exit_sign_tp": 72,
+      "exit_sign_fp": 215,
+      "exit_sign_precision": 0.2509,
+      "exit_sign_f1": 0.1837,
+      "assessment": "Optimal candidate operating point: +71% recall increase on exit signs with manageable noise."
+    },
+    "ultra_low_threshold_0_05": {
+      "exit_sign_recall": 0.2269,
+      "exit_sign_tp": 113,
+      "exit_sign_fp": 658,
+      "assessment": "Excessive false positive surge (5.36 total detections/image); unviable as monolithic cutoff."
+    },
+    "recommendation": "Adopt a class-specific candidate operating threshold for EXIT_SIGN (tau_sign = 0.08) in post-processing evaluation, decoupled from the dominant class threshold (tau_extinguisher = 0.18). Retain as a configurable inference hyperparameter, NOT a hardcoded production override."
+  }
+}

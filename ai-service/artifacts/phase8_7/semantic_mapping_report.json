@@ -1,0 +1,102 @@
+[
+  {
+    "source_dataset": "roboflow-blocked-emergency-exit-v1",
+    "source_class": "emergency exit door",
+    "target_perception_class": "EXIT_DOOR",
+    "target_class_id": 1,
+    "decision": "ACCEPT",
+    "rationale": "Direct architectural exit door and frame. Labeled emergency exit portal with swing clearance.",
+    "verified_physical_scenes": 14,
+    "total_boxes": 42
+  },
+  {
+    "source_dataset": "roboflow-blocked-emergency-exit-v1",
+    "source_class": "boxes blocking exit",
+    "target_perception_class": "OBSTACLE",
+    "target_class_id": 3,
+    "decision": "ACCEPT",
+    "rationale": "Direct physical combustible box obstruction encroaching upon exit door clearance path.",
+    "verified_physical_scenes": 13,
+    "total_boxes": 39
+  },
+  {
+    "source_dataset": "roboflow-blocked-emergency-exit-v1",
+    "source_class": "objects blocked emergency exit",
+    "target_perception_class": "OBSTACLE",
+    "target_class_id": 3,
+    "decision": "ACCEPT",
+    "rationale": "Physical obstacles (furniture, pallets, carts, debris) physically occupying emergency exit path.",
+    "verified_physical_scenes": 17,
+    "total_boxes": 54
+  },
+  {
+    "source_dataset": "roboflow-blocked-emergency-exit-v1",
+    "source_class": "blocked emergency exit",
+    "target_perception_class": null,
+    "target_class_id": null,
+    "decision": "REJECT",
+    "rationale": "Represents the compound obstruction violation zone rather than an atomic physical object. Allocated to Stage-2 rule reasoning.",
+    "verified_physical_scenes": 6,
+    "total_boxes": 18
+  },
+  {
+    "source_dataset": "roboflow-blocked-emergency-exit-v1",
+    "source_class": "exit block violation",
+    "target_perception_class": null,
+    "target_class_id": null,
+    "decision": "REJECT",
+    "rationale": "Violation bounding box, not an atomic obstacle entity.",
+    "verified_physical_scenes": 5,
+    "total_boxes": 15
+  },
+  {
+    "source_dataset": "patyas-workspace-my-first-project-v6i",
+    "source_class": "exit door",
+    "target_perception_class": "EXIT_DOOR",
+    "target_class_id": 1,
+    "decision": "ACCEPT",
+    "rationale": "Verified architectural egress door. Polygon vertices converted to standard bounding box.",
+    "verified_physical_scenes": 2,
+    "total_boxes": 2
+  },
+  {
+    "source_dataset": "patyas-workspace-my-first-project-v6i",
+    "source_class": "missing fire extinguisher",
+    "target_perception_class": null,
+    "target_class_id": null,
+    "decision": "REJECT",
+    "rationale": "Represents equipment absence (empty red cabinet) across a single video clip. Not equipment presence.",
+    "verified_physical_scenes": 1,
+    "total_boxes": 50
+  },
+  {
+    "source_dataset": "fire_safety_multi",
+    "source_class": "door",
+    "target_perception_class": "EXIT_DOOR",
+    "target_class_id": 1,
+    "decision": "ACCEPT",
+    "rationale": "Diverse physical indoor doors in commercial, institutional, and egress corridor environments. Filtered for valid non-white background and valid box coordinates. Expands physical scene diversity from 14 to 545 unique scenes.",
+    "verified_physical_scenes": 529,
+    "total_boxes": 3455
+  },
+  {
+    "source_dataset": "fire_safety_multi",
+    "source_class": "trash_can",
+    "target_perception_class": null,
+    "target_class_id": null,
+    "decision": "REJECT",
+    "rationale": "Visual audit revealed e-commerce stock catalog images of kitchen/office bins on synthetic white backgrounds. Lacks corridor/indoor context. Rejecting prevents distribution shift.",
+    "verified_physical_scenes": 0,
+    "total_boxes": 4736
+  },
+  {
+    "source_dataset": "fire_safety_multi",
+    "source_class": "sand_bucket",
+    "target_perception_class": null,
+    "target_class_id": null,
+    "decision": "REJECT",
+    "rationale": "Fire-fighting appliance. Treating mandatory life-safety equipment as an obstruction hazard violates life-safety semantics.",
+    "verified_physical_scenes": 0,
+    "total_boxes": 399
+  }
+]

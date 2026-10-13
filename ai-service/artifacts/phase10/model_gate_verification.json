@@ -1,0 +1,63 @@
+{
+  "timestamp": "2026-10-09T17:29:15.561125+00:00",
+  "referenceBaselineModel": "firesphere-perception-baseline-v0.8.0",
+  "referenceBaselineVersion": "0.8.0",
+  "referenceBaselineSha256": "5f166c4703e090eb51a9171c38ff1c3dd93d7d0c99d06ec8e44562217753c666",
+  "checkpointVerification": {
+    "verified": true,
+    "path": "C:\\Users\\athar\\OneDrive\\Desktop\\Firesphere.ai\\ai-service\\artifacts\\phase8_4\\checkpoints\\best.pt",
+    "expectedSha256": "5f166c4703e090eb51a9171c38ff1c3dd93d7d0c99d06ec8e44562217753c666",
+    "actualSha256": "5f166c4703e090eb51a9171c38ff1c3dd93d7d0c99d06ec8e44562217753c666",
+    "status": "VERIFIED"
+  },
+  "productionApprovalStatus": "NOT_APPROVED",
+  "calibrationStatus": "NOT_CALIBRATED",
+  "operationalThreshold": 0.15,
+  "perClassCapabilityGate": {
+    "FIRE_EXTINGUISHER": {
+      "status": "ADVISORY_ONLY",
+      "actionable": true,
+      "externalTestSupport": 452,
+      "testTruePositives": 143,
+      "isProductionApproved": false
+    },
+    "EXIT_SIGN": {
+      "status": "ADVISORY_ONLY",
+      "actionable": true,
+      "externalTestSupport": 320,
+      "testTruePositives": 52,
+      "isProductionApproved": false
+    },
+    "EXIT_DOOR": {
+      "status": "UNSUPPORTED",
+      "actionable": false,
+      "externalTestSupport": 6,
+      "testTruePositives": 0,
+      "isProductionApproved": false,
+      "gatingAction": "Suppressed from generating actionable findings"
+    },
+    "OBSTACLE": {
+      "status": "UNSUPPORTED",
+      "actionable": false,
+      "externalTestSupport": 18,
+      "testTruePositives": 0,
+      "isProductionApproved": false,
+      "gatingAction": "Suppressed from generating actionable findings"
+    }
+  },
+  "failClosedPolicy": {
+    "productionInferenceApproved": false,
+    "behaviorOnProductionRequest": "Fail closed with 0 detections; return status NOT_APPROVED; no hallucinated detections.",
+    "prohibitedCertificationStates": [
+      "AI_APPROVED",
+      "AI_REJECTED",
+      "APPROVED",
+      "REJECTED"
+    ]
+  },
+  "testModeEnforcement": {
+    "testModeAllowed": true,
+    "flagging": "isTestData=True, testFixture=True, operationalMode=EXPERIMENTAL_TEST_MODE",
+    "productionSeparation": "Test results are explicitly demarcated and cannot be passed off as production certifications."
+  }
+}

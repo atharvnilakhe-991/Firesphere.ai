@@ -1,0 +1,990 @@
+"""FireSphere.ai — Comprehensive Phase 3 Test Suite.
+
+Verifies:
+1. Orchestration (Multi-provider coordination, fault isolation, partial failure, status preservation).
+2. Evidence Validation (UUID integrity, foreign evidence ID rejection, bounding box & dimension validation).
+3. Result Reconciliation (Full 12-case matrix: agreement, absence, category conflict, location conflict, severity conflict, inconclusive, failure, zero observations, disabled provider).
+4. Officer Verification Workflow (RBAC, optimistic concurrency control, evidence-reviewed safety invariant, audit history, all 4 assessment states).
+5. Report Generation Integration (Discrepancy tracking, inconclusive reporting, provenance traceability, zero autonomous Fire NOC decision).
+"""
+
+from datetime import datetime, timezone
+import uuid
+import pytest
+from fastapi.testclient import TestClient
+
+from app.core.config import Settings
+from app.intelligence.evidence_validator import EvidenceValidator
+from app.intelligence.reconciliation import ResultReconciler
+from app.main import app
+from app.models.gemini_provider import GeminiProvider
+from app.models.gemini_schemas import (
+    GeminiAnalysisResult,
+    GeminiAnalysisStatus,
+    GeminiObservation,
+)
+from app.models.model_approval_gate import model_approval_gate
+from app.reporting.deterministic_generator import DeterministicReportGenerator
+from app.schemas.finding import BoundingBox, Finding, FindingSeverity
+from app.schemas.inspection import InspectionAnalysisRequest
+from app.schemas.reconciliation import (
+    ConflictType,
+    ReconciliationStatus,
+)
+from app.schemas.run import RunStatus
+from app.schemas.verification import (
+    OfficerAssessmentType,
+    OfficerFindingVerificationRequest,
+)
+from app.services.finding_repository import InMemoryFindingRepository
+from app.services.inspection_orchestrator import InspectionOrchestrator
+from app.services.officer_verification_service import OfficerVerificationService
+from app.storage.evidence_client import EvidenceClient
+
+
+@pytest.fixture
+def test_client():
+    return TestClient(app)
+
+
+@pytest.fixture
+def fresh_repo():
+    return InMemoryFindingRepository()
+
+
+@pytest.fixture
+def fresh_storage():
+    client = EvidenceClient()
+    # Register test evidence
+    eid = uuid.UUID("33333333-3333-3333-3333-333333333333")
+    client.register_test_evidence(eid, client._generate_synthetic_evidence_image(640, 480))
+    return client
+
+
+# =============================================================================
+# 1. ORCHESTRATION TESTS
+# =============================================================================
+
+def test_orchestration_valid_request_gemini_disabled(fresh_storage, fresh_repo):
+    """Verifies orchestrator with Gemini disabled executes CV gate and produces valid response."""
+    test_settings = Settings(gemini_enabled=False)
+    provider = GeminiProvider(settings_obj=test_settings)
+    orchestrator = InspectionOrchestrator(
+        gemini=provider,
+        storage=fresh_storage,
+        repository=fresh_repo,
+    )
+
+    insp_id = uuid.uuid4()
+    ev_id = uuid.UUID("33333333-3333-3333-3333-333333333333")
+
+    ai_run = orchestrator.execute_run(
+        inspection_id=insp_id,
+        evidence_ids=[ev_id],
+        test_mode=False,
+    )
+
+    assert ai_run.runId is not None
+    assert ai_run.inspectionId == insp_id
+    assert ai_run.status == RunStatus.COMPLETED
+    assert len(ai_run.findings) == 0  # CV is NOT_APPROVED, Gemini is DISABLED
+    assert ai_run.summary is not None
+    assert ai_run.summary["totalFindings"] == 0
+
+
+def test_orchestration_test_mode_generates_advisory_findings(fresh_storage, fresh_repo):
+    """Verifies that orchestrator in testMode allows CV test detections and marks findings advisory."""
+    test_settings = Settings(gemini_enabled=False)
+    provider = GeminiProvider(settings_obj=test_settings)
+    orchestrator = InspectionOrchestrator(
+        gemini=provider,
+        storage=fresh_storage,
+        repository=fresh_repo,
+    )
+
+    insp_id = uuid.uuid4()
+    ev_id = uuid.UUID("33333333-3333-3333-3333-333333333333")
+
+    ai_run = orchestrator.execute_run(
+        inspection_id=insp_id,
+        evidence_ids=[ev_id],
+        test_mode=True,
+    )
+
+    assert ai_run.status == RunStatus.COMPLETED
+    assert len(ai_run.findings) > 0
+    finding = ai_run.findings[0]
+    assert finding.isTestData is True
+    assert finding.complianceStatus.value == "REQUIRES_OFFICER_VERIFICATION"
+    assert finding.evidenceReviewed is False
+    assert finding.officerVerificationStatus == "UNREVIEWED"
+
+
+def test_orchestration_partial_provider_failure_handled(fresh_storage, fresh_repo):
+    """Verifies that failure of a single provider preserves overall run as PARTIAL."""
+    mock_gemini = GeminiProvider(settings_obj=Settings(gemini_enabled=True, gemini_api_key="test-key"))
+    # Mock analyze_image to return failed status
+    mock_gemini.analyze_image = lambda evidence_id, image_data: GeminiAnalysisResult(
+        evidenceId=str(evidence_id),
+        model="gemini-2.5-flash",
+        status=GeminiAnalysisStatus.ANALYSIS_FAILED,
+        observations=[],
+        error="Simulated upstream timeout",
+    )
+
+    orchestrator = InspectionOrchestrator(
+        gemini=mock_gemini,
+        storage=fresh_storage,
+        repository=fresh_repo,
+    )
+
+    insp_id = uuid.uuid4()
+    ev_id = uuid.UUID("33333333-3333-3333-3333-333333333333")
+
+    ai_run = orchestrator.execute_run(
+        inspection_id=insp_id,
+        evidence_ids=[ev_id],
+        test_mode=True,
+    )
+
+    # In test mode, CV succeeds while Gemini fails -> PARTIAL status
+    assert ai_run.status == RunStatus.PARTIAL
+    assert len(ai_run.findings) > 0  # Preserved CV findings
+
+
+def test_orchestration_inconclusive_evidence_recorded(fresh_storage, fresh_repo):
+    """Verifies that an inconclusive provider result sets INCONCLUSIVE status when no findings exist."""
+    mock_gemini = GeminiProvider(settings_obj=Settings(gemini_enabled=True, gemini_api_key="test-key"))
+    mock_gemini.analyze_image = lambda evidence_id, image_data: GeminiAnalysisResult(
+        evidenceId=str(evidence_id),
+        model="gemini-2.5-flash",
+        status=GeminiAnalysisStatus.ANALYSIS_INCONCLUSIVE,
+        observations=[],
+        inconclusiveReason="Severe underexposure; image completely dark.",
+    )
+
+    orchestrator = InspectionOrchestrator(
+        gemini=mock_gemini,
+        storage=fresh_storage,
+        repository=fresh_repo,
+    )
+
+    insp_id = uuid.uuid4()
+    ev_id = uuid.UUID("33333333-3333-3333-3333-333333333333")
+
+    ai_run = orchestrator.execute_run(
+        inspection_id=insp_id,
+        evidence_ids=[ev_id],
+        test_mode=False,  # CV returns 0 findings
+    )
+
+    assert ai_run.status == RunStatus.INCONCLUSIVE
+    assert len(ai_run.findings) == 0
+
+
+# =============================================================================
+# 2. EVIDENCE VALIDATION TESTS
+# =============================================================================
+
+def test_evidence_validation_rejects_foreign_model_evidence_id():
+    """Security check: Rejects model-generated observation referencing unknown/foreign evidence ID."""
+    validator = EvidenceValidator()
+    authorized = {"11111111-1111-1111-1111-111111111111", "22222222-2222-2222-2222-222222222222"}
+
+    # Foreign ID not in authorized set
+    is_valid, err = validator.validate_provider_evidence_reference(
+        observation_evidence_id="99999999-9999-9999-9999-999999999999",
+        authorized_evidence_ids=authorized,
+    )
+    assert is_valid is False
+    assert "unauthorized evidence identifier" in err
+
+    # Valid ID in set
+    is_valid_ok, err_ok = validator.validate_provider_evidence_reference(
+        observation_evidence_id="11111111-1111-1111-1111-111111111111",
+        authorized_evidence_ids=authorized,
+    )
+    assert is_valid_ok is True
+    assert err_ok is None
+
+
+def test_evidence_validation_bounding_box_geometry():
+    """Validates bounding box coordinate validation logic."""
+    validator = EvidenceValidator()
+
+    # Valid normalized box
+    valid_box = BoundingBox(xMin=0.1, yMin=0.2, xMax=0.5, yMax=0.8)
+    ok, err = validator.validate_bounding_box(valid_box)
+    assert ok is True
+    assert err is None
+
+    # Inverted X
+    inv_x = BoundingBox(xMin=0.6, yMin=0.2, xMax=0.5, yMax=0.8)
+    ok_inv, err_inv = validator.validate_bounding_box(inv_x)
+    assert ok_inv is False
+    assert "xMin (0.6) must be strictly less than xMax (0.5)" in err_inv
+
+    # Zero area
+    zero_box = BoundingBox(xMin=0.2, yMin=0.2, xMax=0.2, yMax=0.5)
+    ok_zero, err_zero = validator.validate_bounding_box(zero_box)
+    assert ok_zero is False
+
+
+def test_evidence_validation_image_dimensions():
+    """Validates image dimensions boundaries."""
+    validator = EvidenceValidator()
+
+    ok, _ = validator.validate_image_dimensions(1920, 1080)
+    assert ok is True
+
+    ok_low, err_low = validator.validate_image_dimensions(5, 5)
+    assert ok_low is False
+    assert "below minimum" in err_low
+
+    ok_huge, err_huge = validator.validate_image_dimensions(20000, 20000)
+    assert ok_huge is False
+    assert "exceed maximum" in err_huge
+
+
+# =============================================================================
+# 3. RECONCILIATION TESTS (12-CASE MATRIX)
+# =============================================================================
+
+def test_reconciliation_case_1_full_agreement():
+    """Case 1: Both Gemini and CV detect similar defect at same location."""
+    reconciler = ResultReconciler()
+    ev_id = uuid.uuid4()
+    insp_id = uuid.uuid4()
+
+    gemini_res = GeminiAnalysisResult(
+        evidenceId=str(ev_id),
+        model="gemini-2.5-flash",
+        status=GeminiAnalysisStatus.ANALYSIS_COMPLETED_WITH_OBSERVATIONS,
+        observations=[
+            GeminiObservation(
+                imageReference=str(ev_id),
+                objectCategory="FIRE_EXTINGUISHER",
+                potentialHazardCategory="FIRE_EXTINGUISHER_MISSING",
+                observationDescription="Extinguisher bracket is vacant.",
+                boundingBox=BoundingBox(xMin=0.2, yMin=0.2, xMax=0.4, yMax=0.6),
+                confidence=0.91,
+                potentialHazardSeverity="HIGH",
+            )
+        ],
+    )
+
+    class MockCVDet:
+        className = "FIRE_EXTINGUISHER_MISSING"
+        confidence = 0.88
+        boundingBox = {"xMin": 0.22, "yMin": 0.19, "xMax": 0.41, "yMax": 0.58}
+
+    findings, status, conflict = reconciler.reconcile(
+        evidence_id=ev_id,
+        inspection_id=insp_id,
+        gemini_result=gemini_res,
+        cv_detections=[MockCVDet()],
+        cv_status="SUCCESS",
+        cv_model_info={"model": "cv-model", "version": "1.0"},
+        gemini_model_info={"model": "gemini-2.5-flash"},
+    )
+
+    assert status == ReconciliationStatus.AGREEMENT
+    assert len(findings) == 1
+    f = findings[0]
+    assert f.reconciliationStatus == "AGREEMENT"
+    assert f.conflictType == "NONE"
+    assert len(f.provenance) == 2
+    assert f.provenance[0]["providerName"] == "google-gemini"
+    assert f.provenance[1]["providerName"] == "firesphere-cv-baseline"
+    assert "both identified" in f.explanation
+
+
+def test_reconciliation_case_2_gemini_only():
+    """Case 2: Gemini identifies hazard; CV returns no observation."""
+    reconciler = ResultReconciler()
+    ev_id = uuid.uuid4()
+    insp_id = uuid.uuid4()
+
+    gemini_res = GeminiAnalysisResult(
+        evidenceId=str(ev_id),
+        model="gemini-2.5-flash",
+        status=GeminiAnalysisStatus.ANALYSIS_COMPLETED_WITH_OBSERVATIONS,
+        observations=[
+            GeminiObservation(
+                imageReference=str(ev_id),
+                objectCategory="EXIT_SIGN",
+                potentialHazardCategory="EXIT_SIGNAGE_MISSING",
+                observationDescription="Exit sign unlit above door.",
+                boundingBox=BoundingBox(xMin=0.3, yMin=0.1, xMax=0.7, yMax=0.3),
+                confidence=0.85,
+            )
+        ],
+    )
+
+    findings, status, conflict = reconciler.reconcile(
+        evidence_id=ev_id,
+        inspection_id=insp_id,
+        gemini_result=gemini_res,
+        cv_detections=[],
+        cv_status="SUCCESS",
+        cv_model_info={"model": "cv-model", "version": "1.0"},
+        gemini_model_info={"model": "gemini-2.5-flash"},
+    )
+
+    assert status == ReconciliationStatus.SINGLE_PROVIDER
+    assert len(findings) == 1
+    assert findings[0].reconciliationStatus == "SINGLE_PROVIDER"
+    assert findings[0].conflictType == "DETECTION_ABSENCE"
+
+
+def test_reconciliation_case_4_category_mismatch():
+    """Case 4: Models identify different hazard categories for the same location."""
+    reconciler = ResultReconciler()
+    ev_id = uuid.uuid4()
+    insp_id = uuid.uuid4()
+
+    gemini_res = GeminiAnalysisResult(
+        evidenceId=str(ev_id),
+        model="gemini-2.5-flash",
+        status=GeminiAnalysisStatus.ANALYSIS_COMPLETED_WITH_OBSERVATIONS,
+        observations=[
+            GeminiObservation(
+                imageReference=str(ev_id),
+                objectCategory="ELECTRICAL_PANEL",
+                potentialHazardCategory="ELECTRICAL_PANEL_HAZARD",
+                observationDescription="Open switchgear cabinet door.",
+                boundingBox=BoundingBox(xMin=0.2, yMin=0.2, xMax=0.5, yMax=0.7),
+            )
+        ],
+    )
+
+    class MockCVDet:
+        className = "COMBUSTIBLE_MATERIAL_HAZARD"
+        confidence = 0.82
+        boundingBox = {"xMin": 0.22, "yMin": 0.21, "xMax": 0.49, "yMax": 0.69}
+
+    findings, status, conflict = reconciler.reconcile(
+        evidence_id=ev_id,
+        inspection_id=insp_id,
+        gemini_result=gemini_res,
+        cv_detections=[MockCVDet()],
+        cv_status="SUCCESS",
+        cv_model_info={"model": "cv-model", "version": "1.0"},
+        gemini_model_info={"model": "gemini-2.5-flash"},
+    )
+
+    assert status == ReconciliationStatus.CONFLICT
+    assert len(findings) == 1
+    f = findings[0]
+    assert f.reconciliationStatus == "CONFLICT"
+    assert f.conflictType == "CATEGORY_MISMATCH"
+    assert f.conflictDetails["conflictType"] == "CATEGORY_MISMATCH"
+    assert "geminiCategory" in f.conflictDetails
+    assert "cvCategory" in f.conflictDetails
+
+
+def test_reconciliation_case_5_location_mismatch():
+    """Case 5: Models detect same defect type but at distant bounding box coordinates."""
+    reconciler = ResultReconciler()
+    ev_id = uuid.uuid4()
+    insp_id = uuid.uuid4()
+
+    gemini_res = GeminiAnalysisResult(
+        evidenceId=str(ev_id),
+        model="gemini-2.5-flash",
+        status=GeminiAnalysisStatus.ANALYSIS_COMPLETED_WITH_OBSERVATIONS,
+        observations=[
+            GeminiObservation(
+                imageReference=str(ev_id),
+                objectCategory="FIRE_EXTINGUISHER",
+                potentialHazardCategory="FIRE_EXTINGUISHER_MISSING",
+                observationDescription="Extinguisher absent at top left.",
+                boundingBox=BoundingBox(xMin=0.05, yMin=0.05, xMax=0.20, yMax=0.30),
+            )
+        ],
+    )
+
+    class MockCVDet:
+        className = "FIRE_EXTINGUISHER_MISSING"
+        confidence = 0.85
+        boundingBox = {"xMin": 0.70, "yMin": 0.60, "xMax": 0.90, "yMax": 0.90}
+
+    findings, status, conflict = reconciler.reconcile(
+        evidence_id=ev_id,
+        inspection_id=insp_id,
+        gemini_result=gemini_res,
+        cv_detections=[MockCVDet()],
+        cv_status="SUCCESS",
+        cv_model_info={"model": "cv-model", "version": "1.0"},
+        gemini_model_info={"model": "gemini-2.5-flash"},
+    )
+
+    # Distant boxes -> IoU = 0 -> Location mismatch
+    assert status == ReconciliationStatus.CONFLICT
+    f = findings[0]
+    assert f.conflictType == "LOCATION_MISMATCH"
+    assert f.conflictDetails["conflictType"] == "LOCATION_MISMATCH"
+    assert f.conflictDetails["geminiBoundingBox"] is not None
+    assert f.conflictDetails["cvBoundingBox"] is not None
+
+
+def test_reconciliation_case_9_both_providers_failed():
+    """Case 9: Both providers fail -> reports FAILED status, never empty success."""
+    reconciler = ResultReconciler()
+    ev_id = uuid.uuid4()
+    insp_id = uuid.uuid4()
+
+    gemini_res = GeminiAnalysisResult(
+        evidenceId=str(ev_id),
+        model="gemini-2.5-flash",
+        status=GeminiAnalysisStatus.ANALYSIS_FAILED,
+        observations=[],
+        error="Network connection reset",
+    )
+
+    findings, status, conflict = reconciler.reconcile(
+        evidence_id=ev_id,
+        inspection_id=insp_id,
+        gemini_result=gemini_res,
+        cv_detections=[],
+        cv_status="FAILED",
+        cv_model_info={"model": "cv-model", "version": "1.0"},
+        gemini_model_info={"model": "gemini-2.5-flash"},
+    )
+
+    assert status == ReconciliationStatus.FAILED
+    assert len(findings) == 0
+    assert conflict is not None
+    assert conflict.conflictType == ConflictType.UNRESOLVED_DISAGREEMENT
+
+
+def test_reconciliation_case_10_both_providers_zero_observations():
+    """Case 10: Both providers return zero findings -> NO_OBSERVATIONS status."""
+    reconciler = ResultReconciler()
+    ev_id = uuid.uuid4()
+    insp_id = uuid.uuid4()
+
+    gemini_res = GeminiAnalysisResult(
+        evidenceId=str(ev_id),
+        model="gemini-2.5-flash",
+        status=GeminiAnalysisStatus.ANALYSIS_COMPLETED_WITH_NO_OBSERVATIONS,
+        observations=[],
+    )
+
+    findings, status, conflict = reconciler.reconcile(
+        evidence_id=ev_id,
+        inspection_id=insp_id,
+        gemini_result=gemini_res,
+        cv_detections=[],
+        cv_status="SUCCESS",
+        cv_model_info={"model": "cv-model", "version": "1.0"},
+        gemini_model_info={"model": "gemini-2.5-flash"},
+    )
+
+    assert status == ReconciliationStatus.NO_OBSERVATIONS
+    assert len(findings) == 0
+
+
+# =============================================================================
+# 4. OFFICER VERIFICATION TESTS
+# =============================================================================
+
+def test_officer_verification_authorized_flow(fresh_repo):
+    """Verifies that an authorized Fire Officer can confirm a hazard with audit history."""
+    service = OfficerVerificationService(repository=fresh_repo)
+    fid = uuid.uuid4()
+
+    # Create initial finding in repository
+    finding = Finding(
+        findingId=fid,
+        evidenceId=uuid.uuid4(),
+        findingType="FIRE_EXTINGUISHER_MISSING",
+        confidence=0.90,
+        severity=FindingSeverity.HIGH,
+        explanation="Extinguisher absent at pillar 4.",
+        model="ensemble",
+        modelVersion="1.0",
+        version=1,
+    )
+    fresh_repo.save_finding(finding)
+
+    req = OfficerFindingVerificationRequest(
+        findingId=fid,
+        evidenceReviewed=True,
+        assessment=OfficerAssessmentType.CONFIRMED_HAZARD,
+        officerId="OFFICER-4412",
+        officerRole="FIRE_OFFICER",
+        remarks="Inspected pillar 4; wall bracket is decommissioned and empty.",
+        expectedVersion=1,
+    )
+
+    resp = service.verify_finding(req, auth_verified=True)
+
+    assert resp.findingId == fid
+    assert resp.verificationStatus == "OFFICER_CONFIRMED"
+    assert resp.evidenceReviewed is True
+    assert resp.version == 2
+    assert len(resp.updatedFinding.auditHistory) == 1
+
+    audit = resp.auditEntry
+    assert audit["officerId"] == "OFFICER-4412"
+    assert audit["action"] == "OFFICER_FINDING_VERIFICATION"
+    assert audit["newAssessment"] == "CONFIRMED_HAZARD"
+    assert audit["newEvidenceReviewed"] is True
+
+
+def test_officer_verification_unauthorized_role_rejected(fresh_repo):
+    """Security check: Rejects verification attempt by an unauthorized role (e.g. CITIZEN)."""
+    service = OfficerVerificationService(repository=fresh_repo)
+    fid = uuid.uuid4()
+
+    req = OfficerFindingVerificationRequest(
+        findingId=fid,
+        evidenceReviewed=True,
+        assessment=OfficerAssessmentType.CONFIRMED_HAZARD,
+        officerId="CITIZEN-99",
+        officerRole="CITIZEN",
+    )
+
+    with pytest.raises(Exception) as excinfo:
+        service.verify_finding(req, auth_verified=True)
+
+    assert "403" in str(excinfo.value) or "not authorized" in str(excinfo.value)
+
+
+def test_officer_verification_concurrency_conflict_detected(fresh_repo):
+    """Concurrency check: Rejects update when expectedVersion does not match current version."""
+    service = OfficerVerificationService(repository=fresh_repo)
+    fid = uuid.uuid4()
+
+    finding = Finding(
+        findingId=fid,
+        evidenceId=uuid.uuid4(),
+        findingType="FIRE_EXTINGUISHER_BLOCKED",
+        confidence=0.85,
+        severity=FindingSeverity.MEDIUM,
+        explanation="Blocked extinguisher.",
+        model="ensemble",
+        modelVersion="1.0",
+        version=3,  # Current version is 3
+    )
+    fresh_repo.save_finding(finding)
+
+    req = OfficerFindingVerificationRequest(
+        findingId=fid,
+        evidenceReviewed=True,
+        assessment=OfficerAssessmentType.NOT_A_HAZARD,
+        officerId="OFFICER-12",
+        officerRole="FIRE_OFFICER",
+        expectedVersion=2,  # Stale version supplied
+    )
+
+    with pytest.raises(Exception) as excinfo:
+        service.verify_finding(req, auth_verified=True)
+
+    assert "409" in str(excinfo.value) or "Concurrent update conflict" in str(excinfo.value)
+
+
+def test_officer_verification_evidence_reviewed_defaults_false_and_does_not_imply_hazard():
+    """Safety check: evidenceReviewed defaults to False; setting it True does NOT confirm hazard."""
+    fid = uuid.uuid4()
+    req = OfficerFindingVerificationRequest(
+        findingId=fid,
+        assessment=OfficerAssessmentType.NOT_A_HAZARD,
+        officerId="OFFICER-01",
+        officerRole="FIRE_OFFICER",
+    )
+    assert req.evidenceReviewed is False  # Invariant: defaults to False
+
+    # Reviewing evidence but concluding NOT_A_HAZARD
+    req_reviewed = OfficerFindingVerificationRequest(
+        findingId=fid,
+        evidenceReviewed=True,
+        assessment=OfficerAssessmentType.NOT_A_HAZARD,
+        officerId="OFFICER-01",
+        officerRole="FIRE_OFFICER",
+    )
+    assert req_reviewed.evidenceReviewed is True
+    assert req_reviewed.assessment == OfficerAssessmentType.NOT_A_HAZARD
+
+
+def test_officer_verification_all_four_assessments(fresh_repo):
+    """Verifies that all 4 required assessment types are handled cleanly."""
+    service = OfficerVerificationService(repository=fresh_repo)
+    fid = uuid.uuid4()
+
+    for assess, expected_status in [
+        (OfficerAssessmentType.CONFIRMED_HAZARD, "OFFICER_CONFIRMED"),
+        (OfficerAssessmentType.NOT_A_HAZARD, "OFFICER_DISMISSED"),
+        (OfficerAssessmentType.UNABLE_TO_DETERMINE, "UNDER_REVIEW"),
+        (OfficerAssessmentType.ADDITIONAL_INSPECTION_REQUIRED, "UNDER_REVIEW"),
+    ]:
+        finding = Finding(
+            findingId=fid,
+            evidenceId=uuid.uuid4(),
+            findingType="EXIT_SIGNAGE_MISSING",
+            confidence=0.88,
+            severity=FindingSeverity.HIGH,
+            explanation="Test finding",
+            model="ensemble",
+            modelVersion="1.0",
+        )
+        fresh_repo.save_finding(finding)
+
+        req = OfficerFindingVerificationRequest(
+            findingId=fid,
+            evidenceReviewed=True,
+            assessment=assess,
+            officerId="OFFICER-10",
+            officerRole="LEAD_INSPECTOR",
+        )
+        resp = service.verify_finding(req, auth_verified=True)
+        assert resp.verificationStatus == expected_status
+        assert resp.officerAssessment == assess
+
+
+# =============================================================================
+# 5. REPORT GENERATION TESTS
+# =============================================================================
+
+def test_report_generation_records_model_disagreements():
+    """Verifies that report generator flags model disagreements as unresolved items."""
+    generator = DeterministicReportGenerator()
+    insp_id = uuid.uuid4()
+    run_id = uuid.uuid4()
+    ev_id = uuid.uuid4()
+
+    finding = Finding(
+        findingId=uuid.uuid4(),
+        evidenceId=ev_id,
+        findingType="FIRE_EXTINGUISHER_MISSING",
+        confidence=0.88,
+        severity=FindingSeverity.HIGH,
+        explanation="Conflict between models.",
+        model="ensemble",
+        modelVersion="1.0",
+        reconciliationStatus="CONFLICT",
+        conflictType="CATEGORY_MISMATCH",
+        conflictDetails={
+            "description": "Gemini flagged missing extinguisher; CV flagged obstacle.",
+        },
+    )
+
+    draft = generator.generate_draft(
+        inspection_id=insp_id,
+        run_id=run_id,
+        findings=[finding],
+        evidence_ids=[ev_id],
+    )
+
+    assert draft.status.value == "DRAFT"
+    assert draft.reviewState.value == "DRAFT"
+    assert len(draft.findings) == 1
+
+    # Check that model disagreement is highlighted in unresolved items
+    disagreement_items = [u for u in draft.unresolvedItems if "MODEL_DISAGREEMENT" in u.category]
+    assert len(disagreement_items) >= 1
+    assert "discrepancy" in disagreement_items[0].description.lower()
+
+
+def test_report_generation_forbids_autonomous_fire_noc_decision():
+    """Safety boundary: Verifies report generator raises ValueError if AI attempts NOC decision."""
+    generator = DeterministicReportGenerator()
+    insp_id = uuid.uuid4()
+    run_id = uuid.uuid4()
+    ev_id = uuid.uuid4()
+
+    # Attempting to assign forbidden reviewState
+    with pytest.raises(ValueError) as excinfo:
+        from app.schemas.report import InspectionReportDraft
+        InspectionReportDraft(
+            inspectionId=insp_id,
+            runId=run_id,
+            modelInformation=draft_model_info(),
+            summary=draft_summary(),
+            reviewState="AI_APPROVED",  # FORBIDDEN
+        )
+
+    assert "forbidden" in str(excinfo.value)
+    assert "AI cannot autonomously issue NOC" in str(excinfo.value)
+
+
+# Helpers for test report schema
+def draft_model_info():
+    from app.schemas.report import ReportModelInfo
+    return ReportModelInfo(modelName="ensemble", modelVersion="1.0")
+
+
+def draft_summary():
+    from app.schemas.report import ReportExecutiveSummary
+    return ReportExecutiveSummary(
+        totalFindings=0,
+        uniqueFindingTypes=0,
+        narrative="Advisory report draft.",
+    )
+
+
+# =============================================================================
+# 6. ADDITIONAL RECONCILIATION CASES (3, 6, 7, 8, 11, 12) & HTTP API TESTS
+# =============================================================================
+
+def test_reconciliation_case_3_cv_only():
+    """Case 3: CV model finds defect, Gemini returns no observation."""
+    reconciler = ResultReconciler()
+    ev_id = uuid.uuid4()
+    insp_id = uuid.uuid4()
+
+    class MockCVDet:
+        className = "EXIT_SIGNAGE_MISSING"
+        confidence = 0.84
+        boundingBox = {"xMin": 0.2, "yMin": 0.1, "xMax": 0.5, "yMax": 0.3}
+
+    findings, status, conflict = reconciler.reconcile(
+        evidence_id=ev_id,
+        inspection_id=insp_id,
+        gemini_result=None,  # No Gemini observations
+        cv_detections=[MockCVDet()],
+        cv_status="SUCCESS",
+        cv_model_info={"model": "cv-model", "version": "1.0"},
+        gemini_model_info={"model": "gemini-2.5-flash"},
+    )
+
+    assert status == ReconciliationStatus.SINGLE_PROVIDER
+    assert len(findings) == 1
+    assert findings[0].findingType == "EXIT_SIGNAGE_MISSING"
+    assert findings[0].reconciliationStatus == "SINGLE_PROVIDER"
+    assert findings[0].modelApprovalStatus == "NOT_APPROVED"
+
+
+def test_reconciliation_case_6_severity_mismatch():
+    """Case 6: Both detect same defect at same location, but propose different severities."""
+    reconciler = ResultReconciler()
+    ev_id = uuid.uuid4()
+    insp_id = uuid.uuid4()
+
+    gemini_res = GeminiAnalysisResult(
+        evidenceId=str(ev_id),
+        model="gemini-2.5-flash",
+        status=GeminiAnalysisStatus.ANALYSIS_COMPLETED_WITH_OBSERVATIONS,
+        observations=[
+            GeminiObservation(
+                imageReference=str(ev_id),
+                objectCategory="FIRE_EXTINGUISHER",
+                potentialHazardCategory="FIRE_EXTINGUISHER_MISSING",
+                observationDescription="Extinguisher bracket vacant.",
+                boundingBox=BoundingBox(xMin=0.2, yMin=0.2, xMax=0.4, yMax=0.6),
+                confidence=0.90,
+                potentialHazardSeverity="CRITICAL",  # Gemini proposes CRITICAL
+            )
+        ],
+    )
+
+    class MockCVDet:
+        className = "FIRE_EXTINGUISHER_MISSING"
+        confidence = 0.88
+        boundingBox = {"xMin": 0.21, "yMin": 0.19, "xMax": 0.39, "yMax": 0.61}
+        severity = "MEDIUM"  # CV proposes MEDIUM
+
+    findings, status, conflict = reconciler.reconcile(
+        evidence_id=ev_id,
+        inspection_id=insp_id,
+        gemini_result=gemini_res,
+        cv_detections=[MockCVDet()],
+        cv_status="SUCCESS",
+        cv_model_info={"model": "cv-model", "version": "1.0"},
+        gemini_model_info={"model": "gemini-2.5-flash"},
+    )
+
+    assert status == ReconciliationStatus.AGREEMENT
+    assert len(findings) == 1
+    f = findings[0]
+    # Spatial agreement present, but severity mismatch flagged
+    assert f.conflictType == ConflictType.SEVERITY_MISMATCH.value
+
+
+def test_reconciliation_case_7_inconclusive_preserves_valid_cv_observation():
+    """Case 7: Gemini is inconclusive, but CV valid observation is preserved."""
+    reconciler = ResultReconciler()
+    ev_id = uuid.uuid4()
+    insp_id = uuid.uuid4()
+
+    gemini_res = GeminiAnalysisResult(
+        evidenceId=str(ev_id),
+        model="gemini-2.5-flash",
+        status=GeminiAnalysisStatus.ANALYSIS_INCONCLUSIVE,
+        observations=[],
+        inconclusiveReason="Severe blur and camera motion.",
+    )
+
+    class MockCVDet:
+        className = "FIRE_EXTINGUISHER_BLOCKED"
+        confidence = 0.79
+        boundingBox = {"xMin": 0.1, "yMin": 0.2, "xMax": 0.4, "yMax": 0.8}
+
+    findings, status, conflict = reconciler.reconcile(
+        evidence_id=ev_id,
+        inspection_id=insp_id,
+        gemini_result=gemini_res,
+        cv_detections=[MockCVDet()],
+        cv_status="SUCCESS",
+        cv_model_info={"model": "cv-model", "version": "1.0"},
+        gemini_model_info={"model": "gemini-2.5-flash"},
+    )
+
+    assert status == ReconciliationStatus.PARTIAL_INCONCLUSIVE
+    assert len(findings) == 1
+    assert "Inconclusive Gemini evaluation" in findings[0].knownLimitations[0]
+
+
+def test_reconciliation_case_8_one_fails_one_succeeds():
+    """Case 8: One provider fails, other succeeds -> partial success with error recorded."""
+    reconciler = ResultReconciler()
+    ev_id = uuid.uuid4()
+    insp_id = uuid.uuid4()
+
+    gemini_res = GeminiAnalysisResult(
+        evidenceId=str(ev_id),
+        model="gemini-2.5-flash",
+        status=GeminiAnalysisStatus.ANALYSIS_FAILED,
+        observations=[],
+        error="Quota exceeded on upstream API.",
+    )
+
+    class MockCVDet:
+        className = "FIRE_EXTINGUISHER_MISSING"
+        confidence = 0.85
+        boundingBox = {"xMin": 0.3, "yMin": 0.2, "xMax": 0.6, "yMax": 0.7}
+
+    findings, status, conflict = reconciler.reconcile(
+        evidence_id=ev_id,
+        inspection_id=insp_id,
+        gemini_result=gemini_res,
+        cv_detections=[MockCVDet()],
+        cv_status="SUCCESS",
+        cv_model_info={"model": "cv-model", "version": "1.0"},
+        gemini_model_info={"model": "gemini-2.5-flash"},
+    )
+
+    assert status == ReconciliationStatus.DISCREPANCY
+    assert len(findings) == 1
+    assert conflict is not None
+    assert conflict.geminiObservation["error"] == "Quota exceeded on upstream API."
+
+
+def test_reconciliation_case_11_disabled_provider():
+    """Case 11: Provider disabled is honestly recorded without fabricating empty result."""
+    reconciler = ResultReconciler()
+    ev_id = uuid.uuid4()
+    insp_id = uuid.uuid4()
+
+    findings, status, conflict = reconciler.reconcile(
+        evidence_id=ev_id,
+        inspection_id=insp_id,
+        gemini_result=None,
+        cv_detections=[],
+        cv_status="DISABLED",
+        cv_model_info={"model": "cv-model", "version": "1.0"},
+        gemini_model_info={"model": "gemini-2.5-flash"},
+    )
+
+    assert status == ReconciliationStatus.NO_OBSERVATIONS
+    assert len(findings) == 0
+
+
+def test_reconciliation_case_12_invalid_schema_rejected():
+    """Case 12: Observation with invalid schema is rejected and marked invalid."""
+    validator = EvidenceValidator()
+
+    # Missing category
+    is_valid, errors = validator.validate_observation_schema({
+        "severity": "HIGH",
+        "confidence": 0.85,
+    })
+    assert is_valid is False
+    assert any("missing category" in e for e in errors)
+
+    # Invalid severity string
+    is_valid_sev, errors_sev = validator.validate_observation_schema({
+        "findingType": "FIRE_EXTINGUISHER_MISSING",
+        "severity": "SUPER_CRITICAL_INVALID",
+    })
+    assert is_valid_sev is False
+    assert any("Invalid severity" in e for e in errors_sev)
+
+
+# =============================================================================
+# 7. HTTP ENDPOINT INTEGRATION TESTS
+# =============================================================================
+
+def test_http_verify_finding_endpoint(test_client):
+    """Verifies POST /internal/ai/inspection-analysis/{inspection_id}/verify-finding HTTP endpoint."""
+    insp_id = str(uuid.uuid4())
+    find_id = str(uuid.uuid4())
+
+    payload = {
+        "findingId": find_id,
+        "evidenceReviewed": True,
+        "assessment": "CONFIRMED_HAZARD",
+        "officerId": "OFFICER-771",
+        "officerRole": "FIRE_OFFICER",
+        "remarks": "On-site verification completed: hazard confirmed.",
+        "expectedVersion": 1,
+    }
+
+    response = test_client.post(
+        f"/internal/ai/inspection-analysis/{insp_id}/verify-finding",
+        json=payload,
+    )
+    assert response.status_code == 200
+    data = response.json()
+    assert data["findingId"] == find_id
+    assert data["verificationStatus"] == "OFFICER_CONFIRMED"
+    assert data["officerAssessment"] == "CONFIRMED_HAZARD"
+    assert data["evidenceReviewed"] is True
+    assert data["version"] == 2
+
+
+def test_http_verify_finding_direct_endpoint(test_client):
+    """Verifies POST /internal/ai/findings/{finding_id}/verify direct endpoint."""
+    find_id = str(uuid.uuid4())
+
+    payload = {
+        "findingId": find_id,
+        "evidenceReviewed": True,
+        "assessment": "NOT_A_HAZARD",
+        "officerId": "LEAD-009",
+        "officerRole": "LEAD_INSPECTOR",
+        "remarks": "Object is decorative replica; not a fire hazard.",
+    }
+
+    response = test_client.post(
+        f"/internal/ai/findings/{find_id}/verify",
+        json=payload,
+    )
+    assert response.status_code == 200
+    data = response.json()
+    assert data["verificationStatus"] == "OFFICER_DISMISSED"
+    assert data["officerAssessment"] == "NOT_A_HAZARD"
+
+
+def test_http_verify_finding_rbac_rejection(test_client):
+    """Verifies that an unauthorized role is rejected with HTTP 403 Forbidden."""
+    insp_id = str(uuid.uuid4())
+    find_id = str(uuid.uuid4())
+
+    payload = {
+        "findingId": find_id,
+        "evidenceReviewed": True,
+        "assessment": "CONFIRMED_HAZARD",
+        "officerId": "CITIZEN-USER",
+        "officerRole": "CITIZEN",
+    }
+
+    response = test_client.post(
+        f"/internal/ai/inspection-analysis/{insp_id}/verify-finding",
+        json=payload,
+    )
+    assert response.status_code == 403
+    data = response.json()
+    msg = data.get("message") or (data.get("detail", {}).get("message") if isinstance(data.get("detail"), dict) else data.get("detail", ""))
+    assert "not authorized" in str(msg).lower()

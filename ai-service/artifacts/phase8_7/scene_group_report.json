@@ -1,0 +1,136 @@
+{
+  "total_groups": 3735,
+  "partition_strategy": "DETERMINISTIC_GROUP_AWARE_SEED_42",
+  "group_distribution": {
+    "train_groups": 2614,
+    "val_groups": 747,
+    "test_groups": 374
+  },
+  "sample_groups": [
+    {
+      "group_id": "canon_emergency_exit_signs_ML_20240205_10-47-45_jpg",
+      "sample_count": 1,
+      "split": "train"
+    },
+    {
+      "group_id": "canon_emergency_exit_signs_ML_20240205_10-49-32_jpg",
+      "sample_count": 1,
+      "split": "train"
+    },
+    {
+      "group_id": "canon_emergency_exit_signs_ML_20240205_10-53-37_jpg",
+      "sample_count": 1,
+      "split": "train"
+    },
+    {
+      "group_id": "canon_emergency_exit_signs_ML_20240205_11-02-59_jpg",
+      "sample_count": 1,
+      "split": "train"
+    },
+    {
+      "group_id": "canon_emergency_exit_signs_ML_20240205_11-05-51_jpg",
+      "sample_count": 1,
+      "split": "train"
+    },
+    {
+      "group_id": "canon_emergency_exit_signs_ML_20240205_11-11-05_jpg",
+      "sample_count": 1,
+      "split": "train"
+    },
+    {
+      "group_id": "canon_emergency_exit_signs_ML_20240205_11-13-08_jpg",
+      "sample_count": 1,
+      "split": "train"
+    },
+    {
+      "group_id": "canon_emergency_exit_signs_ML_20240205_12-10-13_jpg",
+      "sample_count": 1,
+      "split": "train"
+    },
+    {
+      "group_id": "canon_emergency_exit_signs_ML_20240206_16-14-06_jpg",
+      "sample_count": 1,
+      "split": "train"
+    },
+    {
+      "group_id": "canon_emergency_exit_signs_ML_20240205_10-16-59_jpg",
+      "sample_count": 4,
+      "split": "train"
+    },
+    {
+      "group_id": "canon_emergency_exit_signs_ML_20240205_10-18-41_jpg",
+      "sample_count": 4,
+      "split": "test"
+    },
+    {
+      "group_id": "canon_emergency_exit_signs_ML_20240205_10-19-15_jpg",
+      "sample_count": 4,
+      "split": "train"
+    },
+    {
+      "group_id": "canon_emergency_exit_signs_ML_20240205_10-21-34_jpg",
+      "sample_count": 4,
+      "split": "train"
+    },
+    {
+      "group_id": "canon_emergency_exit_signs_ML_20240205_10-23-49_jpg",
+      "sample_count": 4,
+      "split": "train"
+    },
+    {
+      "group_id": "canon_emergency_exit_signs_ML_20240205_10-24-50_jpg",
+      "sample_count": 4,
+      "split": "val"
+    },
+    {
+      "group_id": "canon_emergency_exit_signs_ML_20240205_10-26-21_jpg",
+      "sample_count": 4,
+      "split": "train"
+    },
+    {
+      "group_id": "canon_emergency_exit_signs_ML_20240205_10-26-39_jpg",
+      "sample_count": 4,
+      "split": "test"
+    },
+    {
+      "group_id": "canon_emergency_exit_signs_ML_20240205_10-29-27_jpg",
+      "sample_count": 4,
+      "split": "val"
+    },
+    {
+      "group_id": "canon_emergency_exit_signs_ML_20240205_10-29-57_jpg",
+      "sample_count": 3,
+      "split": "train"
+    },
+    {
+      "group_id": "canon_emergency_exit_signs_ML_20240205_10-30-10_jpg",
+      "sample_count": 4,
+      "split": "train"
+    },
+    {
+      "group_id": "canon_emergency_exit_signs_ML_20240205_10-30-49_jpg",
+      "sample_count": 4,
+      "split": "train"
+    },
+    {
+      "group_id": "canon_emergency_exit_signs_ML_20240205_10-31-06_jpg",
+      "sample_count": 4,
+      "split": "train"
+    },
+    {
+      "group_id": "canon_emergency_exit_signs_ML_20240205_10-31-43_jpg",
+      "sample_count": 3,
+      "split": "train"
+    },
+    {
+      "group_id": "canon_emergency_exit_signs_ML_20240205_10-32-29_jpg",
+      "sample_count": 4,
+      "split": "val"
+    },
+    {
+      "group_id": "canon_emergency_exit_signs_ML_20240205_10-33-48_jpg",
+      "sample_count": 4,
+      "split": "train"
+    }
+  ]
+}

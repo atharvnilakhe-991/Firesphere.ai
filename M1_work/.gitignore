@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.expo/
+.expo-home/
+.env
+.env.*
+!.env.example
+*.log
+*.tsbuildinfo
+android/
+ios/

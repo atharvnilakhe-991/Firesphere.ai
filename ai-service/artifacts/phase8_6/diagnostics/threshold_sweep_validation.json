@@ -1,0 +1,382 @@
+{
+  "dataset_split": "val",
+  "validation_images_evaluated": 988,
+  "model_id": "firesphere-perception-baseline-v0.8.0",
+  "thresholds_tested": [
+    0.05,
+    0.1,
+    0.15,
+    0.2,
+    0.25,
+    0.3,
+    0.4,
+    0.5
+  ],
+  "sweep_results": [
+    {
+      "conf_threshold": 0.05,
+      "total_detections": 5293,
+      "overall_precision": 0.1457,
+      "overall_recall": 0.5299,
+      "overall_f1": 0.2286,
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 658,
+          "fp": 3864,
+          "fn": 290,
+          "precision": 0.1455,
+          "recall": 0.6941,
+          "f1": 0.2406
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 113,
+          "fp": 658,
+          "fn": 385,
+          "precision": 0.1466,
+          "recall": 0.2269,
+          "f1": 0.1781
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    {
+      "conf_threshold": 0.1,
+      "total_detections": 2153,
+      "overall_precision": 0.2926,
+      "overall_recall": 0.433,
+      "overall_f1": 0.3492,
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 588,
+          "fp": 1400,
+          "fn": 360,
+          "precision": 0.2958,
+          "recall": 0.6203,
+          "f1": 0.4006
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 42,
+          "fp": 123,
+          "fn": 456,
+          "precision": 0.2545,
+          "recall": 0.0843,
+          "f1": 0.1266
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    {
+      "conf_threshold": 0.15,
+      "total_detections": 1192,
+      "overall_precision": 0.4153,
+      "overall_recall": 0.3402,
+      "overall_f1": 0.374,
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 490,
+          "fp": 679,
+          "fn": 458,
+          "precision": 0.4192,
+          "recall": 0.5169,
+          "f1": 0.463
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 5,
+          "fp": 18,
+          "fn": 493,
+          "precision": 0.2174,
+          "recall": 0.01,
+          "f1": 0.0191
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    {
+      "conf_threshold": 0.2,
+      "total_detections": 808,
+      "overall_precision": 0.521,
+      "overall_recall": 0.2893,
+      "overall_f1": 0.372,
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 420,
+          "fp": 381,
+          "fn": 528,
+          "precision": 0.5243,
+          "recall": 0.443,
+          "f1": 0.4802
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 1,
+          "fp": 6,
+          "fn": 497,
+          "precision": 0.1429,
+          "recall": 0.002,
+          "f1": 0.0039
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    {
+      "conf_threshold": 0.25,
+      "total_detections": 605,
+      "overall_precision": 0.5851,
+      "overall_recall": 0.2433,
+      "overall_f1": 0.3437,
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 353,
+          "fp": 250,
+          "fn": 595,
+          "precision": 0.5854,
+          "recall": 0.3724,
+          "f1": 0.4552
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 1,
+          "fp": 1,
+          "fn": 497,
+          "precision": 0.5,
+          "recall": 0.002,
+          "f1": 0.004
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    {
+      "conf_threshold": 0.3,
+      "total_detections": 429,
+      "overall_precision": 0.634,
+      "overall_recall": 0.1869,
+      "overall_f1": 0.2887,
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 271,
+          "fp": 157,
+          "fn": 677,
+          "precision": 0.6332,
+          "recall": 0.2859,
+          "f1": 0.3939
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 1,
+          "fp": 0,
+          "fn": 497,
+          "precision": 1.0,
+          "recall": 0.002,
+          "f1": 0.004
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    {
+      "conf_threshold": 0.4,
+      "total_detections": 229,
+      "overall_precision": 0.7555,
+      "overall_recall": 0.1189,
+      "overall_f1": 0.2055,
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 173,
+          "fp": 56,
+          "fn": 775,
+          "precision": 0.7555,
+          "recall": 0.1825,
+          "f1": 0.294
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 0,
+          "fp": 0,
+          "fn": 498,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    },
+    {
+      "conf_threshold": 0.5,
+      "total_detections": 123,
+      "overall_precision": 0.8537,
+      "overall_recall": 0.0722,
+      "overall_f1": 0.1331,
+      "per_class": {
+        "FIRE_EXTINGUISHER": {
+          "support": 948,
+          "tp": 105,
+          "fp": 18,
+          "fn": 843,
+          "precision": 0.8537,
+          "recall": 0.1108,
+          "f1": 0.1961
+        },
+        "EXIT_DOOR": {
+          "support": 3,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "EXIT_SIGN": {
+          "support": 498,
+          "tp": 0,
+          "fp": 0,
+          "fn": 498,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "OBSTACLE": {
+          "support": 6,
+          "tp": 0,
+          "fp": 0,
+          "fn": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        }
+      }
+    }
+  ],
+  "analysis": {
+    "best_f1_threshold": 0.15,
+    "max_recall_threshold": 0.05,
+    "threshold_impact_finding": "Lowering threshold to 0.05 boosts extinguisher recall but triggers heavy background false positives without unlocking exit doors or obstacles, proving that confidence thresholding is not the primary root cause."
+  }
+}

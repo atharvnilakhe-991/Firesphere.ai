@@ -1,0 +1,108 @@
+{
+  "split": "val",
+  "evaluationStatus": "COMPLETED",
+  "totalImages": 988,
+  "totalGroundTruthObjects": 1455,
+  "totalPredictedObjects": 808,
+  "meanPrecision": 0.1668,
+  "meanRecall": 0.1113,
+  "meanF1": 0.121,
+  "mAP50": 0.0588,
+  "mAP50_95": 0.0227,
+  "perClassMetrics": {
+    "FIRE_EXTINGUISHER": {
+      "support": 948,
+      "truePositives": 420,
+      "falsePositives": 381,
+      "falseNegatives": 528,
+      "precision": 0.5243,
+      "recall": 0.443,
+      "f1Score": 0.4802,
+      "ap50": 0.2336,
+      "ap50_95": 0.0909,
+      "data_limitation": "NONE"
+    },
+    "EXIT_DOOR": {
+      "support": 3,
+      "truePositives": 0,
+      "falsePositives": 0,
+      "falseNegatives": 3,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1Score": 0.0,
+      "ap50": 0.0,
+      "ap50_95": 0.0,
+      "data_limitation": "DATA_LIMITED"
+    },
+    "EXIT_SIGN": {
+      "support": 498,
+      "truePositives": 1,
+      "falsePositives": 6,
+      "falseNegatives": 497,
+      "precision": 0.1429,
+      "recall": 0.002,
+      "f1Score": 0.0039,
+      "ap50": 0.0014,
+      "ap50_95": 0.0001,
+      "data_limitation": "NONE"
+    },
+    "OBSTACLE": {
+      "support": 6,
+      "truePositives": 0,
+      "falsePositives": 0,
+      "falseNegatives": 6,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1Score": 0.0,
+      "ap50": 0.0,
+      "ap50_95": 0.0,
+      "data_limitation": "DATA_LIMITED"
+    }
+  },
+  "confusionMatrix": {
+    "classNames": [
+      "FIRE_EXTINGUISHER",
+      "EXIT_DOOR",
+      "EXIT_SIGN",
+      "OBSTACLE",
+      "BACKGROUND"
+    ],
+    "matrix": [
+      [
+        420,
+        0,
+        0,
+        0,
+        381
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        6
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        528,
+        3,
+        497,
+        6,
+        0
+      ]
+    ]
+  }
+}

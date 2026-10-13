@@ -1,0 +1,372 @@
+{
+  "sweep": [
+    {
+      "threshold": 0.05,
+      "meanPrecision": 0.0596,
+      "meanRecall": 0.1759,
+      "meanF1": 0.0858,
+      "mAP50": 0.0245,
+      "totalPredictions": 3986,
+      "perClass": {
+        "FIRE_EXTINGUISHER": {
+          "ap50": 0.0857,
+          "precision": 0.1493,
+          "recall": 0.5714,
+          "f1": 0.2367,
+          "tp": 488,
+          "fp": 2781,
+          "fn": 366
+        },
+        "EXIT_DOOR": {
+          "ap50": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 20,
+          "fn": 117
+        },
+        "EXIT_SIGN": {
+          "ap50": 0.0123,
+          "precision": 0.089,
+          "recall": 0.1322,
+          "f1": 0.1064,
+          "tp": 62,
+          "fp": 635,
+          "fn": 407
+        },
+        "OBSTACLE": {
+          "ap50": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3
+        }
+      }
+    },
+    {
+      "threshold": 0.1,
+      "meanPrecision": 0.0832,
+      "meanRecall": 0.1206,
+      "meanF1": 0.0925,
+      "mAP50": 0.0305,
+      "totalPredictions": 1647,
+      "perClass": {
+        "FIRE_EXTINGUISHER": {
+          "ap50": 0.12,
+          "precision": 0.2634,
+          "recall": 0.459,
+          "f1": 0.3347,
+          "tp": 392,
+          "fp": 1096,
+          "fn": 462
+        },
+        "EXIT_DOOR": {
+          "ap50": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 117
+        },
+        "EXIT_SIGN": {
+          "ap50": 0.0021,
+          "precision": 0.0692,
+          "recall": 0.0235,
+          "f1": 0.0351,
+          "tp": 11,
+          "fp": 148,
+          "fn": 458
+        },
+        "OBSTACLE": {
+          "ap50": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3
+        }
+      }
+    },
+    {
+      "threshold": 0.15,
+      "meanPrecision": 0.125,
+      "meanRecall": 0.0947,
+      "meanF1": 0.1009,
+      "mAP50": 0.036,
+      "totalPredictions": 869,
+      "perClass": {
+        "FIRE_EXTINGUISHER": {
+          "ap50": 0.1419,
+          "precision": 0.3872,
+          "recall": 0.3618,
+          "f1": 0.3741,
+          "tp": 309,
+          "fp": 489,
+          "fn": 545
+        },
+        "EXIT_DOOR": {
+          "ap50": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 117
+        },
+        "EXIT_SIGN": {
+          "ap50": 0.0022,
+          "precision": 0.1127,
+          "recall": 0.0171,
+          "f1": 0.0297,
+          "tp": 8,
+          "fp": 63,
+          "fn": 461
+        },
+        "OBSTACLE": {
+          "ap50": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3
+        }
+      }
+    },
+    {
+      "threshold": 0.2,
+      "meanPrecision": 0.1403,
+      "meanRecall": 0.0684,
+      "meanF1": 0.0878,
+      "mAP50": 0.0313,
+      "totalPredictions": 522,
+      "perClass": {
+        "FIRE_EXTINGUISHER": {
+          "ap50": 0.1241,
+          "precision": 0.4644,
+          "recall": 0.267,
+          "f1": 0.3391,
+          "tp": 228,
+          "fp": 263,
+          "fn": 626
+        },
+        "EXIT_DOOR": {
+          "ap50": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 117
+        },
+        "EXIT_SIGN": {
+          "ap50": 0.001,
+          "precision": 0.0968,
+          "recall": 0.0064,
+          "f1": 0.012,
+          "tp": 3,
+          "fp": 28,
+          "fn": 466
+        },
+        "OBSTACLE": {
+          "ap50": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3
+        }
+      }
+    },
+    {
+      "threshold": 0.25,
+      "meanPrecision": 0.144,
+      "meanRecall": 0.0477,
+      "meanF1": 0.0717,
+      "mAP50": 0.0285,
+      "totalPredictions": 299,
+      "perClass": {
+        "FIRE_EXTINGUISHER": {
+          "ap50": 0.1141,
+          "precision": 0.576,
+          "recall": 0.1909,
+          "f1": 0.2868,
+          "tp": 163,
+          "fp": 120,
+          "fn": 691
+        },
+        "EXIT_DOOR": {
+          "ap50": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 117
+        },
+        "EXIT_SIGN": {
+          "ap50": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 16,
+          "fn": 469
+        },
+        "OBSTACLE": {
+          "ap50": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3
+        }
+      }
+    },
+    {
+      "threshold": 0.3,
+      "meanPrecision": 0.1596,
+      "meanRecall": 0.031,
+      "meanF1": 0.052,
+      "mAP50": 0.0205,
+      "totalPredictions": 175,
+      "perClass": {
+        "FIRE_EXTINGUISHER": {
+          "ap50": 0.0822,
+          "precision": 0.6386,
+          "recall": 0.1241,
+          "f1": 0.2078,
+          "tp": 106,
+          "fp": 60,
+          "fn": 748
+        },
+        "EXIT_DOOR": {
+          "ap50": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 117
+        },
+        "EXIT_SIGN": {
+          "ap50": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 9,
+          "fn": 469
+        },
+        "OBSTACLE": {
+          "ap50": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3
+        }
+      }
+    },
+    {
+      "threshold": 0.4,
+      "meanPrecision": 0.1945,
+      "meanRecall": 0.0123,
+      "meanF1": 0.0231,
+      "mAP50": 0.0096,
+      "totalPredictions": 54,
+      "perClass": {
+        "FIRE_EXTINGUISHER": {
+          "ap50": 0.0385,
+          "precision": 0.7778,
+          "recall": 0.0492,
+          "f1": 0.0925,
+          "tp": 42,
+          "fp": 12,
+          "fn": 812
+        },
+        "EXIT_DOOR": {
+          "ap50": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 117
+        },
+        "EXIT_SIGN": {
+          "ap50": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 469
+        },
+        "OBSTACLE": {
+          "ap50": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3
+        }
+      }
+    },
+    {
+      "threshold": 0.5,
+      "meanPrecision": 0.1964,
+      "meanRecall": 0.0032,
+      "meanF1": 0.0063,
+      "mAP50": 0.0039,
+      "totalPredictions": 14,
+      "perClass": {
+        "FIRE_EXTINGUISHER": {
+          "ap50": 0.0156,
+          "precision": 0.7857,
+          "recall": 0.0129,
+          "f1": 0.0254,
+          "tp": 11,
+          "fp": 3,
+          "fn": 843
+        },
+        "EXIT_DOOR": {
+          "ap50": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 117
+        },
+        "EXIT_SIGN": {
+          "ap50": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 469
+        },
+        "OBSTACLE": {
+          "ap50": 0.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 3
+        }
+      }
+    }
+  ]
+}

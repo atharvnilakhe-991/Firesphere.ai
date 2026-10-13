@@ -1,0 +1,2 @@
+-- Database schema migrations pending Member 3 contract.
+-- Do not fabricate schema.

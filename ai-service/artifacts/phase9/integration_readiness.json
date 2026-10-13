@@ -1,0 +1,44 @@
+{
+  "springBootCompatibility": {
+    "status": "COMPATIBLE",
+    "interface": "HTTP REST /internal/ai endpoints with standard JSON payloads",
+    "correlationIds": [
+      "inspectionId",
+      "evidenceId",
+      "runId"
+    ],
+    "dataTypes": "UUIDv4, ISO-8601 UTC timestamps, normalized bounding boxes [0.0, 1.0]"
+  },
+  "persistencePostgresCompatibility": {
+    "status": "COMPATIBLE",
+    "entityMapping": "Finding DTO maps directly to PostgreSQL findings table and PostGIS spatial geometry",
+    "idempotency": "Deterministic finding IDs and job execution run IDs prevent duplicate row creation"
+  },
+  "redisAsyncJobCompatibility": {
+    "status": "COMPATIBLE",
+    "jobQueue": "Redis-backed asynchronous job broker with exponential retry backoff and dead-letter queue",
+    "statusPolling": "GET /internal/ai/jobs/{job_id} supports polling or webhook notification"
+  },
+  "minioS3StorageCompatibility": {
+    "status": "COMPATIBLE",
+    "evidenceFetching": "Per-evidence fault-isolated streaming from MinIO/S3 compatible object store",
+    "limits": "Enforces 20MB image size limit and dimension safety boundaries"
+  },
+  "humanReviewAndSafetyBoundary": {
+    "status": "COMPATIBLE",
+    "complianceStatusDefault": "REQUIRES_OFFICER_VERIFICATION",
+    "prohibitedStates": [
+      "AI_APPROVED",
+      "AI_REJECTED",
+      "APPROVED",
+      "REJECTED"
+    ],
+    "zeroDetectionsSemantics": "Zero detections indicates lack of visual cue, NEVER an approved inspection."
+  },
+  "securityAndTenantIsolation": {
+    "status": "COMPATIBLE",
+    "credentials": "All credentials driven by environment variables; zero hardcoded secrets",
+    "tenantIsolation": "Tenant ID and inspection ID headers strictly scoped on all endpoints"
+  },
+  "readinessStatus": "READY_FOR_PHASE_10_INTEGRATION"
+}

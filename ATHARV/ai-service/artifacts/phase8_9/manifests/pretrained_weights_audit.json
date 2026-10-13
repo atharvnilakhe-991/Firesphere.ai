@@ -1,0 +1,19 @@
+{
+  "audit_timestamp": "2026-10-09T00:17:35Z",
+  "python_environment": "ai-service/.venv",
+  "pytorch_version": "2.14.1+cpu",
+  "torchvision_installed": false,
+  "timm_installed": false,
+  "torch_hub_cache_exists": false,
+  "local_pretrained_weights_found": false,
+  "candidate_backbone_families_evaluated": [
+    "mobilenet_v2",
+    "mobilenet_v3",
+    "resnet18",
+    "resnet34"
+  ],
+  "status": "PRETRAINED_WEIGHTS_UNAVAILABLE",
+  "gate_decision": "PRETRAINED_EXPERIMENT_BLOCKED",
+  "production_status": "NOT_APPROVED",
+  "reason": "No local pretrained weights found in environment. In accordance with Section 4 and Section 21 of Phase 8.9 governance, arbitrary internet weight downloads are prohibited without explicit user approval. Simulated/fake initialization is prohibited under Truth-in-AI guidelines."
+}

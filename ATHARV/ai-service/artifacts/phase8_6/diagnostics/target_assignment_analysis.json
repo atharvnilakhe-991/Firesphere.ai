@@ -1,0 +1,79 @@
+{
+  "grid_resolution": "16x16",
+  "anchors": [
+    [
+      0.08,
+      0.08
+    ],
+    [
+      0.22,
+      0.35
+    ],
+    [
+      0.55,
+      0.65
+    ]
+  ],
+  "total_images_analyzed": 3377,
+  "images_with_collision": 248,
+  "total_collisions": 251,
+  "class_assignment_summary": {
+    "FIRE_EXTINGUISHER": {
+      "total_boxes": 3164,
+      "anchor_0_small_matches": 1290,
+      "anchor_1_medium_matches": 1653,
+      "anchor_2_large_matches": 221,
+      "spatial_collisions": 251,
+      "collision_rate_percent": 7.93,
+      "median_width": 0.0734,
+      "median_height": 0.3082,
+      "median_area": 0.023376,
+      "pct_area_under_0_01": 29.96,
+      "pct_area_over_0_15": 9.1
+    },
+    "EXIT_DOOR": {
+      "total_boxes": 33,
+      "anchor_0_small_matches": 0,
+      "anchor_1_medium_matches": 3,
+      "anchor_2_large_matches": 30,
+      "spatial_collisions": 0,
+      "collision_rate_percent": 0.0,
+      "median_width": 0.5359,
+      "median_height": 0.8016,
+      "median_area": 0.450522,
+      "pct_area_under_0_01": 0.0,
+      "pct_area_over_0_15": 90.91
+    },
+    "EXIT_SIGN": {
+      "total_boxes": 1741,
+      "anchor_0_small_matches": 755,
+      "anchor_1_medium_matches": 628,
+      "anchor_2_large_matches": 358,
+      "spatial_collisions": 0,
+      "collision_rate_percent": 0.0,
+      "median_width": 0.168,
+      "median_height": 0.2039,
+      "median_area": 0.036468,
+      "pct_area_under_0_01": 33.43,
+      "pct_area_over_0_15": 21.65
+    },
+    "OBSTACLE": {
+      "total_boxes": 69,
+      "anchor_0_small_matches": 0,
+      "anchor_1_medium_matches": 13,
+      "anchor_2_large_matches": 56,
+      "spatial_collisions": 0,
+      "collision_rate_percent": 0.0,
+      "median_width": 0.4523,
+      "median_height": 0.7937,
+      "median_area": 0.256961,
+      "pct_area_under_0_01": 0.0,
+      "pct_area_over_0_15": 92.75
+    }
+  },
+  "key_findings": {
+    "exit_sign_small_percentage": 33.43,
+    "exit_door_large_percentage": 90.91,
+    "obstacle_large_percentage": 92.75
+  }
+}

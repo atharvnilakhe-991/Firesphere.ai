@@ -1,0 +1,92 @@
+{
+  "threshold_sweep": [
+    {
+      "threshold": 0.05,
+      "precision": 0.0682,
+      "recall": 0.1988,
+      "f1": 0.1004,
+      "mAP50": 0.0267,
+      "extinguisher_ap50": 0.0781,
+      "door_ap50": 0.0003,
+      "sign_ap50": 0.0282,
+      "obstacle_ap50": 0.0
+    },
+    {
+      "threshold": 0.1,
+      "precision": 0.1299,
+      "recall": 0.1547,
+      "f1": 0.1396,
+      "mAP50": 0.0418,
+      "extinguisher_ap50": 0.1168,
+      "door_ap50": 0.0,
+      "sign_ap50": 0.0505,
+      "obstacle_ap50": 0.0
+    },
+    {
+      "threshold": 0.15,
+      "precision": 0.1967,
+      "recall": 0.1248,
+      "f1": 0.1495,
+      "mAP50": 0.0506,
+      "extinguisher_ap50": 0.1401,
+      "door_ap50": 0.0,
+      "sign_ap50": 0.0624,
+      "obstacle_ap50": 0.0
+    },
+    {
+      "threshold": 0.2,
+      "precision": 0.2343,
+      "recall": 0.098,
+      "f1": 0.1354,
+      "mAP50": 0.0479,
+      "extinguisher_ap50": 0.1404,
+      "door_ap50": 0.0,
+      "sign_ap50": 0.0512,
+      "obstacle_ap50": 0.0
+    },
+    {
+      "threshold": 0.25,
+      "precision": 0.2685,
+      "recall": 0.0796,
+      "f1": 0.1211,
+      "mAP50": 0.0461,
+      "extinguisher_ap50": 0.1379,
+      "door_ap50": 0.0,
+      "sign_ap50": 0.0463,
+      "obstacle_ap50": 0.0
+    },
+    {
+      "threshold": 0.3,
+      "precision": 0.3219,
+      "recall": 0.0678,
+      "f1": 0.11,
+      "mAP50": 0.0462,
+      "extinguisher_ap50": 0.1381,
+      "door_ap50": 0.0,
+      "sign_ap50": 0.0467,
+      "obstacle_ap50": 0.0
+    },
+    {
+      "threshold": 0.4,
+      "precision": 0.3639,
+      "recall": 0.0426,
+      "f1": 0.0751,
+      "mAP50": 0.0343,
+      "extinguisher_ap50": 0.1058,
+      "door_ap50": 0.0,
+      "sign_ap50": 0.0314,
+      "obstacle_ap50": 0.0
+    },
+    {
+      "threshold": 0.5,
+      "precision": 0.404,
+      "recall": 0.0288,
+      "f1": 0.0534,
+      "mAP50": 0.0275,
+      "extinguisher_ap50": 0.0832,
+      "door_ap50": 0.0,
+      "sign_ap50": 0.027,
+      "obstacle_ap50": 0.0
+    }
+  ]
+}
