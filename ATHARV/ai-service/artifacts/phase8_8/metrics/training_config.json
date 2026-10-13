@@ -1,0 +1,78 @@
+{
+  "model_id": "firesphere-perception-candidate-v0.8.8",
+  "architecture": "BaselineInspectionDetector",
+  "seed": 42,
+  "epochs": 5,
+  "best_epoch": 5,
+  "best_val_loss": 0.95949,
+  "total_time_seconds": 981.02,
+  "device": "cpu",
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 1.7837,
+      "train_box_loss": 0.5312,
+      "train_obj_loss": 0.28555,
+      "train_cls_loss": 0.2905,
+      "val_loss": 1.52977,
+      "val_box_loss": 0.51039,
+      "val_obj_loss": 0.09587,
+      "val_cls_loss": 0.27541,
+      "is_best": true,
+      "duration_seconds": 205.09
+    },
+    {
+      "epoch": 2,
+      "train_loss": 1.1278,
+      "train_box_loss": 0.42817,
+      "train_obj_loss": 0.05668,
+      "train_cls_loss": 0.14319,
+      "val_loss": 1.15808,
+      "val_box_loss": 0.45791,
+      "val_obj_loss": 0.03973,
+      "val_cls_loss": 0.13502,
+      "is_best": true,
+      "duration_seconds": 205.97
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.89705,
+      "train_box_loss": 0.37618,
+      "train_obj_loss": 0.03237,
+      "train_cls_loss": 0.07488,
+      "val_loss": 1.2535,
+      "val_box_loss": 0.43722,
+      "val_obj_loss": 0.0281,
+      "val_cls_loss": 0.23397,
+      "is_best": false,
+      "duration_seconds": 215.91
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.79711,
+      "train_box_loss": 0.34388,
+      "train_obj_loss": 0.0259,
+      "train_cls_loss": 0.05563,
+      "val_loss": 0.96461,
+      "val_box_loss": 0.40682,
+      "val_obj_loss": 0.02526,
+      "val_cls_loss": 0.0838,
+      "is_best": true,
+      "duration_seconds": 176.79
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.66555,
+      "train_box_loss": 0.29907,
+      "train_obj_loss": 0.02185,
+      "train_cls_loss": 0.03038,
+      "val_loss": 0.95949,
+      "val_box_loss": 0.39721,
+      "val_obj_loss": 0.0208,
+      "val_cls_loss": 0.09618,
+      "is_best": true,
+      "duration_seconds": 176.66
+    }
+  ],
+  "checkpoint_sha256": "b12ffccf532d819a1cbdd058bb4673f7270ff71533d9862003249fc5360df7b1"
+}

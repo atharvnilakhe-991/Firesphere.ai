@@ -1,0 +1,153 @@
+version: '3.8'
+
+# ==============================================================================
+# FireSphere.ai — Local Infrastructure Docker Compose Stack
+# Role: Member 3 (Database, Infrastructure & DevOps)
+# Services:
+#   - postgres: PostgreSQL 16 + PostGIS 3.4 (Relational & Spatial Core Engine)
+#   - redis: Redis 7 Alpine (Caching, Rate Limiting, Temporary Coordination)
+#   - minio: MinIO Object Storage (Local S3-Compatible Storage for Photos/Evidence)
+#   - minio-init: Idempotent Bucket Provisioner (Creates Development Buckets)
+#   - flyway: Flyway Database Migration Runner (Schema Evolution)
+# ==============================================================================
+
+networks:
+  firesphere-network:
+    name: firesphere-network
+    driver: bridge
+
+volumes:
+  postgres_data:
+    name: firesphere_postgres_data
+  redis_data:
+    name: firesphere_redis_data
+  minio_data:
+    name: firesphere_minio_data
+
+services:
+  # ----------------------------------------------------------------------------
+  # 1. PostgreSQL 16 with PostGIS 3.4
+  # ----------------------------------------------------------------------------
+  postgres:
+    image: postgis/postgis:16-3.4-alpine
+    container_name: firesphere-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-firesphere}
+      POSTGRES_USER: ${POSTGRES_USER:-firesphere_admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres_dev_password_change_me}
+    ports:
+      - "${POSTGRES_EXTERNAL_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/postgres/init-scripts:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-firesphere_admin} -d ${POSTGRES_DB:-firesphere}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    networks:
+      - firesphere-network
+
+  # ----------------------------------------------------------------------------
+  # 2. Redis 7 (Caching, Rate Limiting & Transient Queue Coordination)
+  # ----------------------------------------------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: firesphere-redis
+    restart: unless-stopped
+    command: >
+      redis-server
+      --requirepass ${REDIS_PASSWORD:-redis_dev_password_change_me}
+      --appendonly yes
+      --maxmemory 256mb
+      --maxmemory-policy allkeys-lru
+    ports:
+      - "${REDIS_EXTERNAL_PORT:-6379}:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli -a ${REDIS_PASSWORD:-redis_dev_password_change_me} ping | grep PONG"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+    networks:
+      - firesphere-network
+
+  # ----------------------------------------------------------------------------
+  # 3. MinIO (S3-Compatible Local Object Storage)
+  # ----------------------------------------------------------------------------
+  minio:
+    image: cgr.dev/chainguard/minio:latest
+    container_name: firesphere-minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minio_dev_admin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minio_dev_password_change_me}
+      MINIO_BROWSER_REDIRECT_URL: http://localhost:9001
+    ports:
+      - "${MINIO_EXTERNAL_PORT:-9000}:9000"
+      - "${MINIO_EXTERNAL_CONSOLE_PORT:-9001}:9001"
+    volumes:
+      - minio_data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9000/minio/health/live || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - firesphere-network
+
+  # ----------------------------------------------------------------------------
+  # 4. MinIO Bucket Initialization Helper (Idempotent Setup)
+  # ----------------------------------------------------------------------------
+  minio-init:
+    image: cgr.dev/chainguard/minio-client:latest
+    container_name: firesphere-minio-init
+    depends_on:
+      minio:
+        condition: service_healthy
+    entrypoint: >
+      /bin/sh -c "
+      echo 'Waiting for MinIO service...';
+      until /usr/bin/mc alias set local http://minio:9000 ${MINIO_ROOT_USER:-minio_dev_admin} ${MINIO_ROOT_PASSWORD:-minio_dev_password_change_me}; do
+        sleep 1;
+      done;
+      echo 'Configuring MinIO development buckets...';
+      for bucket in firesphere-documents firesphere-photos firesphere-evidence firesphere-backups; do
+        /usr/bin/mc mb -p local/$$bucket;
+        /usr/bin/mc anonymous set none local/$$bucket;
+      done;
+      echo 'MinIO buckets initialized successfully.';
+      exit 0;
+      "
+    networks:
+      - firesphere-network
+
+  # ----------------------------------------------------------------------------
+  # 5. Flyway Migration Runner (Invoked on-demand or as startup migrator)
+  # ----------------------------------------------------------------------------
+  flyway:
+    image: flyway/flyway:10.10-alpine
+    container_name: firesphere-flyway
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: >
+      -url=jdbc:postgresql://postgres:5432/${POSTGRES_DB:-firesphere}
+      -user=${POSTGRES_USER:-firesphere_admin}
+      -password=${POSTGRES_PASSWORD:-postgres_dev_password_change_me}
+      -schemas=${FLYWAY_SCHEMAS:-firesphere}
+      -defaultSchema=${FLYWAY_DEFAULT_SCHEMA:-firesphere}
+      -locations=filesystem:/flyway/sql,filesystem:/flyway/seeds
+      -connectRetries=10
+      migrate
+    volumes:
+      - ./database/migrations:/flyway/sql:ro
+      - ./database/seeds:/flyway/seeds:ro
+    networks:
+      - firesphere-network

@@ -1,0 +1,109 @@
+{
+  "split": "test",
+  "evaluationStatus": "COMPLETED",
+  "test_set_used_for_final_evaluation": true,
+  "totalImages": 522,
+  "totalGroundTruthObjects": 796,
+  "totalPredictedObjects": 395,
+  "meanPrecision": 0.2283,
+  "meanRecall": 0.1125,
+  "meanF1": 0.1261,
+  "mAP50": 0.0579,
+  "mAP50_95": 0.0194,
+  "perClassMetrics": {
+    "FIRE_EXTINGUISHER": {
+      "support": 452,
+      "truePositives": 195,
+      "falsePositives": 185,
+      "falseNegatives": 257,
+      "precision": 0.5132,
+      "recall": 0.4314,
+      "f1Score": 0.4688,
+      "ap50": 0.2236,
+      "ap50_95": 0.0764,
+      "data_limitation": "NONE"
+    },
+    "EXIT_DOOR": {
+      "support": 6,
+      "truePositives": 0,
+      "falsePositives": 0,
+      "falseNegatives": 6,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1Score": 0.0,
+      "ap50": 0.0,
+      "ap50_95": 0.0,
+      "data_limitation": "DATA_LIMITED"
+    },
+    "EXIT_SIGN": {
+      "support": 320,
+      "truePositives": 6,
+      "falsePositives": 9,
+      "falseNegatives": 314,
+      "precision": 0.4,
+      "recall": 0.0187,
+      "f1Score": 0.0357,
+      "ap50": 0.0079,
+      "ap50_95": 0.0014,
+      "data_limitation": "NONE"
+    },
+    "OBSTACLE": {
+      "support": 18,
+      "truePositives": 0,
+      "falsePositives": 0,
+      "falseNegatives": 18,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1Score": 0.0,
+      "ap50": 0.0,
+      "ap50_95": 0.0,
+      "data_limitation": "DATA_LIMITED"
+    }
+  },
+  "confusionMatrix": {
+    "classNames": [
+      "FIRE_EXTINGUISHER",
+      "EXIT_DOOR",
+      "EXIT_SIGN",
+      "OBSTACLE",
+      "BACKGROUND"
+    ],
+    "matrix": [
+      [
+        195,
+        0,
+        0,
+        0,
+        185
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        6,
+        0,
+        9
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        257,
+        6,
+        314,
+        18,
+        0
+      ]
+    ]
+  }
+}

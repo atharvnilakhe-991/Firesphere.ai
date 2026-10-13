@@ -1,0 +1,86 @@
+[
+  {
+    "classId": 0,
+    "className": "FIRE_EXTINGUISHER",
+    "operationalStatus": "ADVISORY_ONLY",
+    "externalTestSupport": 452,
+    "baselineAP50": 0.1973,
+    "candidateAP50": 0.1329,
+    "testTruePositives": 143,
+    "testFalsePositives": 198,
+    "testFalseNegatives": 309,
+    "testPrecision": 0.4194,
+    "testRecall": 0.3164,
+    "isProductionApproved": false,
+    "isLegalViolationClassifier": false,
+    "limitations": [
+      "Generic object localization only; cannot evaluate maintenance tags, cylinder expiry, or pressure gauges.",
+      "False positive rate requires human verification on red fire alarm boxes and hose cabinets.",
+      "Recall drops significantly on recessed or distant hall installations.",
+      "Under fire code, finding an extinguisher does NOT guarantee compliance clearance."
+    ]
+  },
+  {
+    "classId": 1,
+    "className": "EXIT_DOOR",
+    "operationalStatus": "UNSUPPORTED",
+    "externalTestSupport": 6,
+    "baselineAP50": 0.0,
+    "candidateAP50": 0.0,
+    "testTruePositives": 0,
+    "testFalsePositives": 0,
+    "testFalseNegatives": 6,
+    "testPrecision": 0.0,
+    "testRecall": 0.0,
+    "isProductionApproved": false,
+    "isLegalViolationClassifier": false,
+    "limitations": [
+      "Severe held-out test support scarcity: only 6 ground truth door instances exist in external test split.",
+      "Both baseline and candidate achieved zero true positives on held-out test data.",
+      "Extreme aspect ratio variance and oblique perspective views prevent robust localization.",
+      "Completely unsupported for any operational decision or compliance determination."
+    ]
+  },
+  {
+    "classId": 2,
+    "className": "EXIT_SIGN",
+    "operationalStatus": "ADVISORY_ONLY",
+    "externalTestSupport": 320,
+    "baselineAP50": 0.0084,
+    "candidateAP50": 0.0684,
+    "testTruePositives": 52,
+    "testFalsePositives": 76,
+    "testFalseNegatives": 268,
+    "testPrecision": 0.4062,
+    "testRecall": 0.1625,
+    "isProductionApproved": false,
+    "isLegalViolationClassifier": false,
+    "limitations": [
+      "Candidate achieved notable 8.1x AP gain (0.0684 vs 0.0084), but recall remains low (16.25%).",
+      "Cannot verify illumination circuit status or statutory luminance standards.",
+      "False positives on rectangular HVAC vents and overhead light diffusers.",
+      "Restricted to advisory candidate cueing; cannot establish compliance absence."
+    ]
+  },
+  {
+    "classId": 3,
+    "className": "OBSTACLE",
+    "operationalStatus": "UNSUPPORTED",
+    "externalTestSupport": 18,
+    "baselineAP50": 0.0,
+    "candidateAP50": 0.0,
+    "testTruePositives": 0,
+    "testFalsePositives": 0,
+    "testFalseNegatives": 18,
+    "testPrecision": 0.0,
+    "testRecall": 0.0,
+    "isProductionApproved": false,
+    "isLegalViolationClassifier": false,
+    "limitations": [
+      "Severe training scarcity: only 57 training instances across 3,427 corpus images.",
+      "External test split contains only 18 instances; zero true positives achieved across all models.",
+      "Obstacle is an open-world semantic category (furniture, boxes, trash, carts, construction) lacking a single visual centroid.",
+      "Completely unsupported for operational decisions; generic clutter must not be cited as statutory egress violations."
+    ]
+  }
+]

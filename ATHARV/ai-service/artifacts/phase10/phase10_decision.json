@@ -1,0 +1,39 @@
+{
+  "phase": "10",
+  "gateVerdict": "PHASE_10_COMPLETED_PRODUCTION_INTEGRATION_HANDOFF",
+  "timestamp": "2026-10-09T17:29:15.561240+00:00",
+  "referenceBaselineModel": "firesphere-perception-baseline-v0.8.0",
+  "referenceBaselineSha256": "5f166c4703e090eb51a9171c38ff1c3dd93d7d0c99d06ec8e44562217753c666",
+  "productionApprovalStatus": "NOT_APPROVED",
+  "calibrationStatus": "NOT_CALIBRATED",
+  "humanOfficerReviewMandatory": true,
+  "autonomousCertificationProhibited": true,
+  "m4HandoffStatus": "COMPLETE",
+  "crossMemberBlockers": [
+    {
+      "subsystem": "Spring Boot Core Backend Client Integration",
+      "owner": "Member 1 & Member 2 (Core Backend)",
+      "status": "BLOCKED_PENDING_BACKEND_CLIENT_IMPLEMENTATION",
+      "deliveredFromM4": "Complete REST API contract, DTO schemas, error codes, and curl/HTTP specs in docs/phase10_api_contract.md"
+    },
+    {
+      "subsystem": "PostgreSQL / PostGIS Relational Schema Migrations",
+      "owner": "Member 1 & Member 2 (Database / Core Backend)",
+      "status": "BLOCKED_PENDING_FLYWAY_LIQUIBASE_MIGRATION",
+      "deliveredFromM4": "Complete relational table DDL, spatial PostGIS column spec, and audit trail schema in docs/phase10_handoff.md"
+    },
+    {
+      "subsystem": "Officer Review Interface & Human Confirmation Workflow",
+      "owner": "Member 3 (Frontend / Mobile App)",
+      "status": "BLOCKED_PENDING_FRONTEND_UI_IMPLEMENTATION",
+      "deliveredFromM4": "Review state machine (AI_SUGGESTION, CONFIRMED, DISMISSED), bounding box rendering contract, and non-statutory disclaimer in docs/phase10_handoff.md"
+    }
+  ],
+  "decisions": {
+    "modelApprovalStatus": "NOT_APPROVED (Phase 8.4 reference baseline retained; no retraining)",
+    "calibrationStatus": "NOT_CALIBRATED (Threshold tau=0.15 is operational, not probabilistic)",
+    "perceptionCapabilities": "FIRE_EXTINGUISHER & EXIT_SIGN: ADVISORY_ONLY; EXIT_DOOR & OBSTACLE: UNSUPPORTED",
+    "serviceSecurity": "Service-to-service auth token strictly enforced in production",
+    "phase10CompletionStatus": "PHASE_10_COMPLETED_PRODUCTION_INTEGRATION_HANDOFF"
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "phase": "4",
+  "component": "Computer Vision Integration and Evaluation",
+  "executionTimestamp": "2026-10-11T17:46:12+05:30",
+  "status": "COMPLETE",
+  "model": {
+    "identifier": "firesphere-perception-baseline-v0.8.0",
+    "architecture": "BaselineInspectionDetector",
+    "parameters": 2237627,
+    "inputResolution": [256, 256, 3],
+    "anchors": [
+      [0.08, 0.08],
+      [0.22, 0.35],
+      [0.55, 0.65]
+    ],
+    "checkpointPath": "ai-service/artifacts/phase8_4/checkpoints/best.pt",
+    "fileSizeBytes": 26905612,
+    "sha256": "5f166c4703e090eb51a9171c38ff1c3dd93d7d0c99d06ec8e44562217753c666",
+    "framework": "PyTorch 2.14.1+cpu",
+    "device": "cpu",
+    "approvalStatus": "NOT_APPROVED",
+    "calibrationStatus": "NOT_CALIBRATED"
+  },
+  "dataset": {
+    "name": "fire_safety_prepared_phase8_3",
+    "path": "datasets/fire_safety/prepared/phase8_3/yolo",
+    "splits": {
+      "train": {
+        "images": 3377,
+        "labels": 3377,
+        "groundTruthObjects": 5007
+      },
+      "val": {
+        "images": 988,
+        "labels": 988,
+        "groundTruthObjects": 1455
+      },
+      "test": {
+        "images": 522,
+        "labels": 522,
+        "groundTruthObjects": 796
+      }
+    },
+    "heldOutTestUntouched": true
+  },
+  "evaluationMetrics": {
+    "splitEvaluated": "test",
+    "sampleCount": 522,
+    "totalGroundTruth": 796,
+    "totalPredictions": 395,
+    "confidenceThreshold": 0.20,
+    "nmsIouThreshold": 0.45,
+    "mAP50": 0.0579,
+    "mAP50_95": 0.0194,
+    "meanPrecision": 0.2283,
+    "meanRecall": 0.1125,
+    "meanF1": 0.1261,
+    "perClass": {
+      "FIRE_EXTINGUISHER": {
+        "support": 452,
+        "truePositives": 195,
+        "falsePositives": 185,
+        "falseNegatives": 257,
+        "precision": 0.5132,
+        "recall": 0.4314,
+        "f1": 0.4688,
+        "ap50": 0.2236,
+        "ap50_95": 0.0764,
+        "capabilityStatus": "ADVISORY_ONLY"
+      },
+      "EXIT_SIGN": {
+        "support": 320,
+        "truePositives": 6,
+        "falsePositives": 9,
+        "falseNegatives": 314,
+        "precision": 0.4000,
+        "recall": 0.0187,
+        "f1": 0.0357,
+        "ap50": 0.0079,
+        "ap50_95": 0.0014,
+        "capabilityStatus": "ADVISORY_ONLY"
+      },
+      "EXIT_DOOR": {
+        "support": 6,
+        "truePositives": 0,
+        "falsePositives": 0,
+        "falseNegatives": 6,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "ap50": 0.0,
+        "ap50_95": 0.0,
+        "capabilityStatus": "UNSUPPORTED"
+      },
+      "OBSTACLE": {
+        "support": 18,
+        "truePositives": 0,
+        "falsePositives": 0,
+        "falseNegatives": 18,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "ap50": 0.0,
+        "ap50_95": 0.0,
+        "capabilityStatus": "UNSUPPORTED"
+      }
+    }
+  },
+  "cpuBenchmark": {
+    "device": "cpu",
+    "batchSize": 1,
+    "samplesTested": 100,
+    "modelLoadTimeMs": 31.01,
+    "avgPreprocessMs": 12.38,
+    "avgInferenceMs": 9.19,
+    "avgPostprocessMs": 14.40,
+    "averageLatencyMs": 35.97,
+    "medianLatencyMs": 25.70,
+    "p95LatencyMs": 82.60,
+    "throughputFps": 27.80
+  },
+  "testSuiteResults": {
+    "m4AiService": {
+      "totalTests": 451,
+      "passed": 451,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "m2CoreBackend": {
+      "totalTests": 133,
+      "passed": 133,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "buildStatus": "BUILD SUCCESS"
+    }
+  },
+  "safetyGovernance": {
+    "modelApprovalStatus": "NOT_APPROVED",
+    "calibrationStatus": "NOT_CALIBRATED",
+    "geminiEnabled": false,
+    "autonomousNocAuthority": false,
+    "failClosedProductionMode": true,
+    "humanOfficerReviewMandatory": true
+  }
+}

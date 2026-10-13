@@ -1,0 +1,50 @@
+{
+  "phase": "PHASE_8.7",
+  "gate_status": "DATA_READY_FOR_CONTROLLED_TRAINING",
+  "timestamp": "2026-10-08T17:45:24.707941+00:00",
+  "evaluator": "Antigravity AI/ML Engineering Agent (Pair Programming)",
+  "human_in_the_loop_declaration": "AI detects and advises; Fire Inspection Officer retains sole statutory authority.",
+  "production_status": "NOT_APPROVED (Phase 8.7 is Data Preparation and Calibration Analysis only; No model registered)",
+  "track_summaries": {
+    "track_a_exit_door": {
+      "status": "PASS",
+      "original_phase8_3_physical_scenes": 14,
+      "expanded_phase8_7_physical_scenes": 531,
+      "total_exit_door_boxes": 739,
+      "expansion_ratio": 37.93,
+      "sourcing_provenance": "fire_safety_multi (CC BY 4.0), patyas-workspace-my-first-project-v6i (CC BY 4.0), roboflow-blocked-emergency-exit-v1 (CC BY 4.0)"
+    },
+    "track_b_obstacle": {
+      "status": "PRESERVED_WITH_DOCUMENTED_LIMITATION",
+      "physical_scenes": 30,
+      "total_obstacle_boxes": 75,
+      "audited_and_rejected_sources": [
+        {
+          "source": "fire_safety_multi / trash_can",
+          "reason": "E-commerce stock catalog images on synthetic white backgrounds; fails physical corridor obstacle context."
+        },
+        {
+          "source": "fire_safety_multi / sand_bucket",
+          "reason": "Fire-fighting appliance; treating life-safety equipment as generic obstacle violates life-safety semantics."
+        }
+      ],
+      "rationale": "Truth-in-AI principle prohibits coercive relabeling of e-commerce photos or safety appliances to inflate obstacle numbers."
+    },
+    "track_c_exit_sign_calibration": {
+      "status": "PASS",
+      "validation_images_evaluated": 988,
+      "default_threshold_0_15_recall": 0.0843,
+      "recommended_candidate_threshold": 0.08,
+      "candidate_threshold_0_08_recall": 0.1446,
+      "candidate_threshold_0_08_precision": 0.2509,
+      "size_stratification_finding": "33.4% of exit signs are small (area < 0.01). Truncated by monolithic 0.15 threshold; restored via class-calibrated operating point."
+    }
+  },
+  "anti_leakage_verification": {
+    "group_aware_split_seed": 42,
+    "cross_split_duplicates": 0,
+    "collision_with_phase8_3_test": 0,
+    "untouched_test_set_preserved": true
+  },
+  "next_phase_recommendation": "Phase 8.8 controlled training experiment utilizing the Phase 8.7 prepared dataset and evaluating class-calibrated loss/thresholding."
+}

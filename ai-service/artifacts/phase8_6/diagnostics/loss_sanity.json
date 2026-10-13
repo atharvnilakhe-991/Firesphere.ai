@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "normal_prediction_loss": {
+    "total_loss": 11.57542,
+    "box_loss": 4.27399,
+    "obj_loss": 0.69789,
+    "cls_loss": 1.55303,
+    "pos_targets": 1
+  },
+  "perfect_prediction_loss": {
+    "total_loss": 9.40659,
+    "box_loss": 4.35512,
+    "obj_loss": 0.69635,
+    "cls_loss": 0.0,
+    "pos_targets": 1
+  },
+  "wrong_prediction_loss": {
+    "total_loss": 31.94789,
+    "box_loss": 4.36275,
+    "obj_loss": 0.72239,
+    "cls_loss": 15.0,
+    "pos_targets": 1
+  },
+  "empty_target_loss": {
+    "total_loss": 0.6974,
+    "box_loss": 0.0,
+    "obj_loss": 0.6974,
+    "cls_loss": 0.0,
+    "pos_targets": 0
+  },
+  "loss_monotonicity_verified": true,
+  "empty_background_safe": true
+}

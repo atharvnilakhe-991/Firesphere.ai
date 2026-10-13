@@ -1,0 +1,32 @@
+{
+  "phase": "8.10",
+  "gate_decision": "CHECKPOINT_INTEGRITY_FAILED",
+  "governance_status": "DOWNLOAD_COMPLETED_SHA256_MISMATCH",
+  "production_status": "NOT_APPROVED",
+  "timestamp": "2026-10-09T00:41:00+05:30",
+  "rationale": "The official MobileNetV2 checkpoint was downloaded from the authorized official PyTorch URL (https://download.pytorch.org/models/mobilenet_v2-b0353104.pth). The official 8-character prefix (b0353104) matched the official filename, and all functional validation checks passed (clean load with weights_only=True, 314 tensors, 0 NaNs, 0 Infs, exact 312 backbone key match into PretrainedInspectionDetector, and statistical pretraining verification). However, the actual full SHA-256 (b03531047ffacf1e2488318dcd2aba1126cde36e3bfe1aa5cb07700aeeee9889) did not match the full 64-character hash specified in the authorization prompt (b0353104d49a37c02b37ba4ef5dd3f3d1b827756f7b9492e73703eb402773cbb). In strict adherence to the Phase 8.10 protocol, the gate is enacted as CHECKPOINT_INTEGRITY_FAILED.",
+  "checkpoint_provenance": {
+    "source_url": "https://download.pytorch.org/models/mobilenet_v2-b0353104.pth",
+    "destination": "artifacts/phase8_10/pretrained/mobilenet_v2-b0353104.pth",
+    "file_size_bytes": 14212972,
+    "actual_sha256": "b03531047ffacf1e2488318dcd2aba1126cde36e3bfe1aa5cb07700aeeee9889",
+    "authorized_expected_sha256": "b0353104d49a37c02b37ba4ef5dd3f3d1b827756f7b9492e73703eb402773cbb",
+    "prefix_match": true,
+    "full_match": false,
+    "license": "BSD-3-Clause",
+    "architecture": "MobileNetV2"
+  },
+  "functional_readiness": {
+    "weights_only_deserialization": "PASSED",
+    "nan_inf_free": "PASSED",
+    "detector_backbone_compatibility": "PASSED (312/312 tensors loaded, 0 missing, 0 unexpected)",
+    "pretraining_statistics": "PASSED (L2 distance = 7.6195 > 0.5 threshold)"
+  },
+  "authoritative_control": {
+    "model": "firesphere-perception-baseline-v0.8.0 (Phase 8.4)",
+    "checkpoint": "artifacts/phase8_4/checkpoints/best.pt",
+    "sha256": "5f166c4703e090eb51a9171c38ff1c3dd93d7d0c99d06ec8e44562217753c666",
+    "status": "AUTHORITATIVE_BASELINE"
+  },
+  "next_required_step": "AWAIT_USER_ACKNOWLEDGEMENT_OF_ACTUAL_SHA256"
+}

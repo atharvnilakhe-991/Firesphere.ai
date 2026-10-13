@@ -1,0 +1,18 @@
+{
+  "gate_id": "PHASE_8_6_GATE",
+  "timestamp": "2026-10-08T17:09:48Z",
+  "status": "PASS",
+  "decision": "PIPELINE_HEALTHY_DATA_EXPANSION_REQUIRED",
+  "diagnostic_summary": {
+    "dataset_integrity": "PASS",
+    "encode_decode_roundtrip": "PASS",
+    "gradient_sanity": "PASS",
+    "loss_sanity": "PASS",
+    "tiny_set_overfit": "PASS",
+    "overfit_final_recall": 0.8947,
+    "overfit_final_loss": 0.00633
+  },
+  "recommendation": "Pipeline mechanics are healthy (overfit succeeds, encoding exact, gradients finite). Poor generalization on doors/obstacles and small signs is driven by acute data starvation and resolution/pretraining limitations, confirming that targeted physical dataset expansion is required.",
+  "production_status": "NOT_APPROVED",
+  "authoritative_baseline": "firesphere-perception-baseline-v0.8.0"
+}

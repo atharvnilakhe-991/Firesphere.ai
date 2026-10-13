@@ -1,0 +1,259 @@
+{
+  "model_id": "firesphere-perception-candidate-v0.8.8",
+  "model_version": "0.8.8-candidate",
+  "model_type": "PYTORCH_CONTROLLED_CANDIDATE_DETECTOR",
+  "architecture": "BaselineInspectionDetector",
+  "class_mapping": {
+    "0": "FIRE_EXTINGUISHER",
+    "1": "EXIT_DOOR",
+    "2": "EXIT_SIGN",
+    "3": "OBSTACLE"
+  },
+  "dataset_version": "1.0.0-phase8.8",
+  "dataset_location": "C:\\Users\\athar\\OneDrive\\Desktop\\Firesphere.ai\\datasets\\fire_safety\\prepared\\phase8_8\\yolo",
+  "training_seed": 42,
+  "checkpoint_path": "C:\\Users\\athar\\OneDrive\\Desktop\\Firesphere.ai\\ai-service\\artifacts\\phase8_8\\checkpoints\\best.pt",
+  "checkpoint_sha256": "b12ffccf532d819a1cbdd058bb4673f7270ff71533d9862003249fc5360df7b1",
+  "validation_metrics": {
+    "modelId": "firesphere-perception-candidate-v0.8.8",
+    "modelVersion": "0.8.8-candidate",
+    "datasetName": "phase8_8_validation_split",
+    "evaluationStatus": "COMPLETED",
+    "totalTestImages": 928,
+    "totalGroundTruthObjects": 1443,
+    "totalPredictedObjects": 869,
+    "mAP50": 0.036,
+    "mAP50_95": 0.0121,
+    "meanPrecision": 0.125,
+    "meanRecall": 0.0947,
+    "meanF1": 0.1009,
+    "perClassMetrics": {
+      "FIRE_EXTINGUISHER": {
+        "classId": 0,
+        "className": "FIRE_EXTINGUISHER",
+        "support": 854,
+        "truePositives": 309,
+        "falsePositives": 489,
+        "falseNegatives": 545,
+        "precision": 0.3872,
+        "recall": 0.3618,
+        "f1Score": 0.3741,
+        "ap50": 0.1419,
+        "ap50_95": 0.0482
+      },
+      "EXIT_DOOR": {
+        "classId": 1,
+        "className": "EXIT_DOOR",
+        "support": 117,
+        "truePositives": 0,
+        "falsePositives": 0,
+        "falseNegatives": 117,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1Score": 0.0,
+        "ap50": 0.0,
+        "ap50_95": 0.0
+      },
+      "EXIT_SIGN": {
+        "classId": 2,
+        "className": "EXIT_SIGN",
+        "support": 469,
+        "truePositives": 8,
+        "falsePositives": 63,
+        "falseNegatives": 461,
+        "precision": 0.1127,
+        "recall": 0.0171,
+        "f1Score": 0.0297,
+        "ap50": 0.0022,
+        "ap50_95": 0.0003
+      },
+      "OBSTACLE": {
+        "classId": 3,
+        "className": "OBSTACLE",
+        "support": 3,
+        "truePositives": 0,
+        "falsePositives": 0,
+        "falseNegatives": 3,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1Score": 0.0,
+        "ap50": 0.0,
+        "ap50_95": 0.0
+      }
+    },
+    "confusionMatrix": {
+      "classNames": [
+        "FIRE_EXTINGUISHER",
+        "EXIT_DOOR",
+        "EXIT_SIGN",
+        "OBSTACLE",
+        "BACKGROUND"
+      ],
+      "matrix": [
+        [
+          309,
+          0,
+          0,
+          0,
+          489
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          8,
+          0,
+          63
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          545,
+          117,
+          461,
+          3,
+          0
+        ]
+      ]
+    },
+    "warnings": []
+  },
+  "test_metrics": {
+    "modelId": "firesphere-perception-candidate-v0.8.8",
+    "modelVersion": "0.8.8-candidate",
+    "datasetName": "phase8_3_untouched_test_split",
+    "evaluationStatus": "COMPLETED",
+    "totalTestImages": 522,
+    "totalGroundTruthObjects": 796,
+    "totalPredictedObjects": 503,
+    "mAP50": 0.0276,
+    "mAP50_95": 0.0097,
+    "meanPrecision": 0.1277,
+    "meanRecall": 0.0882,
+    "meanF1": 0.0949,
+    "perClassMetrics": {
+      "FIRE_EXTINGUISHER": {
+        "classId": 0,
+        "className": "FIRE_EXTINGUISHER",
+        "support": 452,
+        "truePositives": 144,
+        "falsePositives": 300,
+        "falseNegatives": 308,
+        "precision": 0.3243,
+        "recall": 0.3186,
+        "f1Score": 0.3214,
+        "ap50": 0.1028,
+        "ap50_95": 0.0377
+      },
+      "EXIT_DOOR": {
+        "classId": 1,
+        "className": "EXIT_DOOR",
+        "support": 6,
+        "truePositives": 0,
+        "falsePositives": 0,
+        "falseNegatives": 6,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1Score": 0.0,
+        "ap50": 0.0,
+        "ap50_95": 0.0
+      },
+      "EXIT_SIGN": {
+        "classId": 2,
+        "className": "EXIT_SIGN",
+        "support": 320,
+        "truePositives": 11,
+        "falsePositives": 48,
+        "falseNegatives": 309,
+        "precision": 0.1864,
+        "recall": 0.0344,
+        "f1Score": 0.0581,
+        "ap50": 0.0074,
+        "ap50_95": 0.0012
+      },
+      "OBSTACLE": {
+        "classId": 3,
+        "className": "OBSTACLE",
+        "support": 18,
+        "truePositives": 0,
+        "falsePositives": 0,
+        "falseNegatives": 18,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1Score": 0.0,
+        "ap50": 0.0,
+        "ap50_95": 0.0
+      }
+    },
+    "confusionMatrix": {
+      "classNames": [
+        "FIRE_EXTINGUISHER",
+        "EXIT_DOOR",
+        "EXIT_SIGN",
+        "OBSTACLE",
+        "BACKGROUND"
+      ],
+      "matrix": [
+        [
+          144,
+          0,
+          0,
+          0,
+          300
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          11,
+          0,
+          48
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          308,
+          6,
+          309,
+          18,
+          0
+        ]
+      ]
+    },
+    "warnings": []
+  },
+  "inference_benchmark": {
+    "infer_mean_ms": 36.5,
+    "infer_p50_ms": 35.83,
+    "infer_p95_ms": 41.08,
+    "total_mean_ms": 55.65,
+    "total_p50_ms": 40.17,
+    "total_p95_ms": 118.91,
+    "fps": 17.97
+  },
+  "production_status": "NOT_APPROVED",
+  "governance_decision": "CANDIDATE_REGRESSED",
+  "timestamp": "2026-10-08T18:35:13.715753+00:00"
+}

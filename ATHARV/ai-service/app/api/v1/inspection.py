@@ -1,0 +1,96 @@
+from typing import Optional
+import uuid
+from fastapi import APIRouter, Depends, Header, status
+from app.core.auth import verify_service_token
+from app.schemas.inspection import (
+    InspectionAnalysisRequest,
+    InspectionAnalysisResponse,
+)
+from app.schemas.verification import (
+    OfficerFindingVerificationRequest,
+    OfficerFindingVerificationResponse,
+)
+from app.services.inspection_service import inspection_service
+from app.services.officer_verification_service import officer_verification_service
+
+router = APIRouter(tags=["AI Inspection Analysis & Officer Verification"])
+
+
+@router.post(
+    "/inspection-analysis",
+    response_model=InspectionAnalysisResponse,
+    status_code=status.HTTP_200_OK,
+    summary="Execute AI Inspection Analysis",
+    description=(
+        "Analyzes inspection evidence photos for fire safety non-compliances. "
+        "Returns evidence-linked findings with confidence, severity, and explainable rationale. "
+        "NOTE: AI results are strictly advisory; manual officer review is required."
+    ),
+)
+async def analyze_inspection(
+    request: InspectionAnalysisRequest,
+    _authenticated: bool = Depends(verify_service_token),
+) -> InspectionAnalysisResponse:
+    """Entry point for Spring Boot Backend AI job invocation."""
+    return inspection_service.process_inspection(request)
+
+
+@router.post(
+    "/inspection-analysis/{inspection_id}/verify-finding",
+    response_model=OfficerFindingVerificationResponse,
+    status_code=status.HTTP_200_OK,
+    summary="Record Officer Finding Verification",
+    description=(
+        "Records an authorized Fire Safety Officer determination on an AI-generated finding. "
+        "Enforces server-side RBAC, strict URL inspection ownership validation, tenant boundary isolation, "
+        "optimistic locking, independent evidence-reviewed state, and complete audit history tracking. "
+        "NOTE: Does NOT issue official Fire NOC decisions."
+    ),
+)
+async def verify_inspection_finding(
+    inspection_id: uuid.UUID,
+    request: OfficerFindingVerificationRequest,
+    x_tenant_id: Optional[str] = Header(default=None, alias="X-Tenant-ID"),
+    x_officer_id: Optional[str] = Header(default=None, alias="X-Officer-ID"),
+    x_officer_role: Optional[str] = Header(default=None, alias="X-Officer-Role"),
+    authenticated: bool = Depends(verify_service_token),
+) -> OfficerFindingVerificationResponse:
+    """Verifies a finding linked to an inspection session."""
+    return officer_verification_service.verify_finding(
+        request=request,
+        auth_verified=authenticated,
+        inspection_id=inspection_id,
+        tenant_id=x_tenant_id,
+        trusted_officer_id=x_officer_id,
+        trusted_officer_role=x_officer_role,
+    )
+
+
+@router.post(
+    "/findings/{finding_id}/verify",
+    response_model=OfficerFindingVerificationResponse,
+    status_code=status.HTTP_200_OK,
+    summary="Verify AI Finding Direct Endpoint",
+    description=(
+        "Direct endpoint to record authorized Fire Safety Officer determination on an AI finding."
+    ),
+)
+async def verify_finding_direct(
+    finding_id: uuid.UUID,
+    request: OfficerFindingVerificationRequest,
+    x_tenant_id: Optional[str] = Header(default=None, alias="X-Tenant-ID"),
+    x_officer_id: Optional[str] = Header(default=None, alias="X-Officer-ID"),
+    x_officer_role: Optional[str] = Header(default=None, alias="X-Officer-Role"),
+    authenticated: bool = Depends(verify_service_token),
+) -> OfficerFindingVerificationResponse:
+    """Direct finding verification route."""
+    request.findingId = finding_id
+    return officer_verification_service.verify_finding(
+        request=request,
+        auth_verified=authenticated,
+        inspection_id=request.inspectionId,
+        tenant_id=x_tenant_id,
+        trusted_officer_id=x_officer_id,
+        trusted_officer_role=x_officer_role,
+    )
+

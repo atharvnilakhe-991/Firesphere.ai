@@ -1,0 +1,109 @@
+{
+  "comparison_id": "PHASE_8_4_VS_PHASE_8_5",
+  "baseline_model": "firesphere-perception-baseline-v0.8.0",
+  "improved_model": "firesphere-perception-improved-v0.8.5",
+  "overall_metrics": {
+    "precision": {
+      "baseline": 0.2283,
+      "improved": 0.0748,
+      "delta": -0.1535,
+      "status": "REGRESSED"
+    },
+    "recall": {
+      "baseline": 0.1125,
+      "improved": 0.0597,
+      "delta": -0.0528,
+      "status": "REGRESSED"
+    },
+    "mAP50": {
+      "baseline": 0.0579,
+      "improved": 0.0178,
+      "delta": -0.0401,
+      "status": "REGRESSED"
+    },
+    "mAP50_95": {
+      "baseline": 0.0194,
+      "improved": 0.0076,
+      "delta": -0.0118,
+      "status": "REGRESSED"
+    }
+  },
+  "per_class_comparison": {
+    "FIRE_EXTINGUISHER": {
+      "support": 452,
+      "precision": {
+        "baseline": 0.5132,
+        "improved": 0.2992,
+        "delta": -0.214
+      },
+      "recall": {
+        "baseline": 0.4314,
+        "improved": 0.2389,
+        "delta": -0.1925
+      },
+      "ap50": {
+        "baseline": 0.2236,
+        "improved": 0.0711,
+        "delta": -0.1525
+      },
+      "status": "REGRESSED"
+    },
+    "EXIT_DOOR": {
+      "support": 6,
+      "precision": {
+        "baseline": 0.0,
+        "improved": 0.0,
+        "delta": 0.0
+      },
+      "recall": {
+        "baseline": 0.0,
+        "improved": 0.0,
+        "delta": 0.0
+      },
+      "ap50": {
+        "baseline": 0.0,
+        "improved": 0.0,
+        "delta": 0.0
+      },
+      "status": "UNCHANGED"
+    },
+    "EXIT_SIGN": {
+      "support": 320,
+      "precision": {
+        "baseline": 0.4,
+        "improved": 0.0,
+        "delta": -0.4
+      },
+      "recall": {
+        "baseline": 0.0187,
+        "improved": 0.0,
+        "delta": -0.0187
+      },
+      "ap50": {
+        "baseline": 0.0079,
+        "improved": 0.0,
+        "delta": -0.0079
+      },
+      "status": "REGRESSED"
+    },
+    "OBSTACLE": {
+      "support": 18,
+      "precision": {
+        "baseline": 0.0,
+        "improved": 0.0,
+        "delta": 0.0
+      },
+      "recall": {
+        "baseline": 0.0,
+        "improved": 0.0,
+        "delta": 0.0
+      },
+      "ap50": {
+        "baseline": 0.0,
+        "improved": 0.0,
+        "delta": 0.0
+      },
+      "status": "UNCHANGED"
+    }
+  }
+}

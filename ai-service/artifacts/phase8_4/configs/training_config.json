@@ -1,0 +1,57 @@
+{
+  "model_id": "firesphere-perception-baseline-v0.8.0",
+  "architecture": "BaselineInspectionDetector",
+  "seed": 42,
+  "epochs": 5,
+  "best_epoch": 4,
+  "best_val_loss": 0.85151,
+  "total_time_seconds": 1073.31,
+  "device": "cpu",
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 1.59915,
+      "train_box_loss": 0.51112,
+      "train_obj_loss": 0.2899,
+      "train_cls_loss": 0.19134,
+      "val_loss": 1.18541,
+      "duration_seconds": 298.31
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.94955,
+      "train_box_loss": 0.39225,
+      "train_obj_loss": 0.0582,
+      "train_cls_loss": 0.07123,
+      "val_loss": 0.97686,
+      "duration_seconds": 170.62
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.75979,
+      "train_box_loss": 0.33608,
+      "train_obj_loss": 0.03228,
+      "train_cls_loss": 0.0369,
+      "val_loss": 0.89284,
+      "duration_seconds": 168.09
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.6505,
+      "train_box_loss": 0.29513,
+      "train_obj_loss": 0.02457,
+      "train_cls_loss": 0.02378,
+      "val_loss": 0.85151,
+      "duration_seconds": 261.03
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.57783,
+      "train_box_loss": 0.26245,
+      "train_obj_loss": 0.02094,
+      "train_cls_loss": 0.02132,
+      "val_loss": 0.96252,
+      "duration_seconds": 170.12
+    }
+  ]
+}

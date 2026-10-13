@@ -1,0 +1,54 @@
+{
+  "phase": "8.10",
+  "artifact_type": "pretrained_freeze_plan",
+  "generated_at": "2026-10-09T00:33:05+05:30",
+  "protocol": "Two-Stage Transfer Learning Protocol",
+  "stage_a": {
+    "name": "Stage A: Warmup / Frozen Backbone",
+    "description": "Backbone features are completely frozen. Only the decoupled neck (P3/P4) and detection heads are updated. Prevents high-variance random head gradients from corrupting pre-trained visual representations.",
+    "frozen_layers": "backbone.features[0..18] (all 312 backbone parameter tensors)",
+    "trainable_layers": "neck (P3/P4 lateral connections, smooth convolutions) and head_p3, head_p4",
+    "trainable_parameters": 84772,
+    "frozen_parameters": 2223872,
+    "total_parameters": 2308644,
+    "trainable_parameter_percentage": 3.67,
+    "frozen_parameter_percentage": 96.33,
+    "optimizer": "AdamW",
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "planned_epochs": 3
+  },
+  "stage_b": {
+    "name": "Stage B: Partial Fine-Tuning / Deep Backbone Unfreeze",
+    "description": "Stem and early feature stages (C1, C2, C3) remain strictly frozen to preserve low-level primitive filters (edges, color textures). Deep Stage 4 feature representations are fine-tuned with a 10x lower learning rate.",
+    "frozen_layers": "backbone.features[0..6] (stem + stages 1-3, 98 parameter tensors)",
+    "trainable_layers": "backbone.features[7..18] (stage 4 deep layers, 214 parameter tensors), neck, head_p3, head_p4",
+    "trainable_parameters": 2253156,
+    "frozen_parameters": 55488,
+    "total_parameters": 2308644,
+    "trainable_parameter_percentage": 97.60,
+    "frozen_parameter_percentage": 2.40,
+    "optimizer": "AdamW",
+    "parameter_groups": [
+      {
+        "name": "backbone",
+        "tensors": 102,
+        "learning_rate": 0.0001,
+        "lr_ratio": "0.1x base lr"
+      },
+      {
+        "name": "heads_neck",
+        "tensors": 16,
+        "learning_rate": 0.001,
+        "lr_ratio": "1.0x base lr"
+      }
+    ],
+    "planned_epochs": 5,
+    "scheduler": "CosineAnnealingLR (T_max=5, eta_min=1e-6)"
+  },
+  "implementation_verification": {
+    "api_method": "PretrainedInspectionDetector.set_freeze_stage(stage)",
+    "parameter_group_method": "PretrainedInspectionDetector.get_parameter_groups(lr_head, lr_backbone)",
+    "gradient_isolation_status": "VERIFIED_MATHEMATICALLY"
+  }
+}

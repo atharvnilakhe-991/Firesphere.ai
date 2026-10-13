@@ -1,0 +1,67 @@
+{
+  "timestamp": "2026-10-08T17:04:16Z",
+  "canonical_dataset": {
+    "image_count": 6471,
+    "label_count": 6471,
+    "expected": 6471,
+    "status": "IMMUTABLE_AND_INTACT"
+  },
+  "phase8_3_prepared_dataset": {
+    "splits": {
+      "train": {
+        "image_count": 3377,
+        "label_count": 3377,
+        "paired_count": 3377,
+        "expected_count": 3377,
+        "box_count": 5007,
+        "class_distribution": {
+          "FIRE_EXTINGUISHER": 3164,
+          "EXIT_DOOR": 33,
+          "EXIT_SIGN": 1741,
+          "OBSTACLE": 69
+        }
+      },
+      "val": {
+        "image_count": 988,
+        "label_count": 988,
+        "paired_count": 988,
+        "expected_count": 988,
+        "box_count": 1455,
+        "class_distribution": {
+          "FIRE_EXTINGUISHER": 948,
+          "EXIT_DOOR": 3,
+          "EXIT_SIGN": 498,
+          "OBSTACLE": 6
+        }
+      },
+      "test": {
+        "image_count": 522,
+        "label_count": 522,
+        "paired_count": 522,
+        "expected_count": 522,
+        "box_count": 796,
+        "class_distribution": {
+          "FIRE_EXTINGUISHER": 452,
+          "EXIT_DOOR": 6,
+          "EXIT_SIGN": 320,
+          "OBSTACLE": 18
+        }
+      }
+    },
+    "total_images": 4887,
+    "total_labels": 4887,
+    "total_boxes": 7258,
+    "missing_labels": 0,
+    "orphan_labels": 0,
+    "empty_label_files": 27,
+    "malformed_boxes": 0,
+    "nan_inf_boxes": 0,
+    "class_distribution_overall": {
+      "FIRE_EXTINGUISHER": 4564,
+      "EXIT_DOOR": 42,
+      "EXIT_SIGN": 2559,
+      "OBSTACLE": 93
+    },
+    "status": "PASS"
+  }
+}

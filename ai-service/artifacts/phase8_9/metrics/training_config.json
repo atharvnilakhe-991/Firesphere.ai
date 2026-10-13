@@ -1,0 +1,92 @@
+{
+  "model_id": "firesphere-perception-pretrained-v0.8.9",
+  "architecture": "PretrainedInspectionDetector (MobileNetV2 + Bi-Scale Neck)",
+  "seed": 42,
+  "epochs": 5,
+  "stage_a_epochs": 2,
+  "stage_b_epochs": 3,
+  "best_epoch": 5,
+  "best_val_loss": 0.82503,
+  "total_time_seconds": 943.58,
+  "device": "cpu",
+  "provenance_audit": {
+    "checkpoint_path": "C:\\Users\\athar\\OneDrive\\Desktop\\Firesphere.ai\\ai-service\\artifacts\\phase8_10\\pretrained\\mobilenet_v2-b0353104.pth",
+    "sha256": "b03531047ffacf1e2488318dcd2aba1126cde36e3bfe1aa5cb07700aeeee9889",
+    "size_bytes": 14212972,
+    "provenance_limitation": "Full 64-character SHA-256 not published by official PyTorch (8-character prefix b0353104 officially verified). User explicitly authorized research experiment.",
+    "authorized_by_user": true
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "stage": "stage_a",
+      "train_loss": 1.66128,
+      "train_box_loss": 0.46495,
+      "train_obj_loss": 0.44035,
+      "train_cls_loss": 0.19402,
+      "val_loss": 1.21044,
+      "val_box_loss": 0.4384,
+      "val_obj_loss": 0.23132,
+      "val_cls_loss": 0.06821,
+      "is_best": true,
+      "duration_seconds": 232.07
+    },
+    {
+      "epoch": 2,
+      "stage": "stage_a",
+      "train_loss": 0.8268,
+      "train_box_loss": 0.31821,
+      "train_obj_loss": 0.14003,
+      "train_cls_loss": 0.03356,
+      "val_loss": 0.96893,
+      "val_box_loss": 0.402,
+      "val_obj_loss": 0.08222,
+      "val_cls_loss": 0.05514,
+      "is_best": true,
+      "duration_seconds": 134.62
+    },
+    {
+      "epoch": 3,
+      "stage": "stage_b",
+      "train_loss": 0.60217,
+      "train_box_loss": 0.26916,
+      "train_obj_loss": 0.04409,
+      "train_cls_loss": 0.01317,
+      "val_loss": 0.87029,
+      "val_box_loss": 0.38655,
+      "val_obj_loss": 0.02643,
+      "val_cls_loss": 0.04717,
+      "is_best": true,
+      "duration_seconds": 181.84
+    },
+    {
+      "epoch": 4,
+      "stage": "stage_b",
+      "train_loss": 0.43883,
+      "train_box_loss": 0.2048,
+      "train_obj_loss": 0.02254,
+      "train_cls_loss": 0.00447,
+      "val_loss": 0.84769,
+      "val_box_loss": 0.3828,
+      "val_obj_loss": 0.01834,
+      "val_cls_loss": 0.0425,
+      "is_best": true,
+      "duration_seconds": 182.86
+    },
+    {
+      "epoch": 5,
+      "stage": "stage_b",
+      "train_loss": 0.34415,
+      "train_box_loss": 0.16168,
+      "train_obj_loss": 0.01729,
+      "train_cls_loss": 0.00234,
+      "val_loss": 0.82503,
+      "val_box_loss": 0.37304,
+      "val_obj_loss": 0.01456,
+      "val_cls_loss": 0.04293,
+      "is_best": true,
+      "duration_seconds": 209.6
+    }
+  ],
+  "checkpoint_sha256": "abb5bab4a4eb3de7d2275c5a946238804f3f453cc1419a3906b888fe52d88d36"
+}

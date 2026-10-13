@@ -1,0 +1,255 @@
+{
+  "comparison_version": "1.0.0-phase8.8",
+  "test_split_used": "phase8_3_untouched_522_images",
+  "baseline_model": {
+    "model_id": "firesphere-perception-baseline-v0.8.0",
+    "checkpoint": "C:\\Users\\athar\\OneDrive\\Desktop\\Firesphere.ai\\ai-service\\artifacts\\phase8_4\\checkpoints\\best.pt",
+    "metrics": {
+      "modelId": "firesphere-perception-baseline-v0.8.0",
+      "modelVersion": "0.8.0-baseline",
+      "datasetName": "phase8_3_untouched_test_split",
+      "evaluationStatus": "COMPLETED",
+      "totalTestImages": 522,
+      "totalGroundTruthObjects": 796,
+      "totalPredictedObjects": 593,
+      "mAP50": 0.0514,
+      "mAP50_95": 0.0172,
+      "meanPrecision": 0.1545,
+      "meanRecall": 0.1303,
+      "meanF1": 0.1256,
+      "perClassMetrics": {
+        "FIRE_EXTINGUISHER": {
+          "classId": 0,
+          "className": "FIRE_EXTINGUISHER",
+          "support": 452,
+          "truePositives": 220,
+          "falsePositives": 321,
+          "falseNegatives": 232,
+          "precision": 0.4067,
+          "recall": 0.4867,
+          "f1Score": 0.4431,
+          "ap50": 0.1973,
+          "ap50_95": 0.0672
+        },
+        "EXIT_DOOR": {
+          "classId": 1,
+          "className": "EXIT_DOOR",
+          "support": 6,
+          "truePositives": 0,
+          "falsePositives": 0,
+          "falseNegatives": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1Score": 0.0,
+          "ap50": 0.0,
+          "ap50_95": 0.0
+        },
+        "EXIT_SIGN": {
+          "classId": 2,
+          "className": "EXIT_SIGN",
+          "support": 320,
+          "truePositives": 11,
+          "falsePositives": 41,
+          "falseNegatives": 309,
+          "precision": 0.2115,
+          "recall": 0.0344,
+          "f1Score": 0.0592,
+          "ap50": 0.0084,
+          "ap50_95": 0.0016
+        },
+        "OBSTACLE": {
+          "classId": 3,
+          "className": "OBSTACLE",
+          "support": 18,
+          "truePositives": 0,
+          "falsePositives": 0,
+          "falseNegatives": 18,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1Score": 0.0,
+          "ap50": 0.0,
+          "ap50_95": 0.0
+        }
+      },
+      "confusionMatrix": {
+        "classNames": [
+          "FIRE_EXTINGUISHER",
+          "EXIT_DOOR",
+          "EXIT_SIGN",
+          "OBSTACLE",
+          "BACKGROUND"
+        ],
+        "matrix": [
+          [
+            220,
+            0,
+            0,
+            0,
+            321
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            11,
+            0,
+            41
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            232,
+            6,
+            309,
+            18,
+            0
+          ]
+        ]
+      },
+      "warnings": []
+    }
+  },
+  "candidate_model": {
+    "model_id": "firesphere-perception-candidate-v0.8.8",
+    "checkpoint": "C:\\Users\\athar\\OneDrive\\Desktop\\Firesphere.ai\\ai-service\\artifacts\\phase8_8\\checkpoints\\best.pt",
+    "metrics": {
+      "modelId": "firesphere-perception-candidate-v0.8.8",
+      "modelVersion": "0.8.8-candidate",
+      "datasetName": "phase8_3_untouched_test_split",
+      "evaluationStatus": "COMPLETED",
+      "totalTestImages": 522,
+      "totalGroundTruthObjects": 796,
+      "totalPredictedObjects": 503,
+      "mAP50": 0.0276,
+      "mAP50_95": 0.0097,
+      "meanPrecision": 0.1277,
+      "meanRecall": 0.0882,
+      "meanF1": 0.0949,
+      "perClassMetrics": {
+        "FIRE_EXTINGUISHER": {
+          "classId": 0,
+          "className": "FIRE_EXTINGUISHER",
+          "support": 452,
+          "truePositives": 144,
+          "falsePositives": 300,
+          "falseNegatives": 308,
+          "precision": 0.3243,
+          "recall": 0.3186,
+          "f1Score": 0.3214,
+          "ap50": 0.1028,
+          "ap50_95": 0.0377
+        },
+        "EXIT_DOOR": {
+          "classId": 1,
+          "className": "EXIT_DOOR",
+          "support": 6,
+          "truePositives": 0,
+          "falsePositives": 0,
+          "falseNegatives": 6,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1Score": 0.0,
+          "ap50": 0.0,
+          "ap50_95": 0.0
+        },
+        "EXIT_SIGN": {
+          "classId": 2,
+          "className": "EXIT_SIGN",
+          "support": 320,
+          "truePositives": 11,
+          "falsePositives": 48,
+          "falseNegatives": 309,
+          "precision": 0.1864,
+          "recall": 0.0344,
+          "f1Score": 0.0581,
+          "ap50": 0.0074,
+          "ap50_95": 0.0012
+        },
+        "OBSTACLE": {
+          "classId": 3,
+          "className": "OBSTACLE",
+          "support": 18,
+          "truePositives": 0,
+          "falsePositives": 0,
+          "falseNegatives": 18,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1Score": 0.0,
+          "ap50": 0.0,
+          "ap50_95": 0.0
+        }
+      },
+      "confusionMatrix": {
+        "classNames": [
+          "FIRE_EXTINGUISHER",
+          "EXIT_DOOR",
+          "EXIT_SIGN",
+          "OBSTACLE",
+          "BACKGROUND"
+        ],
+        "matrix": [
+          [
+            144,
+            0,
+            0,
+            0,
+            300
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            11,
+            0,
+            48
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            308,
+            6,
+            309,
+            18,
+            0
+          ]
+        ]
+      },
+      "warnings": []
+    }
+  },
+  "deltas": {
+    "meanPrecision": -0.0268,
+    "meanRecall": -0.0421,
+    "meanF1": -0.0307,
+    "mAP50": -0.0238,
+    "mAP50_95": -0.0075,
+    "perClassAP50": {
+      "FIRE_EXTINGUISHER": -0.0945,
+      "EXIT_DOOR": 0.0,
+      "EXIT_SIGN": -0.001,
+      "OBSTACLE": 0.0
+    }
+  }
+}

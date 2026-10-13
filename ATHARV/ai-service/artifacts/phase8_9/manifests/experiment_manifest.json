@@ -1,0 +1,97 @@
+{
+  "manifest_version": "1.0.0-phase8.9",
+  "experiment_name": "Phase 8.9 Controlled Transfer-Learning Experiment",
+  "timestamp": "2026-10-09T18:10:00Z",
+  "authorization": {
+    "status": "EXPLICITLY_AUTHORIZED_BY_USER",
+    "scope": "CONTROLLED_RESEARCH_EXPERIMENT_ONLY",
+    "production_approval": false,
+    "user_instruction": "Proceed with the already-planned Phase 8.9 transfer-learning experiment using the existing MobileNetV2 ImageNet-1K checkpoint. This is an explicitly authorized research experiment, NOT production approval."
+  },
+  "pretrained_backbone_provenance": {
+    "architecture": "MobileNetV2 (ImageNet-1K)",
+    "checkpoint_path": "ai-service/artifacts/phase8_10/pretrained/mobilenet_v2-b0353104.pth",
+    "official_url": "https://download.pytorch.org/models/mobilenet_v2-b0353104.pth",
+    "expected_size_bytes": 14212972,
+    "actual_size_bytes": 14212972,
+    "recorded_local_sha256": "b03531047ffacf1e2488318dcd2aba1126cde36e3bfe1aa5cb07700aeeee9889",
+    "recomputed_sha256": "b03531047ffacf1e2488318dcd2aba1126cde36e3bfe1aa5cb07700aeeee9889",
+    "official_prefix_match": true,
+    "official_prefix": "b0353104",
+    "provenance_limitation": "The full 64-character SHA-256 digest is NOT published in official PyTorch documentation. Only the 8-character filename prefix b0353104 is official. Execution proceeded under explicit user research authorization.",
+    "historical_phase8_10_gate": "CHECKPOINT_INTEGRITY_FAILED (preserved unchanged)",
+    "historical_phase8_10a_gate": "CHECKPOINT_HASH_REQUIRES_MANUAL_VERIFICATION (preserved unchanged)",
+    "weights_only_deserialization": true,
+    "backbone_tensors_loaded": 312,
+    "missing_tensors": 0,
+    "unexpected_tensors": 0,
+    "nan_or_inf_detected": false
+  },
+  "candidate_model": {
+    "model_id": "firesphere-perception-pretrained-v0.8.9",
+    "model_version": "0.8.9-candidate",
+    "architecture": "PretrainedInspectionDetector",
+    "backbone": "MobileNetV2 (ImageNet pretrained)",
+    "neck": "DecoupledBiScaleNeck (P3 stride 8, P4 stride 16)",
+    "heads": "Head P3 (2 anchors @ 32x32 = 2048) + Head P4 (2 anchors @ 16x16 = 512) = 2560 anchors",
+    "total_parameters": 2308644,
+    "model_size_mb": 13.45,
+    "best_checkpoint_path": "ai-service/artifacts/phase8_9/checkpoints/best.pt",
+    "best_checkpoint_sha256": "abb5bab4a4eb3de7d2275c5a946238804f3f453cc1419a3906b888fe52d88d36"
+  },
+  "training_protocol": {
+    "seed": 42,
+    "epochs": 5,
+    "batch_size": 32,
+    "device": "cpu",
+    "stage_a": {
+      "epochs": [1, 2],
+      "backbone_frozen": true,
+      "trainable_parameters": 84772,
+      "frozen_parameters": 2223872,
+      "head_neck_lr": 0.001
+    },
+    "stage_b": {
+      "epochs": [3, 4, 5],
+      "stem_and_early_stages_frozen": "features.0 through features.6",
+      "deep_stages_unfrozen": "features.7 through features.18",
+      "trainable_parameters": 2253156,
+      "frozen_parameters": 55488,
+      "backbone_lr": 0.0001,
+      "head_neck_lr": 0.001
+    },
+    "training_images": 3427,
+    "validation_images": 928
+  },
+  "evaluations": {
+    "validation_sweep_tau": 0.15,
+    "untouched_test_images": 522,
+    "untouched_test_metrics": {
+      "mAP50": 0.0503,
+      "mAP50_95": 0.0195,
+      "meanPrecision": 0.2064,
+      "meanRecall": 0.1197,
+      "meanF1": 0.1482,
+      "fire_extinguisher_ap50": 0.1329,
+      "exit_door_ap50": 0.0,
+      "exit_sign_ap50": 0.0684,
+      "obstacle_ap50": 0.0
+    }
+  },
+  "comparison_vs_baseline": {
+    "authoritative_baseline": "firesphere-perception-baseline-v0.8.0 (Phase 8.4)",
+    "baseline_checkpoint_sha256": "5f166c4703e090eb51a9171c38ff1c3dd93d7d0c99d06ec8e44562217753c666",
+    "baseline_mAP50": 0.0514,
+    "candidate_mAP50": 0.0503,
+    "delta_mAP50": -0.0011,
+    "baseline_extinguisher_ap50": 0.1973,
+    "candidate_extinguisher_ap50": 0.1329,
+    "delta_extinguisher_ap50": -0.0644,
+    "baseline_sign_ap50": 0.0084,
+    "candidate_sign_ap50": 0.0684,
+    "delta_sign_ap50": 0.06
+  },
+  "gate_decision": "CANDIDATE_REGRESSED",
+  "gate_rationale": "FIRE_EXTINGUISHER AP50 regressed by -0.0644 (-6.44 points) relative to Phase 8.4 baseline due to minority-class representation dilution, despite strong EXIT_SIGN gain (+0.0600) and recovery from Phase 8.8 (which was 0.1028). Phase 8.4 remains the authoritative baseline.",
+  "production_status": "NOT_APPROVED"
+}

@@ -1,0 +1,56 @@
+{
+  "report_version": "1.0.0-phase8.4",
+  "overview": "Error analysis of Phase 8.4 baseline perception model across the 4 perception classes.",
+  "data_limited_classes": {
+    "EXIT_DOOR": {
+      "support": 6,
+      "true_positives": 0,
+      "false_negatives": 6,
+      "false_positives": 0,
+      "status": "DATA_LIMITED \u2014 INSUFFICIENT_EVIDENCE",
+      "failure_modes": [
+        "Severe undersampling in training dataset (only 33 training images across 14 scenes).",
+        "High background context variation; door geometry easily confused with walls/corridors.",
+        "Extreme scale disparity (doors span 40-80% of image height compared to compact signs)."
+      ],
+      "recommendation": "DO NOT use for production legal decisions. Targeted expansion of exit door scenes required."
+    },
+    "OBSTACLE": {
+      "support": 18,
+      "true_positives": 0,
+      "false_negatives": 18,
+      "false_positives": 0,
+      "status": "DATA_LIMITED \u2014 INSUFFICIENT_EVIDENCE",
+      "failure_modes": [
+        "Diverse object taxonomy (cardboard boxes, wooden pallets, maintenance equipment).",
+        "Limited to only 69 training images from Dataset 6.",
+        "High false negative rate on non-cardboard obstructions."
+      ],
+      "recommendation": "DO NOT use for standalone obstacle certification. Downstream compound spatial rules required."
+    }
+  },
+  "abundant_classes": {
+    "FIRE_EXTINGUISHER": {
+      "support": 452,
+      "status": "READY_FOR_EXPERIMENTAL_STAGING",
+      "failure_modes": [
+        "Partial occlusion by objects or recessed wall mounting.",
+        "Small-scale cylinders in wide-angle room photos (<0.01 area)."
+      ]
+    },
+    "EXIT_SIGN": {
+      "support": 320,
+      "status": "READY_FOR_EXPERIMENTAL_STAGING",
+      "failure_modes": [
+        "High glare or overexposed illuminated signs.",
+        "Extreme perspective angles in hallway corridors."
+      ]
+    }
+  },
+  "failure_safe_inference_verification": {
+    "malformed_input_handling": "PASS (returns empty detections, zero crash)",
+    "legal_decision_output": "ZERO (no NOC compliance states produced)",
+    "prohibited_violation_in_model": "ZERO (EMERGENCY_EXIT_OBSTRUCTED excluded from model)",
+    "calibration_status": "NOT_CALIBRATED"
+  }
+}

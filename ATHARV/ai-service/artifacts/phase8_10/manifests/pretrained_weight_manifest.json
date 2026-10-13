@@ -1,0 +1,32 @@
+{
+  "phase": "8.10",
+  "artifact_type": "pretrained_weight_manifest",
+  "updated_at": "2026-10-09T00:41:00+05:30",
+  "download_summary": {
+    "status": "DOWNLOAD_COMPLETED",
+    "timestamp": "2026-10-09T00:39:56+05:30",
+    "source_url": "https://download.pytorch.org/models/mobilenet_v2-b0353104.pth",
+    "destination_path": "artifacts/phase8_10/pretrained/mobilenet_v2-b0353104.pth",
+    "file_size_bytes": 14212972,
+    "file_size_mb": 13.55,
+    "actual_sha256": "b03531047ffacf1e2488318dcd2aba1126cde36e3bfe1aa5cb07700aeeee9889",
+    "authorized_expected_sha256": "b0353104d49a37c02b37ba4ef5dd3f3d1b827756f7b9492e73703eb402773cbb",
+    "sha256_prefix_match": true,
+    "sha256_prefix": "b0353104",
+    "sha256_full_match": false
+  },
+  "model_details": {
+    "architecture": "MobileNetV2 (Sandler et al., 2018)",
+    "official_identifier": "mobilenet_v2-b0353104.pth",
+    "pretrained_corpus": "ImageNet-1k (ILSVRC-2012, 1,000 classes, 1.28M images)",
+    "license": "BSD-3-Clause",
+    "total_checkpoint_keys": 314,
+    "backbone_feature_keys": 312,
+    "classifier_keys": 2,
+    "backbone_feature_parameters": 2223872,
+    "total_checkpoint_parameters": 3539036
+  },
+  "gate_decision": "CHECKPOINT_INTEGRITY_FAILED",
+  "gate_rationale": "File was successfully downloaded from the authorized official PyTorch URL and its 8-character hash prefix (b0353104) matches the official release filename. However, its actual 64-character SHA-256 (b03531047ffacf1e2488318dcd2aba1126cde36e3bfe1aa5cb07700aeeee9889) does not match the full 64-character expected hash specified in the authorization prompt (b0353104d49a37c02b37ba4ef5dd3f3d1b827756f7b9492e73703eb402773cbb). In strict compliance with the Phase 8.10 protocol ('If SHA-256 does not match: GATE = CHECKPOINT_INTEGRITY_FAILED'), the gate is reported as CHECKPOINT_INTEGRITY_FAILED.",
+  "production_status": "NOT_APPROVED"
+}

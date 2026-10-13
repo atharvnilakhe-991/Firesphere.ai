@@ -1,0 +1,17 @@
+{
+  "device": "cpu",
+  "model_load_time_ms": 50.42,
+  "image_size": [
+    256,
+    256
+  ],
+  "batch_size": 1,
+  "benchmark_samples": 100,
+  "avg_preprocess_ms": 17.86,
+  "avg_inference_ms": 12.64,
+  "avg_postprocess_ms": 22.49,
+  "average_latency_ms": 53.0,
+  "median_latency_ms": 39.03,
+  "p95_latency_ms": 113.5,
+  "throughput_fps": 18.87
+}

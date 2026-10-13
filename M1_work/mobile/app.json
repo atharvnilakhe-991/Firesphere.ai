@@ -1,0 +1,25 @@
+{
+  "expo": {
+    "name": "FireSphere",
+    "slug": "firesphere",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "scheme": "firesphere",
+    "ios": { "supportsTablet": true, "bundleIdentifier": "com.organization.firesphere" },
+    "android": {
+      "package": "com.organization.firesphere",
+      "versionCode": 1,
+      "permissions": ["CAMERA", "ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION", "POST_NOTIFICATIONS"],
+      "adaptiveIcon": { "backgroundColor": "#17242d" }
+    },
+    "plugins": [
+      ["expo-secure-store", { "configureAndroidBackup": true }],
+      ["expo-image-picker", { "photosPermission": "Allow FireSphere to attach evidence to your service request.", "cameraPermission": "Allow FireSphere to capture inspection evidence.", "microphonePermission": false }],
+      ["expo-location", { "locationWhenInUsePermission": "Allow FireSphere to record your location for an inspection or service request." }],
+      ["expo-sqlite", { "useSQLCipher": true }],
+      "expo-notifications"
+    ]
+  }
+}

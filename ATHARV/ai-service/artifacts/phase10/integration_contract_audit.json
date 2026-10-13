@@ -1,0 +1,112 @@
+{
+  "timestamp": "2026-10-09T17:29:15.522090+00:00",
+  "serviceVersion": "0.10.0-phase10",
+  "identityLinkage": {
+    "status": "ENFORCED",
+    "decoupledIdentities": [
+      "tenantId",
+      "inspectionId",
+      "jobId",
+      "analysisRunId",
+      "findingId",
+      "reportId",
+      "evidenceId"
+    ],
+    "invariants": "tenantId propagates through S3 path, Redis jobs, and findings; jobId != runId != reportId != inspectionId."
+  },
+  "springBootContract": {
+    "status": "COMPATIBLE_AND_VERIFIED",
+    "endpoints": [
+      {
+        "path": "/internal/ai/jobs",
+        "method": "POST",
+        "status": "202 Accepted",
+        "purpose": "Async inspection job dispatch with idempotencyKey"
+      },
+      {
+        "path": "/internal/ai/jobs/{job_id}",
+        "method": "GET",
+        "status": "200 OK / 404",
+        "purpose": "Job status and lifecycle polling"
+      },
+      {
+        "path": "/internal/ai/jobs/{job_id}/result",
+        "method": "GET",
+        "status": "200 OK / 404",
+        "purpose": "Complete structured analysis and report draft retrieval"
+      },
+      {
+        "path": "/internal/ai/inspection-analysis",
+        "method": "POST",
+        "status": "200 OK",
+        "purpose": "Synchronous CV analysis pipeline invocation"
+      },
+      {
+        "path": "/internal/ai/inspection-report-draft",
+        "method": "POST",
+        "status": "200 OK",
+        "purpose": "Deterministic report drafting from findings"
+      }
+    ],
+    "authHeaders": [
+      "X-AI-Service-Token",
+      "Authorization: Bearer <token>"
+    ],
+    "correlationHeader": "X-Correlation-ID"
+  },
+  "redisAsyncJobContract": {
+    "status": "COMPATIBLE_AND_VERIFIED",
+    "queueImplementation": "RedisJobQueue (FIFO LPUSH / BRPOP) with InMemoryJobQueue fallback",
+    "repositoryImplementation": "RedisJobRepository (JSON serialization with 24h TTL) with InMemoryJobRepository fallback",
+    "idempotencySupport": "firesphere:ai:idempotency:{key} deduplication index",
+    "jobStatuses": [
+      "QUEUED",
+      "RUNNING",
+      "COMPLETED",
+      "RETRYING",
+      "FAILED",
+      "CANCELLED"
+    ],
+    "retryPolicy": "Bounded exponential backoff with jitter (max 3 retries, transient errors only)"
+  },
+  "minioStorageContract": {
+    "status": "COMPATIBLE_AND_VERIFIED",
+    "provider": "S3CompatibleStorageProvider with MockStorageProvider fallback",
+    "tenantPathPrefix": "tenants/{tenantId}/evidence/{evidenceId}",
+    "securityGuards": [
+      "Path traversal sanitization (rejection of .., absolute paths, URL schemes)",
+      "Cryptographic SHA-256 payload integrity verification",
+      "20MB per-file upload limit enforced",
+      "Transient outage timeout handling (STORAGE_UNAVAILABLE)"
+    ]
+  },
+  "postgresPersistenceContract": {
+    "status": "SPECIFIED_FOR_M1_M2_HANDOFF",
+    "tablesRequired": [
+      "ai_analysis_runs (run_id PK, inspection_id, tenant_id, status, model_name, model_version, execution_ms, created_at)",
+      "ai_findings (finding_id PK, run_id FK, evidence_id, finding_type, confidence, severity, explanation, compliance_status, detection_polygon, created_at)",
+      "ai_report_drafts (report_id PK, run_id FK, inspection_id, tenant_id, review_state, executive_summary, risk_score, created_at)",
+      "ai_officer_reviews (review_id PK, finding_id FK, officer_id, review_status, officer_notes, reviewed_at)",
+      "ai_audit_trail (audit_id PK, entity_id, action, from_state, to_state, actor, reason, timestamp)"
+    ],
+    "spatialFormat": "PostGIS geometry(Polygon, 4326) or normalized xmin, ymin, xmax, ymax columns [0, 1]"
+  },
+  "officerReviewContract": {
+    "status": "COMPATIBLE_AND_VERIFIED",
+    "allowedStates": [
+      "AI_SUGGESTION (advisory observation proposed by AI)",
+      "OFFICER_CONFIRMED (verified on-site and confirmed by human officer)",
+      "OFFICER_DISMISSED (inspected on-site and dismissed with notes)",
+      "UNREVIEWED (pending on-site human inspection)"
+    ],
+    "safetyInvariant": "AI NEVER approves or rejects NOC compliance. Zero detections != compliant."
+  },
+  "securityAndAuthContract": {
+    "status": "ENFORCED",
+    "constantTimeAuth": true,
+    "noHardcodedSecrets": true,
+    "tenantContextEnforced": true,
+    "pathTraversalProtected": true
+  },
+  "readinessStatus": "READY_FOR_M4_HANDOFF"
+}

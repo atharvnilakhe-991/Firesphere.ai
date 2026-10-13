@@ -1,0 +1,20 @@
+{
+  "authoritativeReferenceBaseline": "firesphere-perception-baseline-v0.8.0 (Phase 8.4)",
+  "baselineCheckpointPath": "ai-service/artifacts/phase8_4/checkpoints/best.pt",
+  "baselineCheckpointSha256": "5f166c4703e090eb51a9171c38ff1c3dd93d7d0c99d06ec8e44562217753c666",
+  "candidateModelEvaluated": "firesphere-perception-pretrained-v0.8.9 (Phase 8.9)",
+  "candidateHistoricalClassification": "CANDIDATE_REGRESSED",
+  "selectionDecision": "REFERENCE_BASELINE_RETAINED",
+  "productionModelApproved": false,
+  "productionModelLoadedToLivePipeline": false,
+  "cpuBenchmarkComparison": {
+    "baseline_latency_total_mean_ms": 33.52,
+    "baseline_throughput_fps": 29.84,
+    "baseline_checkpoint_size_mb": 25.66,
+    "candidate_latency_total_mean_ms": 170.47,
+    "candidate_throughput_fps": 5.87,
+    "candidate_checkpoint_size_mb": 13.45,
+    "latency_analysis": "Phase 8.9 MobileNetV2 uses depthwise separable convolutions that incur multiple PyTorch CPU operator dispatches per block, running ~5x slower on un-quantized CPU."
+  },
+  "rationale": "Phase 8.9 candidate suffered a -0.0644 AP@50 regression on the primary compliance class (FIRE_EXTINGUISHER) relative to Phase 8.4, and exhibited 5.87 FPS vs 29.84 FPS on CPU. In accordance with strict safety governance, Phase 8.4 is formally retained as the reference baseline. Production inference status remains NOT_APPROVED."
+}

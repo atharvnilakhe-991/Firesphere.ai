@@ -1,0 +1,25 @@
+{
+  "dataset_name": "FireSphere Audited Minority Expansion Dataset",
+  "dataset_version": "1.0.0-phase8.8",
+  "creation_timestamp": "2026-10-08T18:09:09.922309+00:00",
+  "total_images": 4841,
+  "total_boxes": 7140,
+  "split_counts": {
+    "train": 3427,
+    "val": 928,
+    "test": 486
+  },
+  "class_counts": {
+    "FIRE_EXTINGUISHER": 4112,
+    "EXIT_DOOR": 714,
+    "EXIT_SIGN": 2239,
+    "OBSTACLE": 75
+  },
+  "exit_door_audit": {
+    "total_inspected": 515,
+    "accepted": 499,
+    "rejected": 16,
+    "door_images_in_dataset": 536,
+    "door_boxes_in_dataset": 714
+  }
+}

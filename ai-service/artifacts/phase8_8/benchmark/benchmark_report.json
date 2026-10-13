@@ -1,0 +1,30 @@
+{
+  "device": "cpu",
+  "image_size": [
+    256,
+    256
+  ],
+  "benchmark_samples": 100,
+  "baseline": {
+    "infer_mean_ms": 36.32,
+    "infer_p50_ms": 35.37,
+    "infer_p95_ms": 38.45,
+    "total_mean_ms": 54.6,
+    "total_p50_ms": 39.74,
+    "total_p95_ms": 113.99,
+    "fps": 18.32,
+    "model_size_mb": 25.66,
+    "parameter_count": 2237627
+  },
+  "candidate": {
+    "infer_mean_ms": 36.5,
+    "infer_p50_ms": 35.83,
+    "infer_p95_ms": 41.08,
+    "total_mean_ms": 55.65,
+    "total_p50_ms": 40.17,
+    "total_p95_ms": 118.91,
+    "fps": 17.97,
+    "model_size_mb": 8.56,
+    "parameter_count": 2237627
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "phase": "8.10",
+  "artifact_type": "pretrained_preprocessing_manifest",
+  "generated_at": "2026-10-09T00:33:15+05:30",
+  "preprocessing_pipeline": {
+    "target_resolution": [256, 256],
+    "color_channels": 3,
+    "channel_order": "RGB",
+    "pixel_scaling": "Normalized to [0.0, 1.0]",
+    "letterboxing": {
+      "enabled": true,
+      "aspect_ratio_preservation": true,
+      "padding_fill_value": 114
+    },
+    "normalization_options": {
+      "standard_firesphere": {
+        "mean": [0.0, 0.0, 0.0],
+        "std": [1.0, 1.0, 1.0],
+        "description": "Direct [0.0, 1.0] scaling used in Phase 8.4 baseline"
+      },
+      "imagenet_pretrained_standard": {
+        "mean": [0.485, 0.456, 0.406],
+        "std": [0.229, 0.224, 0.225],
+        "description": "Standard ImageNet normalization matching MobileNetV2 pretrained distribution"
+      }
+    },
+    "recommended_transfer_setting": "imagenet_pretrained_standard",
+    "tensor_format": "torch.FloatTensor of shape (B, 3, 256, 256)"
+  },
+  "dataset_immutability_guarantee": {
+    "source_dataset_overwriting": "STRICTLY_PROHIBITED",
+    "runtime_transformation": "Transformations are applied in-memory on PyTorch Dataset __getitem__",
+    "phase8_3_status": "UNTOUCHED_4887_IMAGES",
+    "phase8_8_status": "UNTOUCHED_4841_IMAGES"
+  }
+}
