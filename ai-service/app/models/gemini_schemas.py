@@ -1,7 +1,9 @@
-"""FireSphere.ai — Gemini VLM Schemas and Coordinate Contracts (Phase 2).
+"""FireSphere.ai — Canonical VLM Schemas and Coordinate Contracts.
 
 Defines structured response models, observation envelopes, explicit status enums,
-and coordinate conversion/validation utilities for Gemini vision analysis.
+and coordinate conversion/validation utilities. Historically named gemini_schemas.py,
+these models serve as canonical, provider-neutral DTOs shared across all VLM providers
+including the active local Ollama/Qwen provider, retained for stable backward compatibility.
 """
 
 from enum import Enum
@@ -67,6 +69,9 @@ class GeminiAnalysisStatus(str, Enum):
     ANALYSIS_INCONCLUSIVE = "ANALYSIS_INCONCLUSIVE"
     ANALYSIS_FAILED = "ANALYSIS_FAILED"
     ANALYSIS_INVALID_RESPONSE = "ANALYSIS_INVALID_RESPONSE"
+    SUCCESS = "ANALYSIS_COMPLETED_WITH_OBSERVATIONS"
+    INCONCLUSIVE = "ANALYSIS_INCONCLUSIVE"
+    FAILED = "ANALYSIS_FAILED"
 
     def __eq__(self, other: Any) -> bool:
         """Maintains backward compatibility with Phase 1 string status checks."""
@@ -323,14 +328,39 @@ class GeminiObservation(BaseModel):
         default_factory=lambda: str(uuid.uuid4()),
         description="Unique identifier for this visual observation",
     )
-    imageReference: str = Field(description="Evidence identifier or image reference")
+    imageReference: str = Field(
+        default_factory=lambda: str(uuid.uuid4()),
+        description="Evidence identifier or image reference",
+    )
     objectCategory: str = Field(description="Visual object category (e.g., FIRE_EXTINGUISHER, EXIT_SIGN)")
     potentialHazardCategory: Optional[str] = Field(
         default=None,
         description="Suggested fire safety hazard classification if an anomaly or defect is detected",
     )
+    hazardCategory: Optional[str] = Field(
+        default=None,
+        description="Bidirectional alias for potentialHazardCategory",
+    )
     observationDescription: str = Field(default="", description="Descriptive visual reasoning and factual evidence summary")
     description: Optional[str] = Field(default=None, description="Observation description alias")
+
+    @model_validator(mode="before")
+    @classmethod
+    def handle_gemini_obs_aliases(cls, data: Any) -> Any:
+        if isinstance(data, dict):
+            res = dict(data)
+            if "hazardCategory" in res and "potentialHazardCategory" not in res:
+                res["potentialHazardCategory"] = res["hazardCategory"]
+            elif "potentialHazardCategory" in res and "hazardCategory" not in res:
+                res["hazardCategory"] = res["potentialHazardCategory"]
+            if "evidenceId" in res and ("imageReference" not in res or not res["imageReference"]):
+                res["imageReference"] = res["evidenceId"]
+            elif "imageReference" in res and ("evidenceId" not in res or not res["evidenceId"]):
+                res["evidenceId"] = res["imageReference"]
+            if "box_2d" in res and "boundingBox" not in res and res["box_2d"]:
+                res["boundingBox"] = parse_and_validate_bounding_box(res["box_2d"])
+            return res
+        return data
     evidenceStatus: str = Field(
         default="DETECTED",
         description="Observation status: DETECTED, ABSENT, UNCERTAIN, or NOT_EVALUATED",
@@ -469,6 +499,26 @@ class GeminiAnalysisResult(BaseModel):
     modelVersion: str = Field(
         default="gemini-genai-v2",
         description="Provider adapter version",
+    )
+    provider: Optional[str] = Field(
+        default="ollama",
+        description="Active VLM provider identifier (e.g. 'ollama')",
+    )
+    metadata: Dict[str, Any] = Field(
+        default_factory=dict,
+        description="Auxiliary provider execution metadata",
+    )
+    totalObservations: Optional[int] = Field(
+        default=None,
+        description="Count of observations extracted",
+    )
+    inferenceTimeMs: Optional[float] = Field(
+        default=None,
+        description="Inference latency in milliseconds",
+    )
+    errorMessage: Optional[str] = Field(
+        default=None,
+        description="Sanitized error description alias",
     )
     advisoryStatus: str = Field(
         default="ADVISORY_ONLY",

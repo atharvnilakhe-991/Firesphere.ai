@@ -1,6 +1,6 @@
 """FireSphere.ai — Phase 3 Inspection Orchestration Service.
 
-Orchestrates multi-provider visual reasoning across Google Gemini VLM and Computer Vision
+Orchestrates multi-provider visual reasoning across local VLM (Ollama/Qwen) and Computer Vision
 models with strict fault isolation, capability gating, evidence validation, result reconciliation,
 and human-in-the-loop governance.
 """
@@ -136,13 +136,13 @@ class InspectionOrchestrator:
             "model": settings.model_name,
             "version": settings.model_version,
         }
-        prov_name = getattr(self.gemini, "provider_name", "google-gemini")
+        prov_name = getattr(self.vlm, "provider_name", "ollama")
+        vlm_model_id = self.vlm.get_model_id() if hasattr(self.vlm, "get_model_id") else "qwen2.5vl:3b"
         gemini_info = {
             "provider": prov_name,
-            "model": self.gemini.get_model_id() if hasattr(self.gemini, "get_model_id") else "gemini-2.5-flash",
-            "enabled": str(self.gemini.is_enabled()),
+            "model": vlm_model_id,
+            "enabled": str(self.vlm.is_enabled()),
         }
-
 
         # Check CV gate once for run context
         cv_gate = model_approval_gate.check_inference_permission(
@@ -169,11 +169,11 @@ class InspectionOrchestrator:
                 if prep_result.quality.warnings:
                     has_quality_warnings = True
 
-                # C. Primary Provider: Gemini VLM Vision Analysis
+                # C. Primary Provider: VLM Vision Analysis (Ollama/Qwen active)
                 gemini_res: Optional[GeminiAnalysisResult] = None
-                if self.gemini.is_enabled():
+                if self.vlm.is_enabled():
                     try:
-                        gemini_res = self.gemini.analyze_image(
+                        gemini_res = self.vlm.analyze_image(
                             evidence_id=eid,
                             image_data=media_bytes,
                         )
@@ -185,10 +185,10 @@ class InspectionOrchestrator:
                         ):
                             provider_failures += 1
                     except Exception as g_err:
-                        logger.error(f"Gemini execution exception for evidenceId={eid}: {g_err}")
+                        logger.error(f"{prov_name} execution exception for evidenceId={eid}: {g_err}")
                         gemini_res = GeminiAnalysisResult(
                             evidenceId=eid,
-                            model=self.gemini.get_model_id(),
+                            model=self.vlm.get_model_id(),
                             status=GeminiAnalysisStatus.ANALYSIS_FAILED,
                             observations=[],
                             error=str(g_err),
@@ -280,6 +280,8 @@ class InspectionOrchestrator:
                     "status": "SUCCESS",
                     "reconciliationStatus": recon_status.value if hasattr(recon_status, "value") else str(recon_status),
                     "geminiStatus": gemini_res.status.value if gemini_res else "DISABLED",
+                    "vlmStatus": gemini_res.status.value if gemini_res else "DISABLED",
+                    "vlmProvider": prov_name,
                     "cvStatus": cv_status,
                     "findingsCount": len(reconciled_findings),
                     "evidenceQuality": evidence_quality,

@@ -70,7 +70,7 @@ class VLMService:
         provider_info = self.provider.get_provider_info()
         is_enabled = self.provider.is_enabled()
         provider_status = self.provider.get_status()
-        prov_name = provider_info.get("provider", "google-gemini")
+        prov_name = provider_info.get("provider", getattr(self.provider, "provider_name", "ollama"))
 
         # Real inference status evaluation in current environment
         if not is_enabled:

@@ -89,3 +89,192 @@ export interface EvidenceResponse {
   gpsLongitude?: number | null;
   createdAt: string;
 }
+
+export type ChecklistLifecycleStatus = 'DRAFT' | 'IN_PROGRESS' | 'COMPLETED' | 'ARCHIVED';
+export type ChecklistResponseStatus = 'COMPLIANT' | 'NON_COMPLIANT' | 'NOT_APPLICABLE' | 'NEEDS_FURTHER_INSPECTION' | 'PENDING';
+
+export interface LinkedEvidenceDto {
+  evidenceId: string;
+  fileName: string;
+  contentType: string;
+  storageKey: string;
+  notes?: string | null;
+  attachedAt: string;
+}
+
+export interface AiSuggestionLinkDto {
+  linkId: string;
+  findingId: string;
+  findingType?: string;
+  severity: string;
+  confidence: number;
+  suggestedCompliance: string;
+  linkProvenance: string;
+  sourceProvenance?: string;
+  mappingReason?: string;
+  modelName?: string;
+  modelVersion?: string;
+  linkStatus: string;
+  reviewStatus: string;
+  officerComment?: string | null;
+  description?: string;
+  boundingBoxJson?: string;
+  createdAt: string;
+}
+
+export interface InspectionChecklistItemDetailDto {
+  responseId: string;
+  templateItemId: string;
+  itemSequence: number;
+  itemCode: string;
+  itemTitle: string;
+  parameterDescription: string;
+  requirementType: string;
+  verificationMethod: string;
+  evidenceRequired: boolean;
+  aiCategoryTag?: string | null;
+  helpGuidance?: string | null;
+  officerResponse: ChecklistResponseStatus;
+  officerRemarks?: string | null;
+  officerId?: string | null;
+  respondedAt?: string | null;
+  revisionNumber: number;
+  linkedEvidence: LinkedEvidenceDto[];
+  aiSuggestions: AiSuggestionLinkDto[];
+}
+
+export interface InspectionChecklistResponseDto {
+  checklistId: string;
+  inspectionId: string;
+  applicationId: string;
+  templateId: string;
+  templateCode: string;
+  templateTitle: string;
+  templateVersion: number;
+  status: ChecklistLifecycleStatus;
+  totalItems: number;
+  reviewedItems: number;
+  compliantCount: number;
+  nonCompliantCount: number;
+  notApplicableCount: number;
+  needsFurtherInspectionCount: number;
+  pendingCount: number;
+  createdAt: string;
+  updatedAt: string;
+  completedAt?: string | null;
+  completedByOfficer?: string | null;
+  summaryNotes?: string | null;
+  items: InspectionChecklistItemDetailDto[];
+}
+
+export interface RecordOfficerResponseRequest {
+  responseStatus: ChecklistResponseStatus | string;
+  officerRemarks?: string;
+  linkedEvidenceIds?: string[];
+}
+
+export interface CompleteChecklistRequest {
+  summaryNotes?: string;
+}
+
+export interface ReviewAiLinkRequest {
+  reviewStatus: 'CONFIRMED' | 'DISMISSED' | 'MODIFIED' | string;
+  officerComment?: string;
+  verifiedCompliance?: ChecklistResponseStatus | string;
+}
+
+export interface CreateInspectionChecklistRequest {
+  templateCode?: string;
+  occupancyType?: string;
+  inspectionType?: string;
+}
+
+export interface AiFindingMappingDto {
+  linkId?: string;
+  findingId: string;
+  inspectionId?: string;
+  checklistInstanceId?: string;
+  templateItemId?: string;
+  itemCode?: string;
+  checklistItemCode?: string;
+  itemTitle?: string;
+  sourceProvenance?: string;
+  provenance?: string;
+  originalCategory?: string;
+  category?: string;
+  findingSeverity?: string;
+  confidence?: number;
+  findingConfidence?: number;
+  evidenceId?: string | null;
+  mappingStatus?: string;
+  suggestedCompliance?: string;
+  suggestedStatus?: string;
+  linkStatus?: string;
+  reviewStatus?: string;
+  mappingReason?: string;
+  mappingRule?: string;
+  explanation?: string;
+  officerComment?: string | null;
+  modelName?: string;
+  modelVersion?: string;
+  conflictType?: string | null;
+  hasConflictingObservations?: boolean;
+  crossValidated?: boolean;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface UnmappedFindingDto {
+  findingId: string;
+  inspectionId?: string;
+  evidenceId?: string | null;
+  originalCategory?: string;
+  category?: string;
+  findingSeverity?: string;
+  confidence: number;
+  status?: string; // UNMAPPED or AMBIGUOUS
+  reason: string;
+  sourceProvenance?: string;
+  provenance?: string;
+  modelName?: string;
+  modelVersion?: string;
+}
+
+export interface AiChecklistMappingResult {
+  inspectionId: string;
+  checklistInstanceId: string;
+  templateCode: string;
+  totalFindingsCount: number;
+  mappedCount: number;
+  unmappedCount: number;
+  ambiguousCount: number;
+  mappings: AiFindingMappingDto[];
+  unmappedFindings: UnmappedFindingDto[];
+}
+
+export type WorkflowAction =
+  | 'SUBMIT'
+  | 'START_REVIEW'
+  | 'VERIFY_DOCUMENTS'
+  | 'REJECT_DOCUMENTS'
+  | 'SCHEDULE_INSPECTION'
+  | 'START_INSPECTION'
+  | 'COMPLETE_INSPECTION'
+  | 'APPROVE'
+  | 'REJECT'
+  | 'REQUEST_CORRECTIONS'
+  | 'REINSPECT'
+  | 'GENERATE_CERTIFICATE';
+
+export interface WorkflowActionRequest {
+  action: WorkflowAction;
+  reason?: string;
+}
+
+export interface WorkflowTransitionResponse {
+  applicationId: string;
+  previousState: NocStatus;
+  action: WorkflowAction;
+  currentState: NocStatus;
+}
+

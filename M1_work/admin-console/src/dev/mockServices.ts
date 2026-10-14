@@ -1,4 +1,4 @@
-import type { SessionUser } from '../../../packages/api-client/src/types';
+import type { SessionUser, InspectionChecklistResponseDto, ChecklistResponseStatus } from '../../../packages/api-client/src/types';
 
 /** Fixed development fixtures. They are selected only by the explicit demo sign-in. */
 const fixtures: Record<string, Record<string, unknown>[]> = {
@@ -201,4 +201,155 @@ export function createDemoAdmin(): { user: SessionUser; token: string } {
 }
 
 export const isDemoToken = (token: string | null): boolean => token === 'local-demo:ADMIN';
+
+const demoChecklistStore: Record<string, InspectionChecklistResponseDto> = {};
+
+export function loadDemoChecklist(inspectionId: string): InspectionChecklistResponseDto {
+  if (demoChecklistStore[inspectionId]) {
+    return demoChecklistStore[inspectionId];
+  }
+  const checklist: InspectionChecklistResponseDto = {
+    checklistId: `chk-${inspectionId}`,
+    inspectionId,
+    applicationId: 'demo-noc-201',
+    templateId: 'tpl-demo-001',
+    templateCode: 'NBC-2016-FIRE-SAFETY',
+    templateTitle: 'National Building Code Fire Safety Standard',
+    templateVersion: 1,
+    status: 'IN_PROGRESS',
+    totalItems: 3,
+    reviewedItems: 1,
+    compliantCount: 1,
+    nonCompliantCount: 0,
+    notApplicableCount: 0,
+    needsFurtherInspectionCount: 0,
+    pendingCount: 2,
+    createdAt: '2026-10-11T10:00:00Z',
+    updatedAt: '2026-10-11T10:30:00Z',
+    items: [
+      {
+        responseId: 'resp-001',
+        templateItemId: 'item-001',
+        itemSequence: 1,
+        itemCode: 'EXT-01',
+        itemTitle: 'Portable Fire Extinguishers',
+        parameterDescription: 'Verify adequate number, type, charge, and unobstructed access to fire extinguishers.',
+        requirementType: 'MANDATORY',
+        verificationMethod: 'PHYSICAL_INSPECTION',
+        evidenceRequired: true,
+        aiCategoryTag: 'FIRE_EXTINGUISHER',
+        officerResponse: 'COMPLIANT',
+        officerRemarks: 'Checked all corridor units; pressure gauges in green zone.',
+        revisionNumber: 1,
+        linkedEvidence: [],
+        aiSuggestions: [
+          {
+            linkId: 'link-001',
+            findingId: 'demo-finding-1',
+            findingType: 'FIRE_EXTINGUISHER_MISSING',
+            severity: 'HIGH',
+            confidence: 0.88,
+            suggestedCompliance: 'NON_COMPLIANT',
+            linkProvenance: 'AUTOMATIC',
+            linkStatus: 'SUGGESTED',
+            reviewStatus: 'PENDING_REVIEW',
+            description: 'Empty wall bracket detected in north corridor.',
+            createdAt: '2026-10-11T10:25:00Z',
+          },
+        ],
+      },
+      {
+        responseId: 'resp-002',
+        templateItemId: 'item-002',
+        itemSequence: 2,
+        itemCode: 'EXIT-01',
+        itemTitle: 'Emergency Exit Doors and Clear Pathways',
+        parameterDescription: 'Ensure emergency exits are unlocked, illuminated, and free of obstacles.',
+        requirementType: 'MANDATORY',
+        verificationMethod: 'PHYSICAL_INSPECTION',
+        evidenceRequired: true,
+        aiCategoryTag: 'EXIT_DOOR',
+        officerResponse: 'PENDING',
+        revisionNumber: 0,
+        linkedEvidence: [],
+        aiSuggestions: [],
+      },
+      {
+        responseId: 'resp-003',
+        templateItemId: 'item-003',
+        itemSequence: 3,
+        itemCode: 'ALARM-01',
+        itemTitle: 'Fire Detection and Manual Call Points',
+        parameterDescription: 'Inspect manual call points and smoke detector functional status.',
+        requirementType: 'MANDATORY',
+        verificationMethod: 'TEST_SAMPLE',
+        evidenceRequired: false,
+        aiCategoryTag: 'FIRE_ALARM',
+        officerResponse: 'PENDING',
+        revisionNumber: 0,
+        linkedEvidence: [],
+        aiSuggestions: [],
+      },
+    ],
+  };
+  demoChecklistStore[inspectionId] = checklist;
+  return checklist;
+}
+
+export function updateDemoChecklistResponse(
+  inspectionId: string,
+  itemId: string,
+  status: ChecklistResponseStatus | string,
+  remarks?: string
+): InspectionChecklistResponseDto {
+  const chk = loadDemoChecklist(inspectionId);
+  const updatedItems = chk.items.map((it) => {
+    if (it.templateItemId === itemId || it.responseId === itemId) {
+      return {
+        ...it,
+        officerResponse: status as ChecklistResponseStatus,
+        officerRemarks: remarks ?? it.officerRemarks,
+        respondedAt: new Date().toISOString(),
+        revisionNumber: it.revisionNumber + 1,
+      };
+    }
+    return it;
+  });
+  const reviewed = updatedItems.filter((i) => i.officerResponse !== 'PENDING').length;
+  const compliant = updatedItems.filter((i) => i.officerResponse === 'COMPLIANT').length;
+  const nonCompliant = updatedItems.filter((i) => i.officerResponse === 'NON_COMPLIANT').length;
+  const na = updatedItems.filter((i) => i.officerResponse === 'NOT_APPLICABLE').length;
+  const needsFurther = updatedItems.filter((i) => i.officerResponse === 'NEEDS_FURTHER_INSPECTION').length;
+  const pending = updatedItems.filter((i) => i.officerResponse === 'PENDING').length;
+
+  const next: InspectionChecklistResponseDto = {
+    ...chk,
+    items: updatedItems,
+    reviewedItems: reviewed,
+    compliantCount: compliant,
+    nonCompliantCount: nonCompliant,
+    notApplicableCount: na,
+    needsFurtherInspectionCount: needsFurther,
+    pendingCount: pending,
+    updatedAt: new Date().toISOString(),
+  };
+  demoChecklistStore[inspectionId] = next;
+  return next;
+}
+
+export function completeDemoChecklist(
+  inspectionId: string,
+  summaryNotes?: string
+): InspectionChecklistResponseDto {
+  const chk = loadDemoChecklist(inspectionId);
+  const next: InspectionChecklistResponseDto = {
+    ...chk,
+    status: 'COMPLETED',
+    completedAt: new Date().toISOString(),
+    summaryNotes: summaryNotes ?? chk.summaryNotes,
+    updatedAt: new Date().toISOString(),
+  };
+  demoChecklistStore[inspectionId] = next;
+  return next;
+}
 

@@ -1,7 +1,26 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import type { ApiError, SessionUser, AiAnalysisResponse, AiFindingDto, EvidenceResponse } from '../../packages/api-client/src/types';
+import type {
+  ApiError,
+  SessionUser,
+  AiAnalysisResponse,
+  AiFindingDto,
+  EvidenceResponse,
+  InspectionChecklistResponseDto,
+  ChecklistResponseStatus,
+  WorkflowAction,
+} from '../../packages/api-client/src/types';
 import { createApiClient, normalizeApiError, parseContractMap, DEFAULT_CONTRACT_PATHS, type Operation } from '../../packages/api-client/src/client';
-import { createDemoAdmin, isDemoToken, loadDemoRecords, loadDemoAiAnalyses, loadDemoEvidence, updateDemoFindingReview } from './dev/mockServices';
+import {
+  createDemoAdmin,
+  isDemoToken,
+  loadDemoRecords,
+  loadDemoAiAnalyses,
+  loadDemoEvidence,
+  updateDemoFindingReview,
+  loadDemoChecklist,
+  updateDemoChecklistResponse,
+  completeDemoChecklist,
+} from './dev/mockServices';
 import { filterAndSortRows, pageRows } from './tableModel';
 
 type PageKey = 'overview' | 'applications' | 'inspections' | 'incidents' | 'officers' | 'users' | 'organizations' | 'assignments' | 'vehicles' | 'inventory' | 'training' | 'reports' | 'certificates' | 'gis' | 'notifications' | 'settings';
@@ -74,14 +93,52 @@ function App() {
   }), [token]);
 
   useEffect(() => {
-    setNotice('Organization authentication contract is not connected. Development preview is available locally.');
+    if (!import.meta.env.VITE_API_BASE_URL) {
+      setNotice('Organization authentication contract is not connected. Development preview is available locally.');
+    }
     setAuthChecked(true);
   }, []);
 
   async function signIn(email: string, password: string) {
     setNotice('');
-    void email; void password;
-    setNotice('Organization sign-in is unavailable until the approved auth adapter is supplied. Credentials were not sent.');
+    try {
+      const authRes = await client.request<{ accessToken: string; userId?: string; email?: string }>(
+        'auth.login',
+        {
+          method: 'POST',
+          body: JSON.stringify({ email: email.trim(), password }),
+        }
+      );
+      if (authRes?.accessToken) {
+        setToken(authRes.accessToken);
+        try {
+          const userRes = await client.request<{ id: string; email: string; role: string }>(
+            'auth.me',
+            { headers: { Authorization: `Bearer ${authRes.accessToken}` } }
+          );
+          setUser({
+            id: String(userRes.id || authRes.userId || 'admin-user'),
+            displayName: (userRes.email || authRes.email || email).split('@')[0],
+            email: userRes.email || authRes.email || email,
+            role: (userRes.role as any) || 'ADMIN',
+          });
+        } catch {
+          setUser({
+            id: String(authRes.userId || 'admin-user'),
+            displayName: (authRes.email || email).split('@')[0],
+            email: authRes.email || email,
+            role: 'ADMIN',
+          });
+        }
+        setPage('overview');
+        setNotice('Signed in successfully.');
+        return;
+      }
+      throw new Error('Authentication did not return a valid session token.');
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Organization sign-in failed.';
+      setNotice(msg);
+    }
   }
 
   function signDemo() {
@@ -139,6 +196,132 @@ function Overview({ user, onNavigate, onRefresh, demo }: { user: SessionUser; on
   </>;
 }
 
+function ApplicationWorkflowSection({
+  application,
+  client,
+  demo,
+  onNotice,
+  onStatusUpdated,
+}: {
+  application: Record<string, unknown>;
+  client: ReturnType<typeof createApiClient>;
+  demo: boolean;
+  onNotice: (msg: string) => void;
+  onStatusUpdated: (newStatus: string) => void;
+}) {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const status = String(application.status ?? 'DRAFT');
+  const appId = String(application.id ?? '');
+
+  const triggerTransition = async (action: WorkflowAction) => {
+    setLoading(true);
+    setError(null);
+    try {
+      if (demo) {
+        let nextStatus = status;
+        if (action === 'SUBMIT') nextStatus = 'SUBMITTED';
+        else if (action === 'VERIFY_DOCUMENTS') nextStatus = 'DOCUMENTS_VERIFIED';
+        else if (action === 'SCHEDULE_INSPECTION') nextStatus = 'INSPECTION_SCHEDULED';
+        else if (action === 'APPROVE') nextStatus = 'APPROVED';
+        else if (action === 'REJECT') nextStatus = 'REJECTED';
+        else if (action === 'REQUEST_CORRECTIONS') nextStatus = 'CORRECTION_REQUIRED';
+        onStatusUpdated(nextStatus);
+        onNotice(`Workflow transition ${action} simulated (Demo).`);
+      } else {
+        const res = await client.request<{ currentState: string }>(
+          'noc.application.transition',
+          {
+            method: 'POST',
+            body: JSON.stringify({ action }),
+          },
+          { applicationId: appId }
+        );
+        onStatusUpdated(res.currentState);
+        onNotice(`Application transitioned to ${res.currentState}.`);
+      }
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Workflow transition failed.';
+      setError(msg);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="workflow-gate-container">
+      <div className="section-subtitle">
+        <span>Statutory Fire NOC Workflow Gate</span>
+        <small style={{ color: '#7a8c99' }}>Current Status: <strong>{status}</strong></small>
+      </div>
+
+      {demo && (
+        <div className="approval-gate-banner warning" role="status">
+          <Icon name="alert" size={18} />
+          <div>
+            <strong>DEVELOPMENT PREVIEW FIXTURE</strong>
+            <p>Transitions simulated in local session. This is not an authoritative Fire NOC approval.</p>
+          </div>
+        </div>
+      )}
+
+      {error && (
+        <div className="approval-gate-banner error" role="alert">
+          <Icon name="alert" size={18} />
+          <div>
+            <strong>Workflow Gate Refusal</strong>
+            <p>{error}</p>
+          </div>
+        </div>
+      )}
+
+      <div className="workflow-actions-row">
+        {status === 'DRAFT' && (
+          <button type="button" className="primary-button" disabled={loading} onClick={() => triggerTransition('SUBMIT')}>
+            {loading ? 'Submitting…' : 'Submit Application'}
+          </button>
+        )}
+        {status === 'SUBMITTED' && (
+          <>
+            <button type="button" className="primary-button" disabled={loading} onClick={() => triggerTransition('VERIFY_DOCUMENTS')}>
+              {loading ? 'Processing…' : 'Verify Documents'}
+            </button>
+            <button type="button" className="secondary-button" disabled={loading} onClick={() => triggerTransition('REJECT_DOCUMENTS')}>
+              Reject Documents
+            </button>
+          </>
+        )}
+        {status === 'DOCUMENTS_VERIFIED' && (
+          <button type="button" className="primary-button" disabled={loading} onClick={() => triggerTransition('SCHEDULE_INSPECTION')}>
+            {loading ? 'Scheduling…' : 'Schedule Field Inspection'}
+          </button>
+        )}
+        {status === 'PENDING_APPROVAL' && (
+          <>
+            <button type="button" className="btn-approve-noc" disabled={loading} onClick={() => triggerTransition('APPROVE')}>
+              {loading ? 'Validating Gate…' : '✓ Approve Fire NOC (Statutory Gate)'}
+            </button>
+            <button type="button" className="secondary-button" disabled={loading} onClick={() => triggerTransition('REJECT')}>
+              Reject Application
+            </button>
+            <button type="button" className="secondary-button" disabled={loading} onClick={() => triggerTransition('REQUEST_CORRECTIONS')}>
+              Request Corrections
+            </button>
+          </>
+        )}
+        {status === 'APPROVED' && (
+          <div className="approval-gate-banner success">
+            <span>✓ Fire NOC Approved. Statutory inspection checklist and evidence validated by server.</span>
+          </div>
+        )}
+      </div>
+      <small style={{ fontSize: '10px', color: '#7a8c99', marginTop: '6px', display: 'block' }}>
+        Statutory gate enforces completed inspection checklist and photographic evidence before approval.
+      </small>
+    </div>
+  );
+}
+
 function FeaturePage({ item, client, demo, onNotice }: { item: NavItem; client: ReturnType<typeof createApiClient>; demo: boolean; onNotice: (message: string) => void }) {
   const result = useLoad(item.operation, client, demo);
   const [query, setQuery] = useState(''); const [status, setStatus] = useState('All'); const [sortKey, setSortKey] = useState('id'); const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc'); const [page, setPage] = useState(0); const [selected, setSelected] = useState<Record<string, unknown> | null>(null);
@@ -170,7 +353,7 @@ function FeaturePage({ item, client, demo, onNotice }: { item: NavItem; client: 
   const statuses = ['All', ...new Set(rows.map((row) => String(row.status ?? '')).filter(Boolean))];
   function selectRecord(row: Record<string, unknown>) { setSelected(row); setDraftFields(Object.fromEntries(Object.entries(row).filter(([, value]) => ['string', 'number', 'boolean'].includes(typeof value)).map(([key, value]) => [key, String(value ?? '')]))) }
   function saveLocalRecord() { if (!demo) return; const next = { ...selected, ...draftFields } as Record<string, unknown>; if (!Object.entries(next).some(([key, value]) => key !== 'id' && String(value).trim())) { onNotice('Add at least one field before saving this local draft.'); return } setLocalRows((existing) => [next, ...existing.filter((row) => row.id !== next.id)]); setSelected(null); onNotice('Saved to this browser session only. No service request was made.') }
-  return <><div className="page-heading"><div><div className="eyebrow">OPERATIONS / {item.label.toUpperCase()}</div><h1>{titles[item.key]}</h1><p>{descriptions[item.key]}</p></div>{item.key === 'notifications' && <button className="secondary-button" disabled={!demo} onClick={() => onNotice('Development notice marked read in this page session.')}>Mark all as read</button>}</div><div className="content-toolbar"><label className="module-search"><Icon name="search" size={16} /><input aria-label={`Search ${item.label}`} placeholder={`Search ${item.label.toLowerCase()}`} value={query} onChange={(event) => { setQuery(event.target.value); setPage(0) }} /></label><label className="module-filter">Status<select aria-label="Filter by status" value={status} onChange={(event) => { setStatus(event.target.value); setPage(0) }}>{statuses.map((value) => <option key={value}>{value}</option>)}</select></label>{demo && <button className="secondary-button" onClick={() => selectRecord({ id: `local-new-${Date.now()}`, name: '', status: 'DRAFT' })}>New development record</button>}<label className="module-filter">Sort<select aria-label="Sort records" value={sortKey + '|' + sortDirection} onChange={(event) => { const [key, direction] = event.target.value.split('|'); setSortKey(key); setSortDirection(direction as 'asc' | 'desc') }}><option value="id|asc">Reference · ascending</option><option value="id|desc">Reference · descending</option><option value="name|asc">Name · ascending</option><option value="name|desc">Name · descending</option></select></label><div className="toolbar-info"><span className="data-state"><i /> {demo ? 'LOCAL FIXTURES' : 'API contract view'}</span></div></div>{result.loading ? <div className="panel loading-panel"><span className="spinner" /> Loading service data…</div> : result.error ? <ContractState operation={item.operation} error={result.error} onRetry={result.reload} /> : <div className="panel data-panel"><div className="panel-heading"><div><h2>{item.label}</h2><p>{demo ? 'Deterministic local fixtures for UI review.' : 'Rows are returned by the configured approved API contract.'}</p></div></div><DataTable label={item.label} data={visibleRows} onSelect={selectRecord} />{!filtered.length && <EmptyState icon="search" title="No matching records" body="Adjust the search term or status filter." />}</div>}{filtered.length > pageSize && <div className="pagination"><button className="secondary-button" disabled={page === 0} onClick={() => setPage((value) => Math.max(0, value - 1))}>Previous</button><span>Page {Math.min(page, totalPages - 1) + 1} of {totalPages}</span><button className="secondary-button" disabled={page >= totalPages - 1} onClick={() => setPage((value) => Math.min(totalPages - 1, value + 1))}>Next</button></div>}{selected && (item.key === 'inspections' ? <OfficerInspectionReviewDrawer inspection={selected} client={client} demo={demo} onClose={() => setSelected(null)} onNotice={onNotice} /> : <div className="detail-backdrop" role="presentation" onClick={() => setSelected(null)}><section className="detail-drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" tabIndex={-1} ref={drawerRef} onClick={(event) => event.stopPropagation()}><div className="drawer-heading"><div><span className="eyebrow">{demo ? 'LOCAL DEVELOPMENT RECORD' : 'RECORD DETAIL'}</span><h2 id="drawer-title">{String(draftFields.reference ?? draftFields.name ?? draftFields.title ?? selected.id ?? item.label)}</h2></div><button className="icon-button" aria-label="Close details" onClick={() => setSelected(null)}>×</button></div>{Object.keys(draftFields).map((key) => <label className="drawer-label" key={key}>{key.replace(/([A-Z])/g, ' $1').replaceAll('_', ' ')}<input value={draftFields[key]} disabled={!demo} onChange={(event) => setDraftFields((fields) => ({ ...fields, [key]: event.target.value }))} /></label>)}{demo && <div className="drawer-actions"><button className="secondary-button" onClick={() => setSelected(null)}>Cancel</button><button className="primary-button" onClick={saveLocalRecord}>Save local preview</button></div>}</section></div>)}</>;
+  return <><div className="page-heading"><div><div className="eyebrow">OPERATIONS / {item.label.toUpperCase()}</div><h1>{titles[item.key]}</h1><p>{descriptions[item.key]}</p></div>{item.key === 'notifications' && <button className="secondary-button" disabled={!demo} onClick={() => onNotice('Development notice marked read in this page session.')}>Mark all as read</button>}</div><div className="content-toolbar"><label className="module-search"><Icon name="search" size={16} /><input aria-label={`Search ${item.label}`} placeholder={`Search ${item.label.toLowerCase()}`} value={query} onChange={(event) => { setQuery(event.target.value); setPage(0) }} /></label><label className="module-filter">Status<select aria-label="Filter by status" value={status} onChange={(event) => { setStatus(event.target.value); setPage(0) }}>{statuses.map((value) => <option key={value}>{value}</option>)}</select></label>{demo && <button className="secondary-button" onClick={() => selectRecord({ id: `local-new-${Date.now()}`, name: '', status: 'DRAFT' })}>New development record</button>}<label className="module-filter">Sort<select aria-label="Sort records" value={sortKey + '|' + sortDirection} onChange={(event) => { const [key, direction] = event.target.value.split('|'); setSortKey(key); setSortDirection(direction as 'asc' | 'desc') }}><option value="id|asc">Reference · ascending</option><option value="id|desc">Reference · descending</option><option value="name|asc">Name · ascending</option><option value="name|desc">Name · descending</option></select></label><div className="toolbar-info"><span className="data-state"><i /> {demo ? 'LOCAL FIXTURES' : 'API contract view'}</span></div></div>{result.loading ? <div className="panel loading-panel"><span className="spinner" /> Loading service data…</div> : result.error ? <ContractState operation={item.operation} error={result.error} onRetry={result.reload} /> : <div className="panel data-panel"><div className="panel-heading"><div><h2>{item.label}</h2><p>{demo ? 'Deterministic local fixtures for UI review.' : 'Rows are returned by the configured approved API contract.'}</p></div></div><DataTable label={item.label} data={visibleRows} onSelect={selectRecord} />{!filtered.length && <EmptyState icon="search" title="No matching records" body="Adjust the search term or status filter." />}</div>}{filtered.length > pageSize && <div className="pagination"><button className="secondary-button" disabled={page === 0} onClick={() => setPage((value) => Math.max(0, value - 1))}>Previous</button><span>Page {Math.min(page, totalPages - 1) + 1} of {totalPages}</span><button className="secondary-button" disabled={page >= totalPages - 1} onClick={() => setPage((value) => Math.min(totalPages - 1, value + 1))}>Next</button></div>}{selected && (item.key === 'inspections' ? <OfficerInspectionReviewDrawer inspection={selected} client={client} demo={demo} onClose={() => setSelected(null)} onNotice={onNotice} /> : <div className="detail-backdrop" role="presentation" onClick={() => setSelected(null)}><section className="detail-drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" tabIndex={-1} ref={drawerRef} onClick={(event) => event.stopPropagation()}><div className="drawer-heading"><div><span className="eyebrow">{demo ? 'LOCAL DEVELOPMENT RECORD' : 'RECORD DETAIL'}</span><h2 id="drawer-title">{String(draftFields.reference ?? draftFields.name ?? draftFields.title ?? selected.id ?? item.label)}</h2></div><button className="icon-button" aria-label="Close details" onClick={() => setSelected(null)}>×</button></div>{Object.keys(draftFields).map((key) => <label className="drawer-label" key={key}>{key.replace(/([A-Z])/g, ' $1').replaceAll('_', ' ')}<input value={draftFields[key]} disabled={!demo} onChange={(event) => setDraftFields((fields) => ({ ...fields, [key]: event.target.value }))} /></label>)}{item.key === 'applications' && <ApplicationWorkflowSection application={selected} client={client} demo={demo} onNotice={onNotice} onStatusUpdated={(newStatus) => { setDraftFields((fields) => ({ ...fields, status: newStatus })); setSelected((prev) => (prev ? { ...prev, status: newStatus } : null)); }} />}{demo && <div className="drawer-actions"><button className="secondary-button" onClick={() => setSelected(null)}>Cancel</button><button className="primary-button" onClick={saveLocalRecord}>Save local preview</button></div>}</section></div>)}</>;
 }
 
 function DataTable({ label, data, onSelect }: { label: string; data: unknown; onSelect?: (row: Record<string, unknown>) => void }) {
@@ -270,6 +453,11 @@ function OfficerInspectionReviewDrawer({
     submitting: boolean;
     feedback: string | null;
   }>>({});
+  const [checklist, setChecklist] = useState<InspectionChecklistResponseDto | null>(null);
+  const [itemResponses, setItemResponses] = useState<Record<string, { status: ChecklistResponseStatus; remarks: string }>>({});
+  const [checklistFeedback, setChecklistFeedback] = useState<string | null>(null);
+  const [summaryNotes, setSummaryNotes] = useState('');
+  const [completingChecklist, setCompletingChecklist] = useState(false);
 
   useEffect(() => {
     let active = true;
@@ -277,15 +465,18 @@ function OfficerInspectionReviewDrawer({
     if (demo) {
       const demoAnalyses = loadDemoAiAnalyses(applicationId);
       const demoEv = loadDemoEvidence(inspectionId);
+      const demoChk = loadDemoChecklist(inspectionId);
       setAnalyses(demoAnalyses as unknown as AiAnalysisResponse[]);
       setEvidenceList(demoEv as unknown as EvidenceResponse[]);
+      setChecklist(demoChk);
       if (demoEv.length > 0) setSelectedEvidenceId(demoEv[0].id);
       setLoading(false);
     } else {
       Promise.allSettled([
         client.request<AiAnalysisResponse[]>('officer.ai.analyses', {}, { applicationId }),
         client.request<EvidenceResponse[]>('officer.evidence.list', {}, { inspectionId }),
-      ]).then(([analysesRes, evidenceRes]) => {
+        client.request<InspectionChecklistResponseDto>('officer.checklist.get', {}, { inspectionId }),
+      ]).then(([analysesRes, evidenceRes, checklistRes]) => {
         if (!active) return;
         if (analysesRes.status === 'fulfilled') {
           const data = analysesRes.value;
@@ -299,6 +490,14 @@ function OfficerInspectionReviewDrawer({
           if (list.length > 0) setSelectedEvidenceId(list[0].id);
         } else {
           setEvidenceList([]);
+        }
+        if (checklistRes.status === 'fulfilled') {
+          setChecklist(checklistRes.value);
+        } else {
+          setChecklist(null);
+          const reason = checklistRes.reason;
+          const msg = reason instanceof Error ? reason.message : 'Failed to retrieve statutory checklist from service.';
+          setChecklistFeedback(`Error loading checklist: ${msg}`);
         }
         setLoading(false);
       });
@@ -442,6 +641,68 @@ function OfficerInspectionReviewDrawer({
     }
   };
 
+  const handleRecordItemResponse = async (itemId: string) => {
+    const current = itemResponses[itemId];
+    if (!current) return;
+    setChecklistFeedback(null);
+    try {
+      if (demo) {
+        const updated = updateDemoChecklistResponse(inspectionId, itemId, current.status, current.remarks);
+        setChecklist(updated);
+        setChecklistFeedback('Officer checklist response recorded (Demo).');
+        onNotice('Checklist item response recorded in local session.');
+      } else {
+        const updated = await client.request<InspectionChecklistResponseDto>(
+          'officer.checklist.response',
+          {
+            method: 'PUT',
+            body: JSON.stringify({
+              responseStatus: current.status,
+              officerRemarks: current.remarks,
+            }),
+          },
+          { inspectionId, itemId }
+        );
+        setChecklist(updated);
+        setChecklistFeedback('Officer statutory checklist response recorded.');
+        onNotice('Checklist response recorded.');
+      }
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Failed to record response.';
+      setChecklistFeedback(`Error: ${msg}`);
+    }
+  };
+
+  const handleCompleteChecklist = async () => {
+    setCompletingChecklist(true);
+    setChecklistFeedback(null);
+    try {
+      if (demo) {
+        const updated = completeDemoChecklist(inspectionId, summaryNotes);
+        setChecklist(updated);
+        setChecklistFeedback('Checklist marked completed (Demo).');
+        onNotice('Checklist completed locally.');
+      } else {
+        const updated = await client.request<InspectionChecklistResponseDto>(
+          'officer.checklist.complete',
+          {
+            method: 'POST',
+            body: JSON.stringify({ summaryNotes }),
+          },
+          { inspectionId }
+        );
+        setChecklist(updated);
+        setChecklistFeedback('Checklist submitted and marked COMPLETED.');
+        onNotice('Checklist completed successfully in backend.');
+      }
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Failed to complete checklist.';
+      setChecklistFeedback(`Error completing checklist: ${msg}`);
+    } finally {
+      setCompletingChecklist(false);
+    }
+  };
+
   return (
     <div className="detail-backdrop" role="presentation" onClick={onClose}>
       <section
@@ -466,6 +727,16 @@ function OfficerInspectionReviewDrawer({
         </div>
 
         <div className="review-drawer-content">
+          {demo && (
+            <div className="approval-gate-banner warning" role="status" style={{ marginBottom: '14px' }}>
+              <Icon name="alert" size={18} />
+              <div>
+                <strong>DEVELOPMENT PREVIEW FIXTURE</strong>
+                <p>Inspection data, checklists, and AI suggestions are local development fixtures. No remote changes are sent.</p>
+              </div>
+            </div>
+          )}
+
           {/* Statutory Advisory Warning Banner */}
           <div className="statutory-alert-box" role="alert">
             <div style={{ flex: '0 0 auto', color: '#d96e4d' }}>
@@ -764,6 +1035,179 @@ function OfficerInspectionReviewDrawer({
                     </div>
                   );
                 })}
+              </div>
+            )}
+          </div>
+
+          {/* Statutory Inspection Checklist & Human Responses */}
+          <div className="statutory-checklist-container">
+            <div className="section-subtitle">
+              <span>Statutory Inspection Checklist ({checklist?.items?.length ?? 0} items)</span>
+              <small style={{ fontSize: '11px', color: '#7a8c99', fontWeight: 500 }}>
+                {checklist?.templateCode ? `${checklist.templateCode} (v${checklist.templateVersion})` : 'Regulatory Checklist'}
+              </small>
+            </div>
+
+            {checklist && (
+              <div className="checklist-meta-card">
+                <div>
+                  <strong>{checklist.templateTitle || 'Regulatory Inspection Checklist'}</strong>
+                  <div style={{ fontSize: '11px', color: '#687b87', marginTop: '2px' }}>
+                    Status: <span className={`status-badge ${checklist.status}`}>{checklist.status}</span>
+                  </div>
+                </div>
+                <div className="checklist-meta-stats">
+                  <span className="chk-stat-item">Total: <strong>{checklist.totalItems}</strong></span>
+                  <span className="chk-stat-item">Reviewed: <strong>{checklist.reviewedItems}</strong></span>
+                  <span className="chk-stat-item">Compliant: <strong style={{ color: '#1b7348' }}>{checklist.compliantCount}</strong></span>
+                  <span className="chk-stat-item">Non-Compliant: <strong style={{ color: '#b52216' }}>{checklist.nonCompliantCount}</strong></span>
+                  <span className="chk-stat-item">Pending: <strong>{checklist.pendingCount}</strong></span>
+                </div>
+              </div>
+            )}
+
+            {checklistFeedback && (
+              <div className={`approval-gate-banner ${checklistFeedback.startsWith('Error') ? 'error' : 'success'}`} role="status">
+                <Icon name="alert" size={16} />
+                <span>{checklistFeedback}</span>
+              </div>
+            )}
+
+            {!checklist?.items?.length ? (
+              <div className="empty-observations-note">
+                <strong>No checklist items loaded for this inspection.</strong>
+                <p>Checklist instance will be generated according to the property classification upon scheduling.</p>
+              </div>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                {checklist.items.map((item) => {
+                  const itemId = item.templateItemId || item.responseId;
+                  const currentChoice = itemResponses[itemId]?.status ?? item.officerResponse;
+                  const currentRemarks = itemResponses[itemId]?.remarks ?? item.officerRemarks ?? '';
+
+                  return (
+                    <div key={itemId} className="checklist-item-card">
+                      <div className="checklist-item-top">
+                        <div>
+                          <div style={{ display: 'flex', gap: '6px', alignItems: 'center', marginBottom: '4px' }}>
+                            <span className="finding-type-pill">{item.itemCode}</span>
+                            <span className="severity-pill LOW">{item.requirementType}</span>
+                            {item.evidenceRequired && (
+                              <span className="confidence-pill">Photo Required</span>
+                            )}
+                          </div>
+                          <h4 className="checklist-item-title">{item.itemTitle}</h4>
+                          <p style={{ fontSize: '12px', color: '#566978', margin: '4px 0 0' }}>
+                            {item.parameterDescription}
+                          </p>
+                        </div>
+                        <span className={`checklist-response-pill ${item.officerResponse}`}>
+                          {item.officerResponse}
+                        </span>
+                      </div>
+
+                      {/* Attached Advisory AI Suggestions */}
+                      {item.aiSuggestions && item.aiSuggestions.length > 0 && (
+                        <div className="checklist-advisory-box">
+                          <strong>Advisory AI Suggestion (Subject to Officer Review)</strong>
+                          {item.aiSuggestions.map((sug) => (
+                            <div key={sug.linkId} style={{ marginTop: '4px' }}>
+                              <span>
+                                Model suggests: <strong>{sug.suggestedCompliance}</strong> ({Math.round(sug.confidence * 100)}% conf, {sug.severity} severity)
+                              </span>
+                              {sug.description && <p style={{ margin: '2px 0 0', fontStyle: 'italic' }}>{sug.description}</p>}
+                            </div>
+                          ))}
+                          <small style={{ display: 'block', marginTop: '4px', color: '#886244', fontSize: '10px' }}>
+                            AI suggestions are advisory. Human officer decision is authoritative.
+                          </small>
+                        </div>
+                      )}
+
+                      {/* Officer Response Controls */}
+                      <div className="review-form-box" style={{ marginTop: '4px' }}>
+                        <div className="checklist-choices-row">
+                          <span style={{ fontSize: '11px', fontWeight: 700, color: '#394b59' }}>Officer Decision:</span>
+                          {(['COMPLIANT', 'NON_COMPLIANT', 'NOT_APPLICABLE', 'NEEDS_FURTHER_INSPECTION'] as const).map((choice) => (
+                            <button
+                              key={choice}
+                              type="button"
+                              className={`btn-choice ${currentChoice === choice ? 'active' : ''}`}
+                              onClick={() => {
+                                setItemResponses((prev) => ({
+                                  ...prev,
+                                  [itemId]: { status: choice, remarks: currentRemarks },
+                                }));
+                              }}
+                            >
+                              {choice.replace(/_/g, ' ')}
+                            </button>
+                          ))}
+                        </div>
+
+                        <input
+                          type="text"
+                          className="input"
+                          style={{ fontSize: '11px', height: '34px', width: '100%', boxSizing: 'border-box' }}
+                          placeholder="Officer remarks / verification rationale..."
+                          value={currentRemarks}
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            setItemResponses((prev) => ({
+                              ...prev,
+                              [itemId]: { status: currentChoice, remarks: val },
+                            }));
+                          }}
+                        />
+
+                        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                          <button
+                            type="button"
+                            className="btn-persist-review"
+                            onClick={() => handleRecordItemResponse(itemId)}
+                          >
+                            Save Item Response
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+
+                {/* Complete Checklist Card */}
+                {checklist.status !== 'COMPLETED' ? (
+                  <div className="checklist-complete-card">
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <strong>Statutory Checklist Completion</strong>
+                      <span className="chk-stat-item">
+                        {checklist.reviewedItems}/{checklist.totalItems} Reviewed
+                      </span>
+                    </div>
+                    <p style={{ fontSize: '12px', color: '#566978', margin: 0 }}>
+                      All mandatory statutory questions must be answered and verified by an authorized officer prior to submission.
+                    </p>
+                    <textarea
+                      className="review-notes-input"
+                      placeholder="Summary inspection notes and overall physical condition remarks..."
+                      value={summaryNotes}
+                      onChange={(e) => setSummaryNotes(e.target.value)}
+                    />
+                    <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                      <button
+                        type="button"
+                        className="btn-approve-noc"
+                        disabled={completingChecklist}
+                        onClick={handleCompleteChecklist}
+                      >
+                        {completingChecklist ? 'Validating…' : 'Submit Checklist Completion'}
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="approval-gate-banner success">
+                    <span>✓ Statutory Inspection Checklist is COMPLETED. Completed at: {checklist.completedAt ? new Date(checklist.completedAt).toLocaleString() : 'Recorded'}</span>
+                  </div>
+                )}
               </div>
             )}
           </div>

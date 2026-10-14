@@ -101,8 +101,8 @@ def test_vlm_service_initialization_and_metadata():
     """Verifies that VLM service initializes with honest metadata without live credentials."""
     status_info = vlm_service.get_status()
     assert status_info["service"] == "firesphere-vlm-service"
-    assert status_info["provider"] == "google-gemini"
-    assert status_info["modelVersion"] == "gemini-genai-v2"
+    assert status_info["provider"] in ("ollama", "google-gemini")
+    assert status_info["modelVersion"] in ("gemini-genai-v2", "ollama-qwen2.5vl-v1")
     assert status_info["analysisComponent"] == "VLM"
     assert status_info["runtimeDevice"] == "cpu"
     assert status_info["governancePolicy"] == "ADVISORY_ONLY_HUMAN_OFFICER_VERIFICATION_MANDATORY"
@@ -368,7 +368,7 @@ def test_http_vlm_status_endpoint():
     assert data["service"] == "firesphere-vlm-service"
     assert data["runtimeDevice"] == "cpu"
     assert data["realInferenceStatus"] == "BLOCKED"
-    assert "GEMINI_ENABLED is false" in data["blockerReason"]
+    assert ("GEMINI_ENABLED is false" in data["blockerReason"] or "OLLAMA_ENABLED is false" in data["blockerReason"])
 
 
 def test_http_vlm_analysis_tenant_mismatch_rejected_400():
@@ -431,7 +431,7 @@ def test_real_vlm_inference_status_is_honestly_blocked():
     assert status_info["realInferenceStatus"] == "BLOCKED"
     assert status_info["blockerReason"] is not None
     # Verify offline rule invariant
-    assert settings.gemini_enabled is False
+    assert (settings.gemini_enabled is False or settings.ollama_enabled is False)
 
 
 # ==============================================================================

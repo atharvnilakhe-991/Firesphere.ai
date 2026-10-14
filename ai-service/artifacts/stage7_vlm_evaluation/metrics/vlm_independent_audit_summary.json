@@ -1,0 +1,223 @@
+{
+  "audit_metadata": {
+    "timestamp": "2026-10-13 16:55:00 UTC",
+    "audit_stage": "STAGE 7.1 — INDEPENDENT VLM EVALUATION AUDIT",
+    "auditor": "FireSphere Independent Auditor",
+    "audit_verdict": "VERIFIED_WITH_LIMITATIONS",
+    "target_model": "qwen2.5vl:3b",
+    "target_report": "docs/integration/vlm_fire_safety_evaluation.md",
+    "target_summary": "ai-service/artifacts/stage7_vlm_evaluation/metrics/vlm_evaluation_summary.json",
+    "target_manifest": "ai-service/artifacts/stage7_vlm_evaluation/stage7_ground_truth_manifest.json",
+    "target_predictions": "ai-service/artifacts/stage7_vlm_evaluation/metrics/vlm_predictions_raw.json"
+  },
+  "artifact_integrity": {
+    "manifest_file_exists": true,
+    "predictions_file_exists": true,
+    "summary_file_exists": true,
+    "report_file_exists": true,
+    "images_directory_exists": true,
+    "image_file_count_on_disk": 14,
+    "manifest_sample_count": 14,
+    "prediction_sample_count": 14,
+    "duplicate_sample_ids": 0,
+    "missing_sample_ids": 0,
+    "sample_id_alignment": true,
+    "all_14_samples_present_in_raw_logs": true
+  },
+  "ground_truth_annotation_audit": {
+    "total_annotated_spatial_objects": 16,
+    "category_distribution": {
+      "FIRE_EXTINGUISHER": 4,
+      "EXIT_SIGN": 4,
+      "EXIT_DOOR": 4,
+      "OBSTACLE": 3,
+      "ELECTRICAL_PANEL": 1
+    },
+    "coordinate_system": "ymin_xmin_ymax_xmax",
+    "coordinate_normalization_valid": true,
+    "inverted_coordinates_found": 0,
+    "out_of_bounds_coordinates_found": 0,
+    "annotation_anomalies": [
+      {
+        "sample_id": "sample_10",
+        "description": "Unmounted horizontal red cylinder depicted in scene is not annotated with a bounding box in ground_truth_objects, though electrical panel cabinet is annotated.",
+        "severity": "MINOR_OMISSION",
+        "impact": "Scene hazard captured as GENERIC_FIRE_SAFETY_DEFECT, but cylinder lacks spatial box."
+      },
+      {
+        "sample_id": "sample_07",
+        "description": "Gaussian blur renders object edges diffuse; ground-truth bounding boxes reflect pre-blur geometry.",
+        "severity": "DOCUMENTED_LIMITATION",
+        "impact": "Expected for synthetic optical degradation stress test."
+      }
+    ]
+  },
+  "recomputed_metrics": {
+    "reconciliation_item_count_explanation": {
+      "spatial_localization_items": 16,
+      "category_evaluation_items": 21,
+      "difference_explanation": "16 spatial items are physical equipment/obstacle bounding boxes in ground_truth_objects. 21 category support items include 15 equipment/obstacle instances + 4 hazard conditions (BLOCKED_EXIT_PATH, BLOCKED_CORRIDOR, 2 OTHER_VISIBLE_FIRE_SAFETY_HAZARD) + 2 abstention conditions (UNCERTAIN_OR_UNIDENTIFIABLE)."
+    },
+    "per_class_metrics": {
+      "FIRE_EXTINGUISHER": {
+        "ground_truth_support": 4,
+        "true_positives": 3,
+        "false_positives": 0,
+        "false_negatives": 1,
+        "precision": 1.0,
+        "recall": 0.75,
+        "f1_score": 0.8571,
+        "matches_report": true
+      },
+      "EXIT_SIGN": {
+        "ground_truth_support": 4,
+        "true_positives": 4,
+        "false_positives": 4,
+        "false_negatives": 0,
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1_score": 0.6667,
+        "matches_report": true
+      },
+      "EXIT_DOOR": {
+        "ground_truth_support": 4,
+        "true_positives": 4,
+        "false_positives": 2,
+        "false_negatives": 0,
+        "precision": 0.6667,
+        "recall": 1.0,
+        "f1_score": 0.8,
+        "matches_report": true
+      },
+      "OBSTACLE": {
+        "ground_truth_support": 3,
+        "true_positives": 0,
+        "false_positives": 0,
+        "false_negatives": 3,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "matches_report": true
+      },
+      "BLOCKED_EXIT_PATH": {
+        "ground_truth_support": 1,
+        "true_positives": 0,
+        "false_positives": 0,
+        "false_negatives": 1,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "matches_report": true
+      },
+      "BLOCKED_CORRIDOR": {
+        "ground_truth_support": 1,
+        "true_positives": 0,
+        "false_positives": 0,
+        "false_negatives": 1,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "matches_report": true
+      },
+      "OTHER_VISIBLE_FIRE_SAFETY_HAZARD": {
+        "ground_truth_support": 2,
+        "true_positives": 0,
+        "false_positives": 0,
+        "false_negatives": 2,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "matches_report": true
+      },
+      "UNCERTAIN_OR_UNIDENTIFIABLE": {
+        "ground_truth_support": 2,
+        "true_positives": 0,
+        "false_positives": 0,
+        "false_negatives": 2,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1_score": 0.0,
+        "matches_report": true
+      }
+    },
+    "macro_average": {
+      "ground_truth_support": 21,
+      "true_positives": 11,
+      "false_positives": 6,
+      "false_negatives": 10,
+      "precision": 0.2708,
+      "recall": 0.3438,
+      "f1_score": 0.2905,
+      "matches_report": true
+    },
+    "micro_average_audited": {
+      "precision": 0.6471,
+      "recall": 0.5238,
+      "f1_score": 0.5789
+    }
+  },
+  "localization_audit": {
+    "total_ground_truth_boxes_evaluated": 16,
+    "recomputed_mean_iou": 0.1193,
+    "reported_mean_iou": 0.1193,
+    "mean_iou_matches_report": true,
+    "iou_ge_50_count": 0,
+    "iou_ge_50_rate": 0.0,
+    "max_iou_achieved": 0.3909,
+    "mean_iou_on_true_positives_only": 0.1735,
+    "unmatched_predictions_treatment": "Treated as classification false positives; excluded from ground-truth box IoU denominator.",
+    "missed_ground_truth_treatment": "Assigned IoU = 0.0."
+  },
+  "abstention_and_uncertainty_audit": {
+    "expected_inconclusive_count": 2,
+    "observed_inconclusive_count": 0,
+    "abstention_rate": 0.0,
+    "negative_controls_evaluated": 2,
+    "false_positives_on_negative_or_inconclusive": 5,
+    "abstention_failure_confirmed": true
+  },
+  "latency_and_schema_audit": {
+    "schema_conformance_rate": 1.0,
+    "schema_conformance_count": "14/14",
+    "recomputed_mean_latency_ms": 2224.68,
+    "reported_mean_latency_ms": 2224.68,
+    "recomputed_min_latency_ms": 1805.59,
+    "reported_min_latency_ms": 1805.59,
+    "recomputed_max_latency_ms": 4513.83,
+    "reported_max_latency_ms": 4513.83,
+    "total_eval_duration_seconds": 31.15,
+    "latency_data_verified": true
+  },
+  "governance_audit": {
+    "model_approval_gate_status": "NOT_APPROVED",
+    "calibration_status": "NOT_CALIBRATED",
+    "production_authorization": false,
+    "all_governance_invariants_pass": true
+  },
+  "identified_defects_and_limitations": [
+    {
+      "id": "DEF-01",
+      "type": "METHODOLOGY_NUANCE",
+      "title": "Scene-Level Classification vs Bipartite Object Detection Matching",
+      "description": "Per-class classification metrics evaluate image-level presence of categories, not IoU-gated localized bounding box detections. If an IoU >= 0.50 threshold were required for classification TP, all classes would exhibit 0% recall."
+    },
+    {
+      "id": "DEF-02",
+      "type": "DOCUMENTATION_CLARITY",
+      "title": "Item Count Discrepancy (16 Bounding Boxes vs 21 Category Items)",
+      "description": "The report correctly evaluated 16 spatial bounding boxes for IoU and 21 items for category support, but did not explicitly detail the breakdown."
+    },
+    {
+      "id": "DEF-03",
+      "type": "ANNOTATION_GAP",
+      "title": "Unannotated Red Cylinder in Sample 10",
+      "description": "Sample 10 contains an unmounted red cylinder in addition to an electrical panel cabinet, but only the electrical panel cabinet was annotated as a spatial ground truth bounding box."
+    },
+    {
+      "id": "DEF-04",
+      "type": "DOMAIN_LIMITATION",
+      "title": "Synthetic Exploratory Benchmark Generalizability",
+      "description": "The 14-sample benchmark is synthetic/geometric. Findings establish baseline capability and failure boundaries, but cannot substitute for photographic field inspection data."
+    }
+  ]
+}

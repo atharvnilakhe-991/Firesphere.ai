@@ -1,0 +1,162 @@
+{
+  "modelId": "Model-B-Class-Weighted",
+  "modelVersion": "1.0.0-stage4",
+  "datasetName": "candidate_val_split",
+  "evaluationStatus": "COMPLETED",
+  "totalTestImages": 997,
+  "totalGroundTruthObjects": 1472,
+  "totalPredictedObjects": 730,
+  "mAP50": 0.0345,
+  "mAP50_95": 0.0124,
+  "meanPrecision": 0.1057,
+  "meanRecall": 0.0823,
+  "meanF1": 0.0925,
+  "perClassMetrics": {
+    "FIRE_EXTINGUISHER": {
+      "classId": 0,
+      "className": "FIRE_EXTINGUISHER",
+      "support": 842,
+      "truePositives": 277,
+      "falsePositives": 378,
+      "falseNegatives": 565,
+      "precision": 0.4229,
+      "recall": 0.329,
+      "f1Score": 0.3701,
+      "ap50": 0.1382,
+      "ap50_95": 0.0497
+    },
+    "EXIT_DOOR": {
+      "classId": 1,
+      "className": "EXIT_DOOR",
+      "support": 3,
+      "truePositives": 0,
+      "falsePositives": 0,
+      "falseNegatives": 3,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1Score": 0.0,
+      "ap50": 0.0,
+      "ap50_95": 0.0
+    },
+    "EXIT_SIGN": {
+      "classId": 2,
+      "className": "EXIT_SIGN",
+      "support": 618,
+      "truePositives": 0,
+      "falsePositives": 75,
+      "falseNegatives": 618,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1Score": 0.0,
+      "ap50": 0.0,
+      "ap50_95": 0.0
+    },
+    "OBSTACLE": {
+      "classId": 3,
+      "className": "OBSTACLE",
+      "support": 9,
+      "truePositives": 0,
+      "falsePositives": 0,
+      "falseNegatives": 9,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1Score": 0.0,
+      "ap50": 0.0,
+      "ap50_95": 0.0
+    }
+  },
+  "confusionMatrix": {
+    "classNames": [
+      "FIRE_EXTINGUISHER",
+      "EXIT_DOOR",
+      "EXIT_SIGN",
+      "OBSTACLE",
+      "BACKGROUND"
+    ],
+    "matrix": [
+      [
+        277,
+        0,
+        0,
+        0,
+        378
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        75
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        565,
+        3,
+        618,
+        9,
+        0
+      ]
+    ]
+  },
+  "warnings": [],
+  "auxiliary_analysis": {
+    "small_objects_count": 590,
+    "small_objects_detected": 46,
+    "small_objects_hit_rate": 0.078,
+    "empty_background_images": 12,
+    "empty_images_with_false_alarms": 2,
+    "empty_image_false_alarm_rate": 0.1667
+  },
+  "latency_benchmark": {
+    "mean_latency_ms": 24.14,
+    "median_latency_ms": 24.11,
+    "p95_latency_ms": 26.9,
+    "fps": 41.42
+  },
+  "checkpoint_sha256": "5da87adb97d202690320317de5e0f5491e74e48b5b2e61ff6c1b9ffa9c2067c4",
+  "training_history": [
+    {
+      "epoch": 1,
+      "train_loss": 2.142130490806368,
+      "val_loss": 1.9670897405594587,
+      "time_sec": 208.42
+    },
+    {
+      "epoch": 2,
+      "train_loss": 1.3264902040914253,
+      "val_loss": 1.8615895677357912,
+      "time_sec": 200.49
+    },
+    {
+      "epoch": 3,
+      "train_loss": 1.0813895331488714,
+      "val_loss": 1.5811696285381913,
+      "time_sec": 206.41
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.8310280331858882,
+      "val_loss": 1.489371889270842,
+      "time_sec": 144.72
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.684726218658465,
+      "val_loss": 1.5250318180769682,
+      "time_sec": 137.86
+    }
+  ]
+}

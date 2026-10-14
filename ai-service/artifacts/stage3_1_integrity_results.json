@@ -1,0 +1,70 @@
+{
+  "checkpoint": {
+    "path": "C:\\Users\\athar\\OneDrive\\Desktop\\Firesphere.ai\\ai-service\\artifacts\\phase8_4\\checkpoints\\best.pt",
+    "expected_sha256": "5f166c4703e090eb51a9171c38ff1c3dd93d7d0c99d06ec8e44562217753c666",
+    "actual_sha256": "5f166c4703e090eb51a9171c38ff1c3dd93d7d0c99d06ec8e44562217753c666",
+    "match": true
+  },
+  "preservation": {
+    "missing_in_candidate_count": 0,
+    "unexpected_in_candidate_count": 0,
+    "image_sha256_mismatches_count": 0,
+    "label_sha256_mismatches_count": 0,
+    "box_coordinate_mismatches_count": 0,
+    "exact_preservation_passed": true
+  },
+  "class_inventory": {
+    "baseline_totals": {
+      "FIRE_EXTINGUISHER": 4564,
+      "EXIT_DOOR": 42,
+      "EXIT_SIGN": 2559,
+      "OBSTACLE": 93
+    },
+    "candidate_totals": {
+      "FIRE_EXTINGUISHER": 4564,
+      "EXIT_DOOR": 42,
+      "EXIT_SIGN": 2559,
+      "OBSTACLE": 93
+    },
+    "exact_match": true
+  },
+  "split_isolation": {
+    "candidate_exact_sha_cross_split": 0,
+    "candidate_dhash_cross_split": 0,
+    "candidate_base_scene_cross_split": 0,
+    "candidate_camera_burst_cross_split": 0,
+    "zero_leakage_verified": true
+  },
+  "manifest_checksums": {
+    "recorded": {
+      "annotation_review_manifest.json": "036b728ca6e261aecfff3aa631743de4da620cbc3d804514686a61d3c029589a",
+      "candidate_test_manifest.json": "d795f13ba164bad7d5a35d45aa54c69b4aa91d0f6d4c4d96b36c5dfee911802c",
+      "candidate_train_manifest.json": "98d7ba565a8009a032475081d0289ee5a4564391a55eb80ab327184de6bc5dbe",
+      "candidate_val_manifest.json": "b9f2b5674c7730a8316fd4cae953aabb2d6f46ef70f24619921ab4fd5e7f4db2",
+      "dataset_manifest.json": "c95fcbf6ae6134e536e2e358b7cd3c121c378da1bf09bcae2f57d9fe6557aa56",
+      "perceptual_clusters_manifest.json": "9dee514a1f09d515893e22e752ae8b93cf9c1484a62457f789474ec25797c4b6"
+    },
+    "recalculated": {
+      "annotation_review_manifest.json": "036b728ca6e261aecfff3aa631743de4da620cbc3d804514686a61d3c029589a",
+      "candidate_test_manifest.json": "d795f13ba164bad7d5a35d45aa54c69b4aa91d0f6d4c4d96b36c5dfee911802c",
+      "candidate_train_manifest.json": "98d7ba565a8009a032475081d0289ee5a4564391a55eb80ab327184de6bc5dbe",
+      "candidate_val_manifest.json": "b9f2b5674c7730a8316fd4cae953aabb2d6f46ef70f24619921ab4fd5e7f4db2",
+      "dataset_manifest.json": "c95fcbf6ae6134e536e2e358b7cd3c121c378da1bf09bcae2f57d9fe6557aa56",
+      "perceptual_clusters_manifest.json": "9dee514a1f09d515893e22e752ae8b93cf9c1484a62457f789474ec25797c4b6"
+    },
+    "all_match": true
+  },
+  "annotation_review_audit": {
+    "total_flagged": 100,
+    "micro_boxes_verified": 59,
+    "full_frame_boxes_verified": 14,
+    "empty_samples_verified": 27,
+    "categories_strictly_disjoint": true,
+    "all_files_exist_and_match": true
+  },
+  "reproducibility": {
+    "total_files": 4887,
+    "exact_matches": 4887,
+    "is_100_percent_reproducible": true
+  }
+}

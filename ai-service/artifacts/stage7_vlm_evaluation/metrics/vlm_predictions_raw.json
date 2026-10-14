@@ -1,0 +1,955 @@
+[
+  {
+    "sample_id": "sample_01",
+    "filename": "sample_01_extinguisher.png",
+    "scene_description": "Red fire extinguisher mounted vertically against a plain gray wall.",
+    "expected_categories": [
+      "FIRE_EXTINGUISHER"
+    ],
+    "expected_hazard": "NONE",
+    "is_inconclusive_expected": false,
+    "status": "ANALYSIS_COMPLETED_WITH_OBSERVATIONS",
+    "duration_ms": 2388.26,
+    "observation_count": 1,
+    "observations": [
+      {
+        "observationId": "d064a9a1-6a3d-4e08-8e88-cd5b3e5f82b0",
+        "objectCategory": "FIRE_EXTINGUISHER",
+        "potentialHazardCategory": "NONE",
+        "confidence": 0.9,
+        "box_ymin_xmin_ymax_xmax": [
+          0.36,
+          0.28,
+          0.56,
+          0.705
+        ],
+        "description": "Red fire extinguisher with a yellow label and a black hose attached.",
+        "severityProposal": "INFORMATIONAL",
+        "uncertaintyOrLimitations": [],
+        "officerReviewRequirement": "MANDATORY_OFFICER_REVIEW"
+      }
+    ],
+    "raw_response": {
+      "isInconclusive": false,
+      "inconclusiveReason": null,
+      "observations": [
+        {
+          "objectCategory": "FIRE_EXTINGUISHER",
+          "potentialHazardCategory": "NONE",
+          "observationDescription": "Red fire extinguisher with a yellow label and a black hose attached.",
+          "evidenceStatus": "DETECTED",
+          "box_2d": [
+            360.0,
+            280.0,
+            560.0,
+            705.0
+          ],
+          "confidence": 0.9,
+          "uncertaintyOrLimitations": [],
+          "severityProposal": "INFORMATIONAL"
+        }
+      ]
+    },
+    "inconclusive_reason": null,
+    "error": null,
+    "matched_ious": [
+      {
+        "ground_truth_category": "FIRE_EXTINGUISHER",
+        "best_iou": 0.2656
+      }
+    ],
+    "requires_officer_verification": true
+  },
+  {
+    "sample_id": "sample_02",
+    "filename": "sample_02_exit_sign.png",
+    "scene_description": "Green emergency exit sign rectangle with white text on plain wall.",
+    "expected_categories": [
+      "EXIT_SIGN"
+    ],
+    "expected_hazard": "NONE",
+    "is_inconclusive_expected": false,
+    "status": "ANALYSIS_COMPLETED_WITH_OBSERVATIONS",
+    "duration_ms": 1901.89,
+    "observation_count": 1,
+    "observations": [
+      {
+        "observationId": "6c312350-c3ec-4a2c-80b2-095e4effe1d1",
+        "objectCategory": "EXIT_SIGN",
+        "potentialHazardCategory": "NONE",
+        "confidence": 0.9,
+        "box_ymin_xmin_ymax_xmax": [
+          0.313,
+          0.226,
+          0.586,
+          0.39
+        ],
+        "description": "Green exit sign on a white background",
+        "severityProposal": "INFORMATIONAL",
+        "uncertaintyOrLimitations": [],
+        "officerReviewRequirement": "MANDATORY_OFFICER_REVIEW"
+      }
+    ],
+    "raw_response": {
+      "isInconclusive": false,
+      "inconclusiveReason": null,
+      "observations": [
+        {
+          "objectCategory": "EXIT_SIGN",
+          "potentialHazardCategory": "NONE",
+          "observationDescription": "Green exit sign on a white background",
+          "evidenceStatus": "DETECTED",
+          "box_2d": [
+            313.0,
+            226.0,
+            586.0,
+            390.0
+          ],
+          "confidence": 0.9,
+          "uncertaintyOrLimitations": [],
+          "severityProposal": "INFORMATIONAL"
+        }
+      ]
+    },
+    "inconclusive_reason": null,
+    "error": null,
+    "matched_ious": [
+      {
+        "ground_truth_category": "EXIT_SIGN",
+        "best_iou": 0.0589
+      }
+    ],
+    "requires_officer_verification": true
+  },
+  {
+    "sample_id": "sample_03",
+    "filename": "sample_03_doorway.png",
+    "scene_description": "Clearly visible doorway frame with closed door against corridor wall.",
+    "expected_categories": [
+      "EXIT_DOOR"
+    ],
+    "expected_hazard": "NONE",
+    "is_inconclusive_expected": false,
+    "status": "ANALYSIS_COMPLETED_WITH_OBSERVATIONS",
+    "duration_ms": 2008.51,
+    "observation_count": 1,
+    "observations": [
+      {
+        "observationId": "40b323a0-ee5e-4ff6-9bf3-06ee198d22a8",
+        "objectCategory": "EXIT_DOOR",
+        "potentialHazardCategory": "NONE",
+        "confidence": 0.95,
+        "box_ymin_xmin_ymax_xmax": [
+          0.273,
+          0.19,
+          0.624,
+          0.819
+        ],
+        "description": "A closed door with a black handle and a black lock.",
+        "severityProposal": "INFORMATIONAL",
+        "uncertaintyOrLimitations": [],
+        "officerReviewRequirement": "MANDATORY_OFFICER_REVIEW"
+      }
+    ],
+    "raw_response": {
+      "isInconclusive": false,
+      "inconclusiveReason": null,
+      "observations": [
+        {
+          "objectCategory": "EXIT_DOOR",
+          "potentialHazardCategory": "NONE",
+          "observationDescription": "A closed door with a black handle and a black lock.",
+          "evidenceStatus": "DETECTED",
+          "box_2d": [
+            273.0,
+            190.0,
+            624.0,
+            819.0
+          ],
+          "confidence": 0.95,
+          "uncertaintyOrLimitations": [],
+          "severityProposal": "INFORMATIONAL"
+        }
+      ]
+    },
+    "inconclusive_reason": null,
+    "error": null,
+    "matched_ious": [
+      {
+        "ground_truth_category": "EXIT_DOOR",
+        "best_iou": 0.3794
+      }
+    ],
+    "requires_officer_verification": true
+  },
+  {
+    "sample_id": "sample_04",
+    "filename": "sample_04_obstacle_doorway.png",
+    "scene_description": "Geometric exit door frame with storage box obstacle placed directly in egress threshold.",
+    "expected_categories": [
+      "EXIT_DOOR",
+      "OBSTACLE"
+    ],
+    "expected_hazard": "EMERGENCY_EXIT_OBSTRUCTED",
+    "is_inconclusive_expected": false,
+    "status": "ANALYSIS_COMPLETED_WITH_OBSERVATIONS",
+    "duration_ms": 1930.74,
+    "observation_count": 1,
+    "observations": [
+      {
+        "observationId": "06265c77-bd7f-4283-899d-2f954f32c1cc",
+        "objectCategory": "EXIT_DOOR",
+        "potentialHazardCategory": "NONE",
+        "confidence": null,
+        "box_ymin_xmin_ymax_xmax": [
+          0.273,
+          0.192,
+          0.624,
+          0.792
+        ],
+        "description": "A closed door with a brown square pattern on the lower half.",
+        "severityProposal": "INFORMATIONAL",
+        "uncertaintyOrLimitations": [],
+        "officerReviewRequirement": "MANDATORY_OFFICER_REVIEW"
+      }
+    ],
+    "raw_response": {
+      "isInconclusive": false,
+      "inconclusiveReason": null,
+      "observations": [
+        {
+          "objectCategory": "EXIT_DOOR",
+          "potentialHazardCategory": "NONE",
+          "observationDescription": "A closed door with a brown square pattern on the lower half.",
+          "evidenceStatus": "DETECTED",
+          "box_2d": [
+            273.0,
+            192.0,
+            624.0,
+            792.0
+          ],
+          "confidence": null,
+          "uncertaintyOrLimitations": [],
+          "severityProposal": "INFORMATIONAL"
+        }
+      ]
+    },
+    "inconclusive_reason": null,
+    "error": null,
+    "matched_ious": [
+      {
+        "ground_truth_category": "EXIT_DOOR",
+        "best_iou": 0.3909
+      },
+      {
+        "ground_truth_category": "OBSTACLE",
+        "best_iou": 0.0
+      }
+    ],
+    "requires_officer_verification": true
+  },
+  {
+    "sample_id": "sample_05",
+    "filename": "sample_05_empty_wall.png",
+    "scene_description": "Plain empty gray wall with subtle horizontal floor line, no objects or equipment.",
+    "expected_categories": [],
+    "expected_hazard": "NONE",
+    "is_inconclusive_expected": false,
+    "status": "ANALYSIS_COMPLETED_WITH_OBSERVATIONS",
+    "duration_ms": 1895.41,
+    "observation_count": 1,
+    "observations": [
+      {
+        "observationId": "dc7a46cf-3a83-4f4f-a05a-9d500691101c",
+        "objectCategory": "EXIT_SIGN",
+        "potentialHazardCategory": "NONE",
+        "confidence": 0.9,
+        "box_ymin_xmin_ymax_xmax": [
+          0.05,
+          0.05,
+          0.15,
+          0.15
+        ],
+        "description": "Emergency exit sign visible on the wall.",
+        "severityProposal": "INFORMATIONAL",
+        "uncertaintyOrLimitations": [],
+        "officerReviewRequirement": "MANDATORY_OFFICER_REVIEW"
+      }
+    ],
+    "raw_response": {
+      "isInconclusive": false,
+      "inconclusiveReason": null,
+      "observations": [
+        {
+          "objectCategory": "EXIT_SIGN",
+          "potentialHazardCategory": "NONE",
+          "observationDescription": "Emergency exit sign visible on the wall.",
+          "evidenceStatus": "DETECTED",
+          "box_2d": [
+            50.0,
+            50.0,
+            150.0,
+            150.0
+          ],
+          "confidence": 0.9,
+          "uncertaintyOrLimitations": [],
+          "severityProposal": "INFORMATIONAL"
+        }
+      ]
+    },
+    "inconclusive_reason": null,
+    "error": null,
+    "matched_ious": [],
+    "requires_officer_verification": true
+  },
+  {
+    "sample_id": "sample_06",
+    "filename": "sample_06_partially_obscured_extinguisher.png",
+    "scene_description": "Red fire extinguisher partially blocked by a storage barrier in foreground.",
+    "expected_categories": [
+      "FIRE_EXTINGUISHER",
+      "OBSTACLE"
+    ],
+    "expected_hazard": "FIRE_EXTINGUISHER_BLOCKED",
+    "is_inconclusive_expected": false,
+    "status": "ANALYSIS_COMPLETED_WITH_OBSERVATIONS",
+    "duration_ms": 2025.15,
+    "observation_count": 1,
+    "observations": [
+      {
+        "observationId": "065c4799-e9cf-4e03-a914-ba975a9b26b7",
+        "objectCategory": "FIRE_EXTINGUISHER",
+        "potentialHazardCategory": "NONE",
+        "confidence": 0.9,
+        "box_ymin_xmin_ymax_xmax": [
+          0.36,
+          0.28,
+          0.56,
+          0.7
+        ],
+        "description": "A red fire extinguisher is present on the floor.",
+        "severityProposal": "INFORMATIONAL",
+        "uncertaintyOrLimitations": [],
+        "officerReviewRequirement": "MANDATORY_OFFICER_REVIEW"
+      }
+    ],
+    "raw_response": {
+      "isInconclusive": false,
+      "inconclusiveReason": null,
+      "observations": [
+        {
+          "objectCategory": "FIRE_EXTINGUISHER",
+          "potentialHazardCategory": "NONE",
+          "observationDescription": "A red fire extinguisher is present on the floor.",
+          "evidenceStatus": "DETECTED",
+          "box_2d": [
+            360.0,
+            280.0,
+            560.0,
+            700.0
+          ],
+          "confidence": 0.9,
+          "uncertaintyOrLimitations": [],
+          "severityProposal": "INFORMATIONAL"
+        }
+      ]
+    },
+    "inconclusive_reason": null,
+    "error": null,
+    "matched_ious": [
+      {
+        "ground_truth_category": "FIRE_EXTINGUISHER",
+        "best_iou": 0.2675
+      },
+      {
+        "ground_truth_category": "OBSTACLE",
+        "best_iou": 0.0
+      }
+    ],
+    "requires_officer_verification": true
+  },
+  {
+    "sample_id": "sample_07",
+    "filename": "sample_07_blurred_scene.png",
+    "scene_description": "Heavily blurred scene depicting out-of-focus red vertical shape and green rectangle.",
+    "expected_categories": [
+      "FIRE_EXTINGUISHER",
+      "EXIT_SIGN"
+    ],
+    "expected_hazard": "NONE",
+    "is_inconclusive_expected": true,
+    "status": "ANALYSIS_COMPLETED_WITH_OBSERVATIONS",
+    "duration_ms": 1957.18,
+    "observation_count": 1,
+    "observations": [
+      {
+        "observationId": "2b22ccbe-ae76-4ebb-9708-ae35fb5534c1",
+        "objectCategory": "EXIT_SIGN",
+        "potentialHazardCategory": "NONE",
+        "confidence": null,
+        "box_ymin_xmin_ymax_xmax": [
+          0.524,
+          0.2,
+          0.78,
+          0.37
+        ],
+        "description": "A green exit sign is visible on the right side of the image.",
+        "severityProposal": "INFORMATIONAL",
+        "uncertaintyOrLimitations": [],
+        "officerReviewRequirement": "MANDATORY_OFFICER_REVIEW"
+      }
+    ],
+    "raw_response": {
+      "isInconclusive": false,
+      "inconclusiveReason": null,
+      "observations": [
+        {
+          "objectCategory": "EXIT_SIGN",
+          "potentialHazardCategory": "NONE",
+          "observationDescription": "A green exit sign is visible on the right side of the image.",
+          "evidenceStatus": "DETECTED",
+          "box_2d": [
+            524.0,
+            200.0,
+            780.0,
+            370.0
+          ],
+          "confidence": null,
+          "uncertaintyOrLimitations": [],
+          "severityProposal": "INFORMATIONAL"
+        }
+      ]
+    },
+    "inconclusive_reason": null,
+    "error": null,
+    "matched_ious": [
+      {
+        "ground_truth_category": "FIRE_EXTINGUISHER",
+        "best_iou": 0.0
+      },
+      {
+        "ground_truth_category": "EXIT_SIGN",
+        "best_iou": 0.0
+      }
+    ],
+    "requires_officer_verification": true
+  },
+  {
+    "sample_id": "sample_08",
+    "filename": "sample_08_multi_object.png",
+    "scene_description": "Multi-equipment inspection scene with green exit sign above doorway and red extinguisher on adjacent wall.",
+    "expected_categories": [
+      "EXIT_SIGN",
+      "EXIT_DOOR",
+      "FIRE_EXTINGUISHER"
+    ],
+    "expected_hazard": "NONE",
+    "is_inconclusive_expected": false,
+    "status": "ANALYSIS_COMPLETED_WITH_OBSERVATIONS",
+    "duration_ms": 4513.83,
+    "observation_count": 3,
+    "observations": [
+      {
+        "observationId": "acf822e9-4e8f-40b7-a38f-2c64365a78ac",
+        "objectCategory": "EXIT_SIGN",
+        "potentialHazardCategory": "NONE",
+        "confidence": null,
+        "box_ymin_xmin_ymax_xmax": [
+          0.2,
+          0.11,
+          0.45,
+          0.22
+        ],
+        "description": "Green exit sign above the door",
+        "severityProposal": "INFORMATIONAL",
+        "uncertaintyOrLimitations": [],
+        "officerReviewRequirement": "MANDATORY_OFFICER_REVIEW"
+      },
+      {
+        "observationId": "744e902b-dfc4-4090-a3d6-beb037c5affe",
+        "objectCategory": "EXIT_DOOR",
+        "potentialHazardCategory": "NONE",
+        "confidence": null,
+        "box_ymin_xmin_ymax_xmax": [
+          0.19,
+          0.23,
+          0.45,
+          0.79
+        ],
+        "description": "Closed door with a black handle",
+        "severityProposal": "INFORMATIONAL",
+        "uncertaintyOrLimitations": [],
+        "officerReviewRequirement": "MANDATORY_OFFICER_REVIEW"
+      },
+      {
+        "observationId": "d178e9a7-3d88-4539-bd18-4e8f09afa78e",
+        "objectCategory": "FIRE_EXTINGUISHER",
+        "potentialHazardCategory": "NONE",
+        "confidence": null,
+        "box_ymin_xmin_ymax_xmax": [
+          0.61,
+          0.38,
+          0.78,
+          0.73
+        ],
+        "description": "Red fire extinguisher with a yellow label",
+        "severityProposal": "INFORMATIONAL",
+        "uncertaintyOrLimitations": [],
+        "officerReviewRequirement": "MANDATORY_OFFICER_REVIEW"
+      }
+    ],
+    "raw_response": {
+      "isInconclusive": false,
+      "inconclusiveReason": null,
+      "observations": [
+        {
+          "objectCategory": "EXIT_SIGN",
+          "potentialHazardCategory": "NONE",
+          "observationDescription": "Green exit sign above the door",
+          "evidenceStatus": "DETECTED",
+          "box_2d": [
+            200.0,
+            110.0,
+            450.0,
+            220.0
+          ],
+          "confidence": null,
+          "uncertaintyOrLimitations": [],
+          "severityProposal": "INFORMATIONAL"
+        },
+        {
+          "objectCategory": "EXIT_DOOR",
+          "potentialHazardCategory": "NONE",
+          "observationDescription": "Closed door with a black handle",
+          "evidenceStatus": "DETECTED",
+          "box_2d": [
+            190.0,
+            230.0,
+            450.0,
+            790.0
+          ],
+          "confidence": null,
+          "uncertaintyOrLimitations": [],
+          "severityProposal": "INFORMATIONAL"
+        },
+        {
+          "objectCategory": "FIRE_EXTINGUISHER",
+          "potentialHazardCategory": "NONE",
+          "observationDescription": "Red fire extinguisher with a yellow label",
+          "evidenceStatus": "DETECTED",
+          "box_2d": [
+            610.0,
+            380.0,
+            780.0,
+            730.0
+          ],
+          "confidence": null,
+          "uncertaintyOrLimitations": [],
+          "severityProposal": "INFORMATIONAL"
+        }
+      ]
+    },
+    "inconclusive_reason": null,
+    "error": null,
+    "matched_ious": [
+      {
+        "ground_truth_category": "EXIT_SIGN",
+        "best_iou": 0.001
+      },
+      {
+        "ground_truth_category": "EXIT_DOOR",
+        "best_iou": 0.1863
+      },
+      {
+        "ground_truth_category": "FIRE_EXTINGUISHER",
+        "best_iou": 0.0624
+      }
+    ],
+    "requires_officer_verification": true
+  },
+  {
+    "sample_id": "sample_09",
+    "filename": "sample_09_no_fire_safety.png",
+    "scene_description": "Office room containing a blue board and brown desk, with zero fire-safety equipment.",
+    "expected_categories": [],
+    "expected_hazard": "NONE",
+    "is_inconclusive_expected": false,
+    "status": "ANALYSIS_COMPLETED_WITH_OBSERVATIONS",
+    "duration_ms": 3329.77,
+    "observation_count": 2,
+    "observations": [
+      {
+        "observationId": "56fcdacb-dd24-4ca0-804f-a20907882686",
+        "objectCategory": "EXIT_SIGN",
+        "potentialHazardCategory": "NONE",
+        "confidence": null,
+        "box_ymin_xmin_ymax_xmax": [
+          0.13,
+          0.16,
+          0.48,
+          0.42
+        ],
+        "description": "A blue exit sign is visible on the left side of the image.",
+        "severityProposal": "INFORMATIONAL",
+        "uncertaintyOrLimitations": [],
+        "officerReviewRequirement": "MANDATORY_OFFICER_REVIEW"
+      },
+      {
+        "observationId": "372ccaec-9243-4b0f-bcba-559930bf50c4",
+        "objectCategory": "EXIT_DOOR",
+        "potentialHazardCategory": "NONE",
+        "confidence": null,
+        "box_ymin_xmin_ymax_xmax": [
+          0.46,
+          0.5,
+          0.81,
+          0.76
+        ],
+        "description": "A brown door is visible on the right side of the image.",
+        "severityProposal": "INFORMATIONAL",
+        "uncertaintyOrLimitations": [],
+        "officerReviewRequirement": "MANDATORY_OFFICER_REVIEW"
+      }
+    ],
+    "raw_response": {
+      "isInconclusive": false,
+      "inconclusiveReason": null,
+      "observations": [
+        {
+          "objectCategory": "EXIT_SIGN",
+          "potentialHazardCategory": "NONE",
+          "observationDescription": "A blue exit sign is visible on the left side of the image.",
+          "evidenceStatus": "DETECTED",
+          "box_2d": [
+            130.0,
+            160.0,
+            480.0,
+            420.0
+          ],
+          "confidence": null,
+          "uncertaintyOrLimitations": [],
+          "severityProposal": "INFORMATIONAL"
+        },
+        {
+          "objectCategory": "EXIT_DOOR",
+          "potentialHazardCategory": "NONE",
+          "observationDescription": "A brown door is visible on the right side of the image.",
+          "evidenceStatus": "DETECTED",
+          "box_2d": [
+            460.0,
+            500.0,
+            810.0,
+            760.0
+          ],
+          "confidence": null,
+          "uncertaintyOrLimitations": [],
+          "severityProposal": "INFORMATIONAL"
+        }
+      ]
+    },
+    "inconclusive_reason": null,
+    "error": null,
+    "matched_ious": [],
+    "requires_officer_verification": true
+  },
+  {
+    "sample_id": "sample_10",
+    "filename": "sample_10_ambiguous.png",
+    "scene_description": "Ambiguous geometric scene: horizontal unmounted red cylinder and gray wall panel cabinet.",
+    "expected_categories": [
+      "ELECTRICAL_PANEL"
+    ],
+    "expected_hazard": "GENERIC_FIRE_SAFETY_DEFECT",
+    "is_inconclusive_expected": false,
+    "status": "ANALYSIS_COMPLETED_WITH_OBSERVATIONS",
+    "duration_ms": 1922.93,
+    "observation_count": 1,
+    "observations": [
+      {
+        "observationId": "63a5c2fc-46b9-4178-9e2f-9119b0e070e6",
+        "objectCategory": "EXIT_DOOR",
+        "potentialHazardCategory": "NONE",
+        "confidence": null,
+        "box_ymin_xmin_ymax_xmax": [
+          0.528,
+          0.247,
+          0.733,
+          0.538
+        ],
+        "description": "A gray door with a black dot indicating a doorknob or handle.",
+        "severityProposal": "INFORMATIONAL",
+        "uncertaintyOrLimitations": [],
+        "officerReviewRequirement": "MANDATORY_OFFICER_REVIEW"
+      }
+    ],
+    "raw_response": {
+      "isInconclusive": false,
+      "inconclusiveReason": null,
+      "observations": [
+        {
+          "objectCategory": "EXIT_DOOR",
+          "potentialHazardCategory": "NONE",
+          "observationDescription": "A gray door with a black dot indicating a doorknob or handle.",
+          "evidenceStatus": "DETECTED",
+          "box_2d": [
+            528.0,
+            247.0,
+            733.0,
+            538.0
+          ],
+          "confidence": null,
+          "uncertaintyOrLimitations": [],
+          "severityProposal": "INFORMATIONAL"
+        }
+      ]
+    },
+    "inconclusive_reason": null,
+    "error": null,
+    "matched_ious": [
+      {
+        "ground_truth_category": "ELECTRICAL_PANEL",
+        "best_iou": 0.0
+      }
+    ],
+    "requires_officer_verification": true
+  },
+  {
+    "sample_id": "sample_11",
+    "filename": "sample_11_near_exit_unblocked.png",
+    "scene_description": "Exit doorway with small waste bin placed well to the side wall (>1.5m clearance), egress threshold 100% unobstructed.",
+    "expected_categories": [
+      "EXIT_DOOR"
+    ],
+    "expected_hazard": "NONE",
+    "is_inconclusive_expected": false,
+    "status": "ANALYSIS_COMPLETED_WITH_OBSERVATIONS",
+    "duration_ms": 1811.75,
+    "observation_count": 1,
+    "observations": [
+      {
+        "observationId": "c53c0c8a-2d80-4b8f-817f-e280a115e890",
+        "objectCategory": "EXIT_DOOR",
+        "potentialHazardCategory": "NONE",
+        "confidence": null,
+        "box_ymin_xmin_ymax_xmax": [
+          0.247,
+          0.19,
+          0.539,
+          0.82
+        ],
+        "description": "A closed door with a black doorknob.",
+        "severityProposal": "INFORMATIONAL",
+        "uncertaintyOrLimitations": [],
+        "officerReviewRequirement": "MANDATORY_OFFICER_REVIEW"
+      }
+    ],
+    "raw_response": {
+      "isInconclusive": false,
+      "inconclusiveReason": null,
+      "observations": [
+        {
+          "objectCategory": "EXIT_DOOR",
+          "potentialHazardCategory": "NONE",
+          "observationDescription": "A closed door with a black doorknob.",
+          "evidenceStatus": "DETECTED",
+          "box_2d": [
+            247.0,
+            190.0,
+            539.0,
+            820.0
+          ],
+          "confidence": null,
+          "uncertaintyOrLimitations": [],
+          "severityProposal": "INFORMATIONAL"
+        }
+      ]
+    },
+    "inconclusive_reason": null,
+    "error": null,
+    "matched_ious": [
+      {
+        "ground_truth_category": "EXIT_DOOR",
+        "best_iou": 0.2968
+      }
+    ],
+    "requires_officer_verification": true
+  },
+  {
+    "sample_id": "sample_12",
+    "filename": "sample_12_blocked_corridor.png",
+    "scene_description": "Egress corridor perspective with stacked cargo boxes with caution stripes spanning across the walking floor, completely blocking corridor.",
+    "expected_categories": [
+      "OBSTACLE"
+    ],
+    "expected_hazard": "BLOCKED_CORRIDOR",
+    "is_inconclusive_expected": false,
+    "status": "ANALYSIS_COMPLETED_WITH_OBSERVATIONS",
+    "duration_ms": 1805.59,
+    "observation_count": 1,
+    "observations": [
+      {
+        "observationId": "8d6809d2-2dd3-40bc-9928-569f6dab488b",
+        "objectCategory": "EXIT_SIGN",
+        "potentialHazardCategory": "NONE",
+        "confidence": null,
+        "box_ymin_xmin_ymax_xmax": [
+          0.2,
+          0.5,
+          0.6,
+          0.7
+        ],
+        "description": "Emergency exit sign is present and unobstructed.",
+        "severityProposal": "INFORMATIONAL",
+        "uncertaintyOrLimitations": [],
+        "officerReviewRequirement": "MANDATORY_OFFICER_REVIEW"
+      }
+    ],
+    "raw_response": {
+      "isInconclusive": false,
+      "inconclusiveReason": null,
+      "observations": [
+        {
+          "objectCategory": "EXIT_SIGN",
+          "potentialHazardCategory": "NONE",
+          "observationDescription": "Emergency exit sign is present and unobstructed.",
+          "evidenceStatus": "DETECTED",
+          "box_2d": [
+            200.0,
+            500.0,
+            600.0,
+            700.0
+          ],
+          "confidence": null,
+          "uncertaintyOrLimitations": [],
+          "severityProposal": "INFORMATIONAL"
+        }
+      ]
+    },
+    "inconclusive_reason": null,
+    "error": null,
+    "matched_ious": [
+      {
+        "ground_truth_category": "OBSTACLE",
+        "best_iou": 0.0
+      }
+    ],
+    "requires_officer_verification": true
+  },
+  {
+    "sample_id": "sample_13",
+    "filename": "sample_13_poor_lighting_exit.png",
+    "scene_description": "Darkened emergency egress stairwell under extreme low lux lighting with glowing illuminated green exit sign.",
+    "expected_categories": [
+      "EXIT_SIGN"
+    ],
+    "expected_hazard": "NONE",
+    "is_inconclusive_expected": false,
+    "status": "ANALYSIS_COMPLETED_WITH_OBSERVATIONS",
+    "duration_ms": 1824.28,
+    "observation_count": 1,
+    "observations": [
+      {
+        "observationId": "d1583a71-b3e9-43ec-8d1f-1205d67167c5",
+        "objectCategory": "EXIT_SIGN",
+        "potentialHazardCategory": "NONE",
+        "confidence": 0.9,
+        "box_ymin_xmin_ymax_xmax": [
+          0.335,
+          0.166,
+          0.562,
+          0.282
+        ],
+        "description": "Green exit sign on a black background",
+        "severityProposal": "INFORMATIONAL",
+        "uncertaintyOrLimitations": [],
+        "officerReviewRequirement": "MANDATORY_OFFICER_REVIEW"
+      }
+    ],
+    "raw_response": {
+      "isInconclusive": false,
+      "inconclusiveReason": null,
+      "observations": [
+        {
+          "objectCategory": "EXIT_SIGN",
+          "potentialHazardCategory": "NONE",
+          "observationDescription": "Green exit sign on a black background",
+          "evidenceStatus": "DETECTED",
+          "box_2d": [
+            335.0,
+            166.0,
+            562.0,
+            282.0
+          ],
+          "confidence": 0.9,
+          "uncertaintyOrLimitations": [],
+          "severityProposal": "INFORMATIONAL"
+        }
+      ]
+    },
+    "inconclusive_reason": null,
+    "error": null,
+    "matched_ious": [
+      {
+        "ground_truth_category": "EXIT_SIGN",
+        "best_iou": 0.0
+      }
+    ],
+    "requires_officer_verification": true
+  },
+  {
+    "sample_id": "sample_14",
+    "filename": "sample_14_unidentifiable_shape.png",
+    "scene_description": "Faint blurry indistinct gray blob on neutral wall testing model abstention / inconclusive flag.",
+    "expected_categories": [
+      "UNCERTAIN_OR_UNIDENTIFIABLE"
+    ],
+    "expected_hazard": "NONE",
+    "is_inconclusive_expected": true,
+    "status": "ANALYSIS_COMPLETED_WITH_OBSERVATIONS",
+    "duration_ms": 1830.24,
+    "observation_count": 1,
+    "observations": [
+      {
+        "observationId": "7e82d673-e69c-4587-8f41-aa20ae4ddd56",
+        "objectCategory": "EXIT_SIGN",
+        "potentialHazardCategory": "NONE",
+        "confidence": 0.9,
+        "box_ymin_xmin_ymax_xmax": [
+          0.05,
+          0.05,
+          0.15,
+          0.15
+        ],
+        "description": "Emergency exit sign visible on the wall.",
+        "severityProposal": "INFORMATIONAL",
+        "uncertaintyOrLimitations": [],
+        "officerReviewRequirement": "MANDATORY_OFFICER_REVIEW"
+      }
+    ],
+    "raw_response": {
+      "isInconclusive": false,
+      "inconclusiveReason": null,
+      "observations": [
+        {
+          "objectCategory": "EXIT_SIGN",
+          "potentialHazardCategory": "NONE",
+          "observationDescription": "Emergency exit sign visible on the wall.",
+          "evidenceStatus": "DETECTED",
+          "box_2d": [
+            50.0,
+            50.0,
+            150.0,
+            150.0
+          ],
+          "confidence": 0.9,
+          "uncertaintyOrLimitations": [],
+          "severityProposal": "INFORMATIONAL"
+        }
+      ]
+    },
+    "inconclusive_reason": null,
+    "error": null,
+    "matched_ious": [],
+    "requires_officer_verification": true
+  }
+]

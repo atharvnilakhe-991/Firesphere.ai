@@ -18,3 +18,43 @@ export const unavailableAuthAdapter:AuthAdapter={
   async submitMfa(){throw new Error('MFA cannot be completed until the identity-service contract is configured.');},
   async beginSso(){throw new Error('Organization SSO is not configured for this application.');},
 };
+
+import type { ApiClient } from '@firesphere/api-client/client';
+
+export function createBackendAuthAdapter(client: ApiClient): AuthAdapter {
+  return {
+    async login(credentials: { email: string; password: string }): Promise<Session> {
+      const loginRes = await client.request<{ accessToken: string; userId: string; email: string }>('auth.login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(credentials),
+      });
+      const meRes = await client.request<{ id: string; email: string; role: string; fullName?: string }>('auth.me', {
+        headers: { Authorization: `Bearer ${loginRes.accessToken}` },
+      });
+      return {
+        accessToken: loginRes.accessToken,
+        user: {
+          id: meRes.id,
+          email: meRes.email,
+          displayName: meRes.fullName || meRes.email,
+          role: (meRes.role as 'ADMIN' | 'OFFICER' | 'CITIZEN'),
+        },
+      };
+    },
+    async restore() {
+      return null;
+    },
+    async logout() {},
+    async beginPasswordReset() {
+      throw new Error('Password reset is not connected to the organization identity service.');
+    },
+    async submitMfa() {
+      throw new Error('MFA cannot be completed until the identity-service contract is configured.');
+    },
+    async beginSso() {
+      throw new Error('Organization SSO is not configured for this application.');
+    },
+  };
+}
+

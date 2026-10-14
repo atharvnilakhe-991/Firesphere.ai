@@ -1,6 +1,52 @@
 import type { ApiError, ApiErrorBody } from './types';
 
-export type Operation = 'auth.login' | 'auth.logout' | 'auth.me' | 'auth.refresh' | 'app.config' | 'admin.dashboard' | 'admin.users' | 'admin.organizations' | 'admin.officers' | 'admin.applications' | 'admin.inspections' | 'admin.assignments' | 'admin.incidents' | 'admin.vehicles' | 'admin.inventory' | 'admin.training' | 'admin.reports' | 'admin.certificates' | 'admin.notifications' | 'citizen.applications' | 'citizen.notifications' | 'citizen.application.create' | 'citizen.application.update' | 'citizen.documents' | 'citizen.certificate' | 'officer.assignments' | 'officer.assignment.download' | 'officer.inspection.submit' | 'officer.evidence.upload' | 'officer.ai.analyses' | 'officer.ai.analysis' | 'officer.finding.review' | 'officer.evidence.list' | 'officer.evidence.file' | 'gis.layers';
+export type Operation =
+  | 'auth.login'
+  | 'auth.logout'
+  | 'auth.me'
+  | 'auth.refresh'
+  | 'app.config'
+  | 'admin.dashboard'
+  | 'admin.users'
+  | 'admin.organizations'
+  | 'admin.officers'
+  | 'admin.applications'
+  | 'admin.inspections'
+  | 'admin.assignments'
+  | 'admin.incidents'
+  | 'admin.vehicles'
+  | 'admin.inventory'
+  | 'admin.training'
+  | 'admin.reports'
+  | 'admin.certificates'
+  | 'admin.notifications'
+  | 'citizen.applications'
+  | 'citizen.notifications'
+  | 'citizen.application.create'
+  | 'citizen.application.update'
+  | 'citizen.documents'
+  | 'citizen.certificate'
+  | 'officer.assignments'
+  | 'officer.assignment.download'
+  | 'officer.inspection.submit'
+  | 'officer.checklist.get'
+  | 'officer.checklist.create'
+  | 'officer.checklist.response'
+  | 'officer.checklist.item'
+  | 'officer.checklist.evidence'
+  | 'officer.checklist.complete'
+  | 'officer.checklist.aiMappings'
+  | 'officer.checklist.mapAiFindings'
+  | 'officer.checklist.aiLinkReview'
+  | 'officer.evidence.upload'
+  | 'officer.ai.analyses'
+  | 'officer.ai.analysis'
+  | 'officer.finding.review'
+  | 'officer.evidence.list'
+  | 'officer.evidence.file'
+  | 'noc.application.transition'
+  | 'noc.application.submit'
+  | 'gis.layers';
 
 export interface ApiClientOptions { baseUrl?: string; contractPaths?: Partial<Record<Operation, string>>; getAccessToken?: () => Promise<string | null> | string | null; onUnauthorized?: () => void; timeoutMs?: number; }
 
@@ -15,14 +61,33 @@ export function normalizeApiError(payload: unknown, status?: number): ApiError {
 }
 
 export const DEFAULT_CONTRACT_PATHS: Partial<Record<Operation, string>> = {
+  'auth.login': 'auth/login',
+  'auth.me': 'users/me',
   'admin.dashboard': 'admin/dashboard',
   'admin.applications': 'noc/applications',
   'admin.inspections': 'inspections',
+  'citizen.applications': 'noc/applications',
+  'citizen.application.create': 'noc/applications',
+  'citizen.application.update': 'noc/applications/{applicationId}',
+  'citizen.certificate': 'noc/applications/{applicationId}/certificate',
+  'officer.assignments': 'officer/assignments',
+  'officer.checklist.get': 'inspections/{inspectionId}/checklist',
+  'officer.checklist.create': 'inspections/{inspectionId}/checklist',
+  'officer.checklist.response': 'inspections/{inspectionId}/checklist/items/{itemId}/response',
+  'officer.checklist.item': 'inspections/{inspectionId}/checklist/items/{itemId}',
+  'officer.checklist.evidence': 'inspections/{inspectionId}/checklist/items/{itemId}/evidence',
+  'officer.checklist.complete': 'inspections/{inspectionId}/checklist/complete',
+  'officer.checklist.aiMappings': 'inspections/{inspectionId}/checklist/ai-mappings',
+  'officer.checklist.mapAiFindings': 'inspections/{inspectionId}/checklist/map-ai-findings',
+  'officer.checklist.aiLinkReview': 'inspections/{inspectionId}/checklist/items/{itemId}/ai-links/{linkId}',
+  'officer.evidence.upload': 'inspections/{inspectionId}/evidence',
+  'officer.evidence.list': 'inspections/{inspectionId}/evidence',
+  'officer.evidence.file': 'inspections/{inspectionId}/evidence/{evidenceId}/file',
   'officer.ai.analyses': 'noc/applications/{applicationId}/ai-analysis',
   'officer.ai.analysis': 'noc/applications/{applicationId}/ai-analysis/{runId}',
   'officer.finding.review': 'noc/applications/{applicationId}/ai-analysis/{runId}/findings/{findingId}/review',
-  'officer.evidence.list': 'inspections/{inspectionId}/evidence',
-  'officer.evidence.file': 'inspections/{inspectionId}/evidence/{evidenceId}/file',
+  'noc.application.transition': 'noc/applications/{applicationId}/transitions',
+  'noc.application.submit': 'noc/applications/{applicationId}/submit',
 };
 
 export function createApiClient(options: ApiClientOptions) {
@@ -124,3 +189,5 @@ export function parseContractMap(value: string | undefined): Partial<Record<Oper
     return Object.fromEntries(Object.entries(parsed).filter(([, path]) => typeof path === 'string')) as Partial<Record<Operation, string>>;
   } catch { return {}; }
 }
+
+export type ApiClient = ReturnType<typeof createApiClient>;

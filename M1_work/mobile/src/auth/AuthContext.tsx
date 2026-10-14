@@ -1,9 +1,21 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import type { Session, SessionUser } from '@firesphere/api-client/types';
 import { secureStorage } from '../storage/secureStorage';
-import { registerUnauthorizedHandler } from './sessionEvents';
+import { registerUnauthorizedHandler, handleUnauthorized } from './sessionEvents';
 import { createDemoSession, restoreDemoSession } from '../dev/mockServices';
-import { unavailableAuthAdapter } from './authAdapter';
+import { unavailableAuthAdapter, createBackendAuthAdapter } from './authAdapter';
+import { createApiClient, parseContractMap } from '@firesphere/api-client/client';
+
+const activeAuthAdapter = process.env.EXPO_PUBLIC_API_BASE_URL
+  ? createBackendAuthAdapter(
+      createApiClient({
+        baseUrl: process.env.EXPO_PUBLIC_API_BASE_URL,
+        contractPaths: parseContractMap(process.env.EXPO_PUBLIC_API_CONTRACTS),
+        getAccessToken: () => secureStorage.getAccessToken(),
+        onUnauthorized: handleUnauthorized,
+      })
+    )
+  : unavailableAuthAdapter;
 
 interface AuthState { user: SessionUser | null; accessToken: string | null; loading: boolean; error: string | null; login(email: string, password: string): Promise<void>; demoLogin(role: 'CITIZEN' | 'OFFICER'): Promise<void>; logout(): Promise<void>; }
 const AuthContext = createContext<AuthState | null>(null);
@@ -34,7 +46,7 @@ export function AuthProvider({ children }: React.PropsWithChildren) {
 
   async function login(email: string, password: string) {
     setError(null);
-    const session = await unavailableAuthAdapter.login({ email, password });
+    const session = await activeAuthAdapter.login({ email, password });
     await secureStorage.saveTokens(session.accessToken, session.refreshToken);
     setAccessToken(session.accessToken); setUser(session.user);
   }
@@ -45,7 +57,7 @@ export function AuthProvider({ children }: React.PropsWithChildren) {
     setAccessToken(session.accessToken); setUser(session.user); setError(null);
   }
   async function logout() {
-    try { if (accessToken && !accessToken.startsWith('local-demo:')) await unavailableAuthAdapter.logout(); } finally { await secureStorage.clear(); setAccessToken(null); setUser(null); }
+    try { if (accessToken && !accessToken.startsWith('local-demo:')) await activeAuthAdapter.logout(); } finally { await secureStorage.clear(); setAccessToken(null); setUser(null); }
   }
   const state = useMemo(() => ({ user, accessToken, loading, error, login, demoLogin, logout }), [user, accessToken, loading, error]);
   return <AuthContext.Provider value={state}>{children}</AuthContext.Provider>;

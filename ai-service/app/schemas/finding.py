@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 from enum import Enum
 from typing import Optional, Dict, List, Any
 import uuid
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, field_validator, model_validator
 
 
 class FindingSeverity(str, Enum):
@@ -51,6 +51,16 @@ class ComplianceStatus(str, Enum):
     AI_ASSISTED_ONLY = "AI_ASSISTED_ONLY"
 
 
+class SpatialValidationStatus(str, Enum):
+    """Bounding box spatial coordinate validation and normalization status."""
+
+    VALID = "VALID"
+    NORMALIZED = "NORMALIZED"
+    INVALID_COORDINATES = "INVALID_COORDINATES"
+    OUT_OF_BOUNDS = "OUT_OF_BOUNDS"
+    INVERTED = "INVERTED"
+
+
 class BoundingBox(BaseModel):
     """Normalized spatial coordinates for object detection on inspection evidence."""
 
@@ -58,6 +68,54 @@ class BoundingBox(BaseModel):
     yMin: float = Field(ge=0.0, le=1.0, description="Normalized minimum Y coordinate")
     xMax: float = Field(ge=0.0, le=1.0, description="Normalized maximum X coordinate")
     yMax: float = Field(ge=0.0, le=1.0, description="Normalized maximum Y coordinate")
+
+    @model_validator(mode="before")
+    @classmethod
+    def handle_coordinate_aliases(cls, data: Any) -> Any:
+        if isinstance(data, dict):
+            mapping = {
+                "xmin": "xMin",
+                "ymin": "yMin",
+                "xmax": "xMax",
+                "ymax": "yMax",
+            }
+            res = dict(data)
+            for old_k, new_k in mapping.items():
+                if old_k in res and new_k not in res:
+                    res[new_k] = res.pop(old_k)
+            return res
+        return data
+
+    @property
+    def xmin(self) -> float:
+        return self.xMin
+
+    @property
+    def ymin(self) -> float:
+        return self.yMin
+
+    @property
+    def xmax(self) -> float:
+        return self.xMax
+
+    @property
+    def ymax(self) -> float:
+        return self.yMax
+
+    def __eq__(self, other: Any) -> bool:
+        if isinstance(other, (tuple, list)) and len(other) == 4:
+            import math
+            return (
+                (math.isclose(self.yMin, other[0], abs_tol=1e-3) and
+                 math.isclose(self.xMin, other[1], abs_tol=1e-3) and
+                 math.isclose(self.yMax, other[2], abs_tol=1e-3) and
+                 math.isclose(self.xMax, other[3], abs_tol=1e-3)) or
+                (math.isclose(self.xMin, other[0], abs_tol=1e-3) and
+                 math.isclose(self.yMin, other[1], abs_tol=1e-3) and
+                 math.isclose(self.xMax, other[2], abs_tol=1e-3) and
+                 math.isclose(self.yMax, other[3], abs_tol=1e-3))
+            )
+        return super().__eq__(other)
 
 
 class Finding(BaseModel):
@@ -73,8 +131,38 @@ class Finding(BaseModel):
     confidence: float = Field(ge=0.0, le=1.0, description="Model prediction confidence score [0.0 - 1.0]")
     severity: FindingSeverity = Field(description="Assessed severity level of the finding")
     explanation: str = Field(description="Human-readable explanation of why this finding was generated")
-    model: str = Field(description="Name of the model that generated this finding")
+    model: str = Field(default="", description="Name of the model that generated this finding")
     modelVersion: str = Field(description="Version of the model that generated this finding")
+    modelId: Optional[str] = Field(
+        default=None,
+        description="Explicit model identifier alias for model provenance",
+    )
+    sourceType: Optional[str] = Field(
+        default=None,
+        description="Source modality: 'CV', 'VLM', or 'ENSEMBLE'",
+    )
+    isCrossValidated: bool = Field(
+        default=False,
+        description="Flag indicating if finding is concordantly cross-validated by both CV and VLM",
+    )
+    contributingProviders: List[str] = Field(
+        default_factory=list,
+        description="List of provider identifiers contributing to this finding (e.g. ['CV', 'VLM'])",
+    )
+    isAdvisory: bool = Field(
+        default=True,
+        description="Safety boundary: Every AI finding is strictly advisory; only human Fire Officers can certify compliance",
+    )
+    rawConfidence: Optional[float] = Field(
+        default=None,
+        ge=0.0,
+        le=1.0,
+        description="Raw prediction confidence score emitted directly by the source model prior to mapping",
+    )
+    coordinateConvention: Optional[str] = Field(
+        default=None,
+        description="Coordinate convention: 'gemini_0_1000', 'normalized', or 'absolute_pixels'",
+    )
     boundingBox: Optional[BoundingBox] = Field(default=None, description="Optional bounding box for CV localization")
     isTestData: bool = Field(default=False, description="Flag indicating if this finding is synthetic/test data")
     createdAt: datetime = Field(default_factory=lambda: datetime.now(timezone.utc), description="UTC creation timestamp")
@@ -214,6 +302,15 @@ class Finding(BaseModel):
         default=None,
         description="UTC timestamp of the latest finding modification",
     )
+
+    @model_validator(mode="after")
+    def sync_model_id(self) -> "Finding":
+        """Ensures finding.model and finding.modelId are bidirectional aliases."""
+        if not self.modelId and self.model:
+            self.modelId = self.model
+        elif self.modelId and not self.model:
+            self.model = self.modelId
+        return self
 
     @field_validator("complianceStatus", mode="before")
     @classmethod

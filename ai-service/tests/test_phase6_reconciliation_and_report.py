@@ -261,13 +261,17 @@ def test_case_c2_location_mismatch_disagreement(reconciler, sample_ids):
     )
 
     assert status == ReconciliationStatus.CONFLICT
-    assert len(findings) == 1
-    f = findings[0]
-    assert f.reconciliationStatus == ReconciliationStatus.CONFLICT.value
-    assert f.conflictType == ConflictType.LOCATION_MISMATCH.value
-    assert f.conflictDetails["conflictType"] == "LOCATION_MISMATCH"
-    assert "geminiBoundingBox" in f.conflictDetails
-    assert "cvBoundingBox" in f.conflictDetails
+    # Stage 8 safety contract: preserve both source observations on spatial mismatch without discarding either
+    assert len(findings) == 2
+    for f in findings:
+        assert f.reconciliationStatus == ReconciliationStatus.CONFLICT.value
+        assert f.conflictType == ConflictType.LOCATION_MISMATCH.value
+    vlm_f = next(f for f in findings if f.sourceType == "VLM")
+    assert vlm_f.conflictDetails["conflictType"] == "LOCATION_MISMATCH"
+    assert "geminiBoundingBox" in vlm_f.conflictDetails or "vlmBoundingBox" in vlm_f.conflictDetails
+    assert "cvBoundingBox" in vlm_f.conflictDetails
+    cv_f = next(f for f in findings if f.sourceType == "CV")
+    assert cv_f.boundingBox is not None
 
 
 # =============================================================================
@@ -426,7 +430,8 @@ def test_case_h_component_failure_fault_isolation(reconciler, sample_ids):
     assert len(findings) == 1
     assert conflict is not None
     assert conflict.conflictType == ConflictType.UNRESOLVED_DISAGREEMENT
-    assert "Gemini provider failed" in conflict.description
+    assert "provider failed" in conflict.description.lower()
+    assert "gemini" in conflict.description.lower()
 
 
 # =============================================================================

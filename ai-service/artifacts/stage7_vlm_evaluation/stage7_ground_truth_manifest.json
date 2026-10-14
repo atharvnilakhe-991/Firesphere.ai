@@ -1,0 +1,607 @@
+{
+  "dataset_name": "Stage 7 Exploratory VLM Fire-Safety Evaluation Benchmark",
+  "dataset_version": "1.0.0-stage7",
+  "dataset_type": "EXPLORATORY_CONTROLLED_SYNTHETIC",
+  "provenance": "Synthetic controlled 2D benchmark generated with OpenCV/Pillow to evaluate 8 specific fire-safety perception conditions without exposing confidential building imagery.",
+  "image_count": 14,
+  "image_resolution": [
+    640,
+    640
+  ],
+  "samples": [
+    {
+      "sample_id": "sample_01",
+      "filename": "sample_01_extinguisher.png",
+      "image_path": "C:\\Users\\athar\\OneDrive\\Desktop\\Firesphere.ai\\ai-service\\artifacts\\stage7_vlm_evaluation\\images\\sample_01_extinguisher.png",
+      "scene_description": "Red fire extinguisher mounted vertically against a plain gray wall.",
+      "expected_categories": [
+        "FIRE_EXTINGUISHER"
+      ],
+      "expected_hazard": "NONE",
+      "is_inconclusive": false,
+      "ground_truth_objects": [
+        {
+          "object_category": "FIRE_EXTINGUISHER",
+          "potential_hazard_category": "NONE",
+          "box_pixel": [
+            180,
+            260,
+            500,
+            380
+          ],
+          "box_normalized_ymin_xmin_ymax_xmax": [
+            0.2812,
+            0.4062,
+            0.7812,
+            0.5938
+          ],
+          "box_normalized_xmin_ymin_xmax_ymax": [
+            0.4062,
+            0.2812,
+            0.5938,
+            0.7812
+          ],
+          "is_occluded": false,
+          "is_blurred": false,
+          "is_ambiguous": false
+        }
+      ],
+      "known_limitations": "Synthetic drawing of standard water/powder extinguisher."
+    },
+    {
+      "sample_id": "sample_02",
+      "filename": "sample_02_exit_sign.png",
+      "image_path": "C:\\Users\\athar\\OneDrive\\Desktop\\Firesphere.ai\\ai-service\\artifacts\\stage7_vlm_evaluation\\images\\sample_02_exit_sign.png",
+      "scene_description": "Green emergency exit sign rectangle with white text on plain wall.",
+      "expected_categories": [
+        "EXIT_SIGN"
+      ],
+      "expected_hazard": "NONE",
+      "is_inconclusive": false,
+      "ground_truth_objects": [
+        {
+          "object_category": "EXIT_SIGN",
+          "potential_hazard_category": "NONE",
+          "box_pixel": [
+            160,
+            220,
+            280,
+            420
+          ],
+          "box_normalized_ymin_xmin_ymax_xmax": [
+            0.25,
+            0.3438,
+            0.4375,
+            0.6562
+          ],
+          "box_normalized_xmin_ymin_xmax_ymax": [
+            0.3438,
+            0.25,
+            0.6562,
+            0.4375
+          ],
+          "is_occluded": false,
+          "is_blurred": false,
+          "is_ambiguous": false
+        }
+      ],
+      "known_limitations": "Geometric green rectangle with legible EXIT text."
+    },
+    {
+      "sample_id": "sample_03",
+      "filename": "sample_03_doorway.png",
+      "image_path": "C:\\Users\\athar\\OneDrive\\Desktop\\Firesphere.ai\\ai-service\\artifacts\\stage7_vlm_evaluation\\images\\sample_03_doorway.png",
+      "scene_description": "Clearly visible doorway frame with closed door against corridor wall.",
+      "expected_categories": [
+        "EXIT_DOOR"
+      ],
+      "expected_hazard": "NONE",
+      "is_inconclusive": false,
+      "ground_truth_objects": [
+        {
+          "object_category": "EXIT_DOOR",
+          "potential_hazard_category": "NONE",
+          "box_pixel": [
+            140,
+            200,
+            580,
+            440
+          ],
+          "box_normalized_ymin_xmin_ymax_xmax": [
+            0.2188,
+            0.3125,
+            0.9062,
+            0.6875
+          ],
+          "box_normalized_xmin_ymin_xmax_ymax": [
+            0.3125,
+            0.2188,
+            0.6875,
+            0.9062
+          ],
+          "is_occluded": false,
+          "is_blurred": false,
+          "is_ambiguous": false
+        }
+      ],
+      "known_limitations": "Synthetic door leaf and frame representation."
+    },
+    {
+      "sample_id": "sample_04",
+      "filename": "sample_04_obstacle_doorway.png",
+      "image_path": "C:\\Users\\athar\\OneDrive\\Desktop\\Firesphere.ai\\ai-service\\artifacts\\stage7_vlm_evaluation\\images\\sample_04_obstacle_doorway.png",
+      "scene_description": "Geometric exit door frame with storage box obstacle placed directly in egress threshold.",
+      "expected_categories": [
+        "EXIT_DOOR",
+        "OBSTACLE"
+      ],
+      "expected_hazard": "EMERGENCY_EXIT_OBSTRUCTED",
+      "is_inconclusive": false,
+      "ground_truth_objects": [
+        {
+          "object_category": "EXIT_DOOR",
+          "potential_hazard_category": "EMERGENCY_EXIT_OBSTRUCTED",
+          "box_pixel": [
+            140,
+            200,
+            580,
+            440
+          ],
+          "box_normalized_ymin_xmin_ymax_xmax": [
+            0.2188,
+            0.3125,
+            0.9062,
+            0.6875
+          ],
+          "box_normalized_xmin_ymin_xmax_ymax": [
+            0.3125,
+            0.2188,
+            0.6875,
+            0.9062
+          ],
+          "is_occluded": true,
+          "is_blurred": false,
+          "is_ambiguous": false
+        },
+        {
+          "object_category": "OBSTACLE",
+          "potential_hazard_category": "EMERGENCY_EXIT_OBSTRUCTED",
+          "box_pixel": [
+            440,
+            240,
+            580,
+            400
+          ],
+          "box_normalized_ymin_xmin_ymax_xmax": [
+            0.6875,
+            0.375,
+            0.9062,
+            0.625
+          ],
+          "box_normalized_xmin_ymin_xmax_ymax": [
+            0.375,
+            0.6875,
+            0.625,
+            0.9062
+          ],
+          "is_occluded": false,
+          "is_blurred": false,
+          "is_ambiguous": false
+        }
+      ],
+      "known_limitations": "Composite door with overlapping threshold obstacle."
+    },
+    {
+      "sample_id": "sample_05",
+      "filename": "sample_05_empty_wall.png",
+      "image_path": "C:\\Users\\athar\\OneDrive\\Desktop\\Firesphere.ai\\ai-service\\artifacts\\stage7_vlm_evaluation\\images\\sample_05_empty_wall.png",
+      "scene_description": "Plain empty gray wall with subtle horizontal floor line, no objects or equipment.",
+      "expected_categories": [],
+      "expected_hazard": "NONE",
+      "is_inconclusive": false,
+      "ground_truth_objects": [],
+      "known_limitations": "Negative control canvas with zero equipment."
+    },
+    {
+      "sample_id": "sample_06",
+      "filename": "sample_06_partially_obscured_extinguisher.png",
+      "image_path": "C:\\Users\\athar\\OneDrive\\Desktop\\Firesphere.ai\\ai-service\\artifacts\\stage7_vlm_evaluation\\images\\sample_06_partially_obscured_extinguisher.png",
+      "scene_description": "Red fire extinguisher partially blocked by a storage barrier in foreground.",
+      "expected_categories": [
+        "FIRE_EXTINGUISHER",
+        "OBSTACLE"
+      ],
+      "expected_hazard": "FIRE_EXTINGUISHER_BLOCKED",
+      "is_inconclusive": false,
+      "ground_truth_objects": [
+        {
+          "object_category": "FIRE_EXTINGUISHER",
+          "potential_hazard_category": "FIRE_EXTINGUISHER_BLOCKED",
+          "box_pixel": [
+            180,
+            260,
+            500,
+            380
+          ],
+          "box_normalized_ymin_xmin_ymax_xmax": [
+            0.2812,
+            0.4062,
+            0.7812,
+            0.5938
+          ],
+          "box_normalized_xmin_ymin_xmax_ymax": [
+            0.4062,
+            0.2812,
+            0.5938,
+            0.7812
+          ],
+          "is_occluded": true,
+          "is_blurred": false,
+          "is_ambiguous": false
+        },
+        {
+          "object_category": "OBSTACLE",
+          "potential_hazard_category": "FIRE_EXTINGUISHER_BLOCKED",
+          "box_pixel": [
+            350,
+            300,
+            520,
+            440
+          ],
+          "box_normalized_ymin_xmin_ymax_xmax": [
+            0.5469,
+            0.4688,
+            0.8125,
+            0.6875
+          ],
+          "box_normalized_xmin_ymin_xmax_ymax": [
+            0.4688,
+            0.5469,
+            0.6875,
+            0.8125
+          ],
+          "is_occluded": false,
+          "is_blurred": false,
+          "is_ambiguous": false
+        }
+      ],
+      "known_limitations": "Extinguisher partially hidden (~35% area obscured by obstacle)."
+    },
+    {
+      "sample_id": "sample_07",
+      "filename": "sample_07_blurred_scene.png",
+      "image_path": "C:\\Users\\athar\\OneDrive\\Desktop\\Firesphere.ai\\ai-service\\artifacts\\stage7_vlm_evaluation\\images\\sample_07_blurred_scene.png",
+      "scene_description": "Heavily blurred scene depicting out-of-focus red vertical shape and green rectangle.",
+      "expected_categories": [
+        "FIRE_EXTINGUISHER",
+        "EXIT_SIGN"
+      ],
+      "expected_hazard": "NONE",
+      "is_inconclusive": true,
+      "ground_truth_objects": [
+        {
+          "object_category": "FIRE_EXTINGUISHER",
+          "potential_hazard_category": "NONE",
+          "box_pixel": [
+            200,
+            140,
+            500,
+            260
+          ],
+          "box_normalized_ymin_xmin_ymax_xmax": [
+            0.3125,
+            0.2188,
+            0.7812,
+            0.4062
+          ],
+          "box_normalized_xmin_ymin_xmax_ymax": [
+            0.2188,
+            0.3125,
+            0.4062,
+            0.7812
+          ],
+          "is_occluded": false,
+          "is_blurred": true,
+          "is_ambiguous": true
+        },
+        {
+          "object_category": "EXIT_SIGN",
+          "potential_hazard_category": "NONE",
+          "box_pixel": [
+            160,
+            380,
+            260,
+            540
+          ],
+          "box_normalized_ymin_xmin_ymax_xmax": [
+            0.25,
+            0.5938,
+            0.4062,
+            0.8438
+          ],
+          "box_normalized_xmin_ymin_xmax_ymax": [
+            0.5938,
+            0.25,
+            0.8438,
+            0.4062
+          ],
+          "is_occluded": false,
+          "is_blurred": true,
+          "is_ambiguous": true
+        }
+      ],
+      "known_limitations": "Severe Gaussian blur intended to trigger optical quality/inconclusive evaluation."
+    },
+    {
+      "sample_id": "sample_08",
+      "filename": "sample_08_multi_object.png",
+      "image_path": "C:\\Users\\athar\\OneDrive\\Desktop\\Firesphere.ai\\ai-service\\artifacts\\stage7_vlm_evaluation\\images\\sample_08_multi_object.png",
+      "scene_description": "Multi-equipment inspection scene with green exit sign above doorway and red extinguisher on adjacent wall.",
+      "expected_categories": [
+        "EXIT_SIGN",
+        "EXIT_DOOR",
+        "FIRE_EXTINGUISHER"
+      ],
+      "expected_hazard": "NONE",
+      "is_inconclusive": false,
+      "ground_truth_objects": [
+        {
+          "object_category": "EXIT_SIGN",
+          "potential_hazard_category": "NONE",
+          "box_pixel": [
+            80,
+            140,
+            160,
+            320
+          ],
+          "box_normalized_ymin_xmin_ymax_xmax": [
+            0.125,
+            0.2188,
+            0.25,
+            0.5
+          ],
+          "box_normalized_xmin_ymin_xmax_ymax": [
+            0.2188,
+            0.125,
+            0.5,
+            0.25
+          ],
+          "is_occluded": false,
+          "is_blurred": false,
+          "is_ambiguous": false
+        },
+        {
+          "object_category": "EXIT_DOOR",
+          "potential_hazard_category": "NONE",
+          "box_pixel": [
+            170,
+            140,
+            560,
+            320
+          ],
+          "box_normalized_ymin_xmin_ymax_xmax": [
+            0.2656,
+            0.2188,
+            0.875,
+            0.5
+          ],
+          "box_normalized_xmin_ymin_xmax_ymax": [
+            0.2188,
+            0.2656,
+            0.5,
+            0.875
+          ],
+          "is_occluded": false,
+          "is_blurred": false,
+          "is_ambiguous": false
+        },
+        {
+          "object_category": "FIRE_EXTINGUISHER",
+          "potential_hazard_category": "NONE",
+          "box_pixel": [
+            260,
+            440,
+            520,
+            540
+          ],
+          "box_normalized_ymin_xmin_ymax_xmax": [
+            0.4062,
+            0.6875,
+            0.8125,
+            0.8438
+          ],
+          "box_normalized_xmin_ymin_xmax_ymax": [
+            0.6875,
+            0.4062,
+            0.8438,
+            0.8125
+          ],
+          "is_occluded": false,
+          "is_blurred": false,
+          "is_ambiguous": false
+        }
+      ],
+      "known_limitations": "High-density multi-object scene testing simultaneous multi-class perception."
+    },
+    {
+      "sample_id": "sample_09",
+      "filename": "sample_09_no_fire_safety.png",
+      "image_path": "C:\\Users\\athar\\OneDrive\\Desktop\\Firesphere.ai\\ai-service\\artifacts\\stage7_vlm_evaluation\\images\\sample_09_no_fire_safety.png",
+      "scene_description": "Office room containing a blue board and brown desk, with zero fire-safety equipment.",
+      "expected_categories": [],
+      "expected_hazard": "NONE",
+      "is_inconclusive": false,
+      "ground_truth_objects": [],
+      "known_limitations": "Negative control containing non-fire-safety furniture."
+    },
+    {
+      "sample_id": "sample_10",
+      "filename": "sample_10_ambiguous.png",
+      "image_path": "C:\\Users\\athar\\OneDrive\\Desktop\\Firesphere.ai\\ai-service\\artifacts\\stage7_vlm_evaluation\\images\\sample_10_ambiguous.png",
+      "scene_description": "Ambiguous geometric scene: horizontal unmounted red cylinder and gray wall panel cabinet.",
+      "expected_categories": [
+        "ELECTRICAL_PANEL"
+      ],
+      "expected_hazard": "GENERIC_FIRE_SAFETY_DEFECT",
+      "is_inconclusive": false,
+      "ground_truth_objects": [
+        {
+          "object_category": "ELECTRICAL_PANEL",
+          "potential_hazard_category": "GENERIC_FIRE_SAFETY_DEFECT",
+          "box_pixel": [
+            180,
+            380,
+            380,
+            520
+          ],
+          "box_normalized_ymin_xmin_ymax_xmax": [
+            0.2812,
+            0.5938,
+            0.5938,
+            0.8125
+          ],
+          "box_normalized_xmin_ymin_xmax_ymax": [
+            0.5938,
+            0.2812,
+            0.8125,
+            0.5938
+          ],
+          "is_occluded": false,
+          "is_blurred": false,
+          "is_ambiguous": true
+        }
+      ],
+      "known_limitations": "Ambiguous unmounted cylinder and non-standard electrical panel box testing model uncertainty."
+    },
+    {
+      "sample_id": "sample_11",
+      "filename": "sample_11_near_exit_unblocked.png",
+      "image_path": "C:\\Users\\athar\\OneDrive\\Desktop\\Firesphere.ai\\ai-service\\artifacts\\stage7_vlm_evaluation\\images\\sample_11_near_exit_unblocked.png",
+      "scene_description": "Exit doorway with small waste bin placed well to the side wall (>1.5m clearance), egress threshold 100% unobstructed.",
+      "expected_categories": [
+        "EXIT_DOOR"
+      ],
+      "expected_hazard": "NONE",
+      "is_inconclusive": false,
+      "ground_truth_objects": [
+        {
+          "object_category": "EXIT_DOOR",
+          "potential_hazard_category": "NONE",
+          "box_pixel": [
+            140,
+            180,
+            580,
+            380
+          ],
+          "box_normalized_ymin_xmin_ymax_xmax": [
+            0.2188,
+            0.2812,
+            0.9062,
+            0.5938
+          ],
+          "box_normalized_xmin_ymin_xmax_ymax": [
+            0.2812,
+            0.2188,
+            0.5938,
+            0.9062
+          ],
+          "is_occluded": false,
+          "is_blurred": false,
+          "is_ambiguous": false
+        }
+      ],
+      "known_limitations": "Synthetic door with non-blocking lateral object testing over-eager obstruction hallucination."
+    },
+    {
+      "sample_id": "sample_12",
+      "filename": "sample_12_blocked_corridor.png",
+      "image_path": "C:\\Users\\athar\\OneDrive\\Desktop\\Firesphere.ai\\ai-service\\artifacts\\stage7_vlm_evaluation\\images\\sample_12_blocked_corridor.png",
+      "scene_description": "Egress corridor perspective with stacked cargo boxes with caution stripes spanning across the walking floor, completely blocking corridor.",
+      "expected_categories": [
+        "OBSTACLE"
+      ],
+      "expected_hazard": "BLOCKED_CORRIDOR",
+      "is_inconclusive": false,
+      "ground_truth_objects": [
+        {
+          "object_category": "OBSTACLE",
+          "potential_hazard_category": "BLOCKED_CORRIDOR",
+          "box_pixel": [
+            380,
+            140,
+            580,
+            500
+          ],
+          "box_normalized_ymin_xmin_ymax_xmax": [
+            0.5938,
+            0.2188,
+            0.9062,
+            0.7812
+          ],
+          "box_normalized_xmin_ymin_xmax_ymax": [
+            0.2188,
+            0.5938,
+            0.7812,
+            0.9062
+          ],
+          "is_occluded": false,
+          "is_blurred": false,
+          "is_ambiguous": false
+        }
+      ],
+      "known_limitations": "Corridor hallway blockage testing egress corridor obstruction perception."
+    },
+    {
+      "sample_id": "sample_13",
+      "filename": "sample_13_poor_lighting_exit.png",
+      "image_path": "C:\\Users\\athar\\OneDrive\\Desktop\\Firesphere.ai\\ai-service\\artifacts\\stage7_vlm_evaluation\\images\\sample_13_poor_lighting_exit.png",
+      "scene_description": "Darkened emergency egress stairwell under extreme low lux lighting with glowing illuminated green exit sign.",
+      "expected_categories": [
+        "EXIT_SIGN"
+      ],
+      "expected_hazard": "NONE",
+      "is_inconclusive": false,
+      "ground_truth_objects": [
+        {
+          "object_category": "EXIT_SIGN",
+          "potential_hazard_category": "NONE",
+          "box_pixel": [
+            120,
+            240,
+            200,
+            400
+          ],
+          "box_normalized_ymin_xmin_ymax_xmax": [
+            0.1875,
+            0.375,
+            0.3125,
+            0.625
+          ],
+          "box_normalized_xmin_ymin_xmax_ymax": [
+            0.375,
+            0.1875,
+            0.625,
+            0.3125
+          ],
+          "is_occluded": false,
+          "is_blurred": false,
+          "is_ambiguous": false
+        }
+      ],
+      "known_limitations": "Extreme low light / underexposure testing illuminated signage contrast recognition."
+    },
+    {
+      "sample_id": "sample_14",
+      "filename": "sample_14_unidentifiable_shape.png",
+      "image_path": "C:\\Users\\athar\\OneDrive\\Desktop\\Firesphere.ai\\ai-service\\artifacts\\stage7_vlm_evaluation\\images\\sample_14_unidentifiable_shape.png",
+      "scene_description": "Faint blurry indistinct gray blob on neutral wall testing model abstention / inconclusive flag.",
+      "expected_categories": [
+        "UNCERTAIN_OR_UNIDENTIFIABLE"
+      ],
+      "expected_hazard": "NONE",
+      "is_inconclusive": true,
+      "ground_truth_objects": [],
+      "known_limitations": "Indistinct visual stimulus testing whether model abstains rather than hallucinating."
+    }
+  ]
+}

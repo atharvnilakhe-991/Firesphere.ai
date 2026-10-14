@@ -2288,4 +2288,222 @@ td {
   color: #4a6157;
   font-size: 13px;
   line-height: 1.5;
-}
+}
+
+/* Statutory Inspection Checklist & Workflow Styles */
+.statutory-checklist-container {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.checklist-meta-card {
+  background: #f8faf9;
+  border: 1px solid #dce8e4;
+  border-radius: 8px;
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.checklist-meta-stats {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.chk-stat-item {
+  font-size: 11px;
+  color: #4b6257;
+}
+
+.chk-stat-item strong {
+  color: #1f332a;
+}
+
+.checklist-item-card {
+  border: 1px solid #e1e8e5;
+  border-radius: 8px;
+  background: #fff;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.checklist-item-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.checklist-item-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #243542;
+  margin: 0;
+}
+
+.checklist-response-pill {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.checklist-response-pill.COMPLIANT {
+  background: #e6f6ee;
+  color: #1b7348;
+}
+
+.checklist-response-pill.NON_COMPLIANT {
+  background: #ffe3e0;
+  color: #b52216;
+}
+
+.checklist-response-pill.NOT_APPLICABLE {
+  background: #f0f3f5;
+  color: #566874;
+}
+
+.checklist-response-pill.NEEDS_FURTHER_INSPECTION {
+  background: #fff2db;
+  color: #a45f0d;
+}
+
+.checklist-response-pill.PENDING {
+  background: #f7f9fa;
+  color: #7a8c99;
+  border: 1px solid #dbe2e6;
+}
+
+.checklist-choices-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.btn-choice {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #cbd6dc;
+  background: #fff;
+  color: #3b4e5c;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-choice:hover {
+  border-color: #9ab0bf;
+}
+
+.btn-choice.active {
+  background: #243542;
+  color: #fff;
+  border-color: #243542;
+}
+
+.checklist-advisory-box {
+  background: #fffbf5;
+  border: 1px solid #f2dfc6;
+  border-left: 3px solid #df704f;
+  padding: 10px 12px;
+  border-radius: 0 6px 6px 0;
+  font-size: 11px;
+  color: #634d36;
+}
+
+.checklist-advisory-box strong {
+  display: block;
+  font-size: 10px;
+  color: #b85333;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+
+.checklist-complete-card {
+  margin-top: 14px;
+  background: #f7fbf9;
+  border: 1px solid #cce2d9;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.workflow-gate-container {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid #e1e8e5;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.workflow-actions-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.btn-approve-noc {
+  background: #1b7348;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  border: 0;
+  border-radius: 6px;
+  padding: 9px 16px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.btn-approve-noc:hover {
+  background: #145937;
+}
+
+.btn-approve-noc:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.approval-gate-banner {
+  padding: 12px 14px;
+  border-radius: 6px;
+  font-size: 12px;
+  line-height: 1.4;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.approval-gate-banner.error {
+  background: #ffebe9;
+  border: 1px solid #f5c2bd;
+  color: #9c1b10;
+}
+
+.approval-gate-banner.success {
+  background: #e6f6ee;
+  border: 1px solid #b7e4ce;
+  color: #1b7348;
+}
+
+.approval-gate-banner.warning {
+  background: #fff8ef;
+  border: 1px solid #f0e4d2;
+  color: #795d3d;
+}
+
+

@@ -1,0 +1,130 @@
+{
+  "modelId": "firesphere-perception-baseline-v0.8.0",
+  "modelVersion": "0.8.0-baseline",
+  "datasetName": "candidate_val_split",
+  "evaluationStatus": "COMPLETED",
+  "totalTestImages": 997,
+  "totalGroundTruthObjects": 1472,
+  "totalPredictedObjects": 735,
+  "mAP50": 0.0622,
+  "mAP50_95": 0.0254,
+  "meanPrecision": 0.223,
+  "meanRecall": 0.1173,
+  "meanF1": 0.1288,
+  "perClassMetrics": {
+    "FIRE_EXTINGUISHER": {
+      "classId": 0,
+      "className": "FIRE_EXTINGUISHER",
+      "support": 842,
+      "truePositives": 387,
+      "falsePositives": 331,
+      "falseNegatives": 455,
+      "precision": 0.539,
+      "recall": 0.4596,
+      "f1Score": 0.4961,
+      "ap50": 0.2455,
+      "ap50_95": 0.1008
+    },
+    "EXIT_DOOR": {
+      "classId": 1,
+      "className": "EXIT_DOOR",
+      "support": 3,
+      "truePositives": 0,
+      "falsePositives": 0,
+      "falseNegatives": 3,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1Score": 0.0,
+      "ap50": 0.0,
+      "ap50_95": 0.0
+    },
+    "EXIT_SIGN": {
+      "classId": 2,
+      "className": "EXIT_SIGN",
+      "support": 618,
+      "truePositives": 6,
+      "falsePositives": 11,
+      "falseNegatives": 612,
+      "precision": 0.3529,
+      "recall": 0.0097,
+      "f1Score": 0.0189,
+      "ap50": 0.0035,
+      "ap50_95": 0.0008
+    },
+    "OBSTACLE": {
+      "classId": 3,
+      "className": "OBSTACLE",
+      "support": 9,
+      "truePositives": 0,
+      "falsePositives": 0,
+      "falseNegatives": 9,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1Score": 0.0,
+      "ap50": 0.0,
+      "ap50_95": 0.0
+    }
+  },
+  "confusionMatrix": {
+    "classNames": [
+      "FIRE_EXTINGUISHER",
+      "EXIT_DOOR",
+      "EXIT_SIGN",
+      "OBSTACLE",
+      "BACKGROUND"
+    ],
+    "matrix": [
+      [
+        387,
+        0,
+        0,
+        0,
+        331
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        6,
+        0,
+        11
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        455,
+        3,
+        612,
+        9,
+        0
+      ]
+    ]
+  },
+  "warnings": [],
+  "auxiliary_analysis": {
+    "small_objects_count": 590,
+    "small_objects_detected": 144,
+    "small_objects_hit_rate": 0.2441,
+    "empty_background_images": 12,
+    "empty_images_with_false_alarms": 5,
+    "empty_image_false_alarm_rate": 0.4167
+  },
+  "latency_benchmark": {
+    "mean_latency_ms": 22.75,
+    "median_latency_ms": 22.85,
+    "p95_latency_ms": 25.62,
+    "fps": 43.97
+  },
+  "checkpoint_sha256": "5f166c4703e090eb51a9171c38ff1c3dd93d7d0c99d06ec8e44562217753c666"
+}

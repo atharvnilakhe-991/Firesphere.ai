@@ -1,0 +1,327 @@
+{
+  "Baseline_Checkpoint": {
+    "architecture": "BaselineInspectionDetector (ResNet-18)",
+    "provenance": "Phase 8.4 Best Checkpoint (best.pt)",
+    "checkpoint_sha256": "5f166c4703e090eb51a9171c38ff1c3dd93d7d0c99d06ec8e44562217753c666",
+    "checkpoint_size_bytes": 26905612,
+    "mAP50": 0.0622,
+    "mAP50_95": 0.0254,
+    "meanPrecision": 0.223,
+    "meanRecall": 0.1173,
+    "meanF1": 0.1288,
+    "perClassMetrics": {
+      "FIRE_EXTINGUISHER": {
+        "classId": 0,
+        "className": "FIRE_EXTINGUISHER",
+        "support": 842,
+        "truePositives": 387,
+        "falsePositives": 331,
+        "falseNegatives": 455,
+        "precision": 0.539,
+        "recall": 0.4596,
+        "f1Score": 0.4961,
+        "ap50": 0.2455,
+        "ap50_95": 0.1008
+      },
+      "EXIT_DOOR": {
+        "classId": 1,
+        "className": "EXIT_DOOR",
+        "support": 3,
+        "truePositives": 0,
+        "falsePositives": 0,
+        "falseNegatives": 3,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1Score": 0.0,
+        "ap50": 0.0,
+        "ap50_95": 0.0
+      },
+      "EXIT_SIGN": {
+        "classId": 2,
+        "className": "EXIT_SIGN",
+        "support": 618,
+        "truePositives": 6,
+        "falsePositives": 11,
+        "falseNegatives": 612,
+        "precision": 0.3529,
+        "recall": 0.0097,
+        "f1Score": 0.0189,
+        "ap50": 0.0035,
+        "ap50_95": 0.0008
+      },
+      "OBSTACLE": {
+        "classId": 3,
+        "className": "OBSTACLE",
+        "support": 9,
+        "truePositives": 0,
+        "falsePositives": 0,
+        "falseNegatives": 9,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1Score": 0.0,
+        "ap50": 0.0,
+        "ap50_95": 0.0
+      }
+    },
+    "latency": {
+      "mean_latency_ms": 22.75,
+      "median_latency_ms": 22.85,
+      "p95_latency_ms": 25.62,
+      "fps": 43.97
+    },
+    "auxiliary": {
+      "small_objects_count": 590,
+      "small_objects_detected": 144,
+      "small_objects_hit_rate": 0.2441,
+      "empty_background_images": 12,
+      "empty_images_with_false_alarms": 5,
+      "empty_image_false_alarm_rate": 0.4167
+    }
+  },
+  "Model_A_Baseline": {
+    "architecture": "BaselineInspectionDetector (ResNet-18)",
+    "loss_type": "Unweighted standard loss",
+    "runtime_seconds": 834.5,
+    "best_epoch": 5,
+    "best_val_loss": 0.9707,
+    "checkpoint_sha256": "e505d20b73950461d022ca34c913cb946c0912f914946ab108cba387b0e51b60",
+    "checkpoint_size_bytes": 8984945,
+    "mAP50": 0.0693,
+    "mAP50_95": 0.0327,
+    "meanPrecision": 0.2544,
+    "meanRecall": 0.1075,
+    "meanF1": 0.1304,
+    "perClassMetrics": {
+      "FIRE_EXTINGUISHER": {
+        "classId": 0,
+        "className": "FIRE_EXTINGUISHER",
+        "support": 842,
+        "truePositives": 358,
+        "falsePositives": 199,
+        "falseNegatives": 484,
+        "precision": 0.6427,
+        "recall": 0.4252,
+        "f1Score": 0.5118,
+        "ap50": 0.2736,
+        "ap50_95": 0.1286
+      },
+      "EXIT_DOOR": {
+        "classId": 1,
+        "className": "EXIT_DOOR",
+        "support": 3,
+        "truePositives": 0,
+        "falsePositives": 0,
+        "falseNegatives": 3,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1Score": 0.0,
+        "ap50": 0.0,
+        "ap50_95": 0.0
+      },
+      "EXIT_SIGN": {
+        "classId": 2,
+        "className": "EXIT_SIGN",
+        "support": 618,
+        "truePositives": 3,
+        "falsePositives": 5,
+        "falseNegatives": 615,
+        "precision": 0.375,
+        "recall": 0.0049,
+        "f1Score": 0.0097,
+        "ap50": 0.0037,
+        "ap50_95": 0.0022
+      },
+      "OBSTACLE": {
+        "classId": 3,
+        "className": "OBSTACLE",
+        "support": 9,
+        "truePositives": 0,
+        "falsePositives": 0,
+        "falseNegatives": 9,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1Score": 0.0,
+        "ap50": 0.0,
+        "ap50_95": 0.0
+      }
+    },
+    "latency": {
+      "mean_latency_ms": 22.48,
+      "median_latency_ms": 22.46,
+      "p95_latency_ms": 26.3,
+      "fps": 44.48
+    },
+    "auxiliary": {
+      "small_objects_count": 590,
+      "small_objects_detected": 123,
+      "small_objects_hit_rate": 0.2085,
+      "empty_background_images": 12,
+      "empty_images_with_false_alarms": 1,
+      "empty_image_false_alarm_rate": 0.0833
+    }
+  },
+  "Model_B_Class_Weighted": {
+    "architecture": "BaselineInspectionDetector (ResNet-18)",
+    "loss_type": "Class-weighted loss [1.0, 10.0, 1.38, 6.50]",
+    "runtime_seconds": 898.05,
+    "best_epoch": 4,
+    "best_val_loss": 1.4894,
+    "checkpoint_sha256": "5da87adb97d202690320317de5e0f5491e74e48b5b2e61ff6c1b9ffa9c2067c4",
+    "checkpoint_size_bytes": 8985517,
+    "mAP50": 0.0345,
+    "mAP50_95": 0.0124,
+    "meanPrecision": 0.1057,
+    "meanRecall": 0.0823,
+    "meanF1": 0.0925,
+    "perClassMetrics": {
+      "FIRE_EXTINGUISHER": {
+        "classId": 0,
+        "className": "FIRE_EXTINGUISHER",
+        "support": 842,
+        "truePositives": 277,
+        "falsePositives": 378,
+        "falseNegatives": 565,
+        "precision": 0.4229,
+        "recall": 0.329,
+        "f1Score": 0.3701,
+        "ap50": 0.1382,
+        "ap50_95": 0.0497
+      },
+      "EXIT_DOOR": {
+        "classId": 1,
+        "className": "EXIT_DOOR",
+        "support": 3,
+        "truePositives": 0,
+        "falsePositives": 0,
+        "falseNegatives": 3,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1Score": 0.0,
+        "ap50": 0.0,
+        "ap50_95": 0.0
+      },
+      "EXIT_SIGN": {
+        "classId": 2,
+        "className": "EXIT_SIGN",
+        "support": 618,
+        "truePositives": 0,
+        "falsePositives": 75,
+        "falseNegatives": 618,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1Score": 0.0,
+        "ap50": 0.0,
+        "ap50_95": 0.0
+      },
+      "OBSTACLE": {
+        "classId": 3,
+        "className": "OBSTACLE",
+        "support": 9,
+        "truePositives": 0,
+        "falsePositives": 0,
+        "falseNegatives": 9,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1Score": 0.0,
+        "ap50": 0.0,
+        "ap50_95": 0.0
+      }
+    },
+    "latency": {
+      "mean_latency_ms": 24.14,
+      "median_latency_ms": 24.11,
+      "p95_latency_ms": 26.9,
+      "fps": 41.42
+    },
+    "auxiliary": {
+      "small_objects_count": 590,
+      "small_objects_detected": 46,
+      "small_objects_hit_rate": 0.078,
+      "empty_background_images": 12,
+      "empty_images_with_false_alarms": 2,
+      "empty_image_false_alarm_rate": 0.1667
+    }
+  },
+  "Model_C_MultiScale_FPN": {
+    "architecture": "MultiScaleInspectionDetector (P3/P4/P5 FPN)",
+    "loss_type": "Multi-scale unweighted loss",
+    "runtime_seconds": 674.44,
+    "best_epoch": 5,
+    "best_val_loss": 1.765,
+    "checkpoint_sha256": "7484434fa4cc29e3e8bc96f7062939ea16378653cc150dde0483ee81691091ab",
+    "checkpoint_size_bytes": 9453525,
+    "mAP50": 0.0,
+    "mAP50_95": 0.0,
+    "meanPrecision": 0.0,
+    "meanRecall": 0.0,
+    "meanF1": 0.0,
+    "perClassMetrics": {
+      "FIRE_EXTINGUISHER": {
+        "classId": 0,
+        "className": "FIRE_EXTINGUISHER",
+        "support": 842,
+        "truePositives": 0,
+        "falsePositives": 11,
+        "falseNegatives": 842,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1Score": 0.0,
+        "ap50": 0.0,
+        "ap50_95": 0.0
+      },
+      "EXIT_DOOR": {
+        "classId": 1,
+        "className": "EXIT_DOOR",
+        "support": 3,
+        "truePositives": 0,
+        "falsePositives": 0,
+        "falseNegatives": 3,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1Score": 0.0,
+        "ap50": 0.0,
+        "ap50_95": 0.0
+      },
+      "EXIT_SIGN": {
+        "classId": 2,
+        "className": "EXIT_SIGN",
+        "support": 618,
+        "truePositives": 0,
+        "falsePositives": 2,
+        "falseNegatives": 618,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1Score": 0.0,
+        "ap50": 0.0,
+        "ap50_95": 0.0
+      },
+      "OBSTACLE": {
+        "classId": 3,
+        "className": "OBSTACLE",
+        "support": 9,
+        "truePositives": 0,
+        "falsePositives": 0,
+        "falseNegatives": 9,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1Score": 0.0,
+        "ap50": 0.0,
+        "ap50_95": 0.0
+      }
+    },
+    "latency": {
+      "mean_latency_ms": 88.24,
+      "median_latency_ms": 87.51,
+      "p95_latency_ms": 94.91,
+      "fps": 11.33
+    },
+    "auxiliary": {
+      "small_objects_count": 590,
+      "small_objects_detected": 0,
+      "small_objects_hit_rate": 0.0,
+      "empty_background_images": 12,
+      "empty_images_with_false_alarms": 0,
+      "empty_image_false_alarm_rate": 0.0
+    }
+  }
+}
